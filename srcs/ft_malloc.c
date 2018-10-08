@@ -6,7 +6,7 @@
 /*   By: cobecque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/20 14:20:34 by cobecque          #+#    #+#             */
-/*   Updated: 2018/09/16 17:57:47 by cobecque         ###   ########.fr       */
+/*   Updated: 2018/10/08 21:39:49 by cobecque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ void		*malloc(size_t size)
 	void			*plage;
 
 	plage = NULL;
+	all = NULL;
 	if (g_all_malloc.tiny_malloc_size == 0)
 	{
 		ft_init_all();
@@ -120,7 +121,7 @@ int		main(void)
 	int		j;
 
 	i = 0;
-	j = 1025;
+	j = 8000;
 	yolo = (char *)malloc(sizeof(char) * j);
 	while (i < j - 1)
 	{
