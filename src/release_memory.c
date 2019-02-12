@@ -29,6 +29,8 @@ void		free_area_small(uint8_t *addr)
 		if (read16in8(tmp - 2) - 10 == 0)
 		{
 			free_this = tmp;
+			if ((uint64_t)tmp == before)
+				g_all_malloc.small = (void *)read_size(tmp);
 			tmp = (uint8_t *)before;
 			put_u16inu8(tmp, (uint16_t)(*free_this));
 			munmap(free_this, g_all_malloc.size_page * 16);
@@ -58,6 +60,8 @@ void		free_area_tiny(uint8_t *addr)
 		if (read16in8(tmp - 2) - 10 == 0)
 		{
 			free_this = tmp;
+			if ((uint64_t)tmp == before)
+				g_all_malloc.tiny = (void *)read_size(tmp);
 			tmp = (uint8_t *)before;
 			put_u16inu8(tmp, (uint16_t)(*free_this));
 			munmap(free_this, g_all_malloc.size_page * 2);
@@ -88,8 +92,10 @@ void		free_area_large(uint8_t *header, uint8_t *addr)
 		if (read_u64inu8(tmp - 8) - 16 == 0 && tmp - 8 == addr - 24)
 		{
 			free_this = tmp;
+			if ((uint64_t)tmp == before)
+				g_all_malloc.large = (void *)read_u64inu8(tmp);
 			tmp = (uint8_t *)before;
-			put_u64inu8(tmp, (uint64_t)(*free_this));
+			put_u64inu8(tmp, read_u64inu8(free_this));
 			munmap(free_this, size);
 		}
 		if (next == 0)

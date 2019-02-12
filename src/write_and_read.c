@@ -18,6 +18,15 @@ void			put_u16inu8(uint8_t *addr, uint16_t size)
 	addr[1] = (uint8_t)(size);
 }
 
+uint16_t		read16in8_block(uint8_t *addr)
+{
+	uint16_t	val;
+
+	val = ((uint16_t)((addr[0] & 0x7f) << 8));
+	val |= ((uint16_t)addr[1]);
+	return (val);
+}
+
 uint16_t		read16in8(uint8_t *addr)
 {
 	uint16_t	val;

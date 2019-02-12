@@ -6,12 +6,13 @@
 #    By: rostroh <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/10/04 15:17:16 by rostroh           #+#    #+#              #
-#    Updated: 2019/02/08 09:39:34 by cobecque         ###   ########.fr        #
+#    Updated: 2019/02/12 14:51:15 by cobecque         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRC = src/main.c \
 	  src/malloc.c \
+	  src/realloc.c \
 	  src/header.c \
 	  src/write_and_read.c \
 	  src/release_memory.c \

@@ -31,6 +31,7 @@ void		clear_area_tiny(uint8_t *addr, uint16_t size)
 	}
 	tmp -= 2;
 	put_u16inu8(tmp, read16in8(tmp) - size - 1);
+	*(addr - 1) |= 0x80;
 	while (i < size)
 	{
 		addr[i] = 0;
@@ -57,6 +58,7 @@ void		clear_area_small(uint8_t *addr, uint16_t size)
 	}
 	tmp -= 2;
 	put_u16inu8(tmp, read16in8(tmp) - size - 2);
+	*(addr - 2) |= 0x80;
 	while (i < size)
 	{
 		addr[i] = 0;
@@ -83,6 +85,7 @@ void		clear_area_large(uint8_t *addr, uint64_t size)
 	}
 	tmp -= 8;
 	put_u64inu8(tmp, read_u64inu8(tmp) - size - 8);
+	*(addr - 8) |= 0x80;;
 	while (i < size)
 	{
 		addr[i] = 0;
@@ -96,7 +99,13 @@ void		clear_area(uint8_t *addr)
 	uint64_t		next;
 	uint8_t			*tmp;
 
-	size = read16in8(addr - 2);
+	tmp = check_type_of_malloc(addr);
+	if (tmp == g_all_malloc.tiny)
+		size = *(addr - 1) & 0x7f;
+	else if (tmp == g_all_malloc.small)
+		size = read16in8_block(addr - 2);
+	else
+		size = read_u64inu8(addr - 8);
 	if (size <= g_all_malloc.tiny_size)
 	{
 		clear_area_tiny(addr, size);
@@ -120,6 +129,7 @@ void		free(void *ptr)
 
 	if (!ptr)
 		exit(0);
+	printf("salut\n");
 	addr = (uint8_t*)ptr;
 	if (is_allocated(addr) == 0)
 		printf("PHILLIPE JE SAIS OU TU TE CACHES !\n");

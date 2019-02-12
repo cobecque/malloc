@@ -19,17 +19,17 @@ void		show_alloc_mem(void)
 	total = 0;
 	if (g_all_malloc.tiny != NULL)
 	{
-		printf("TINY: 0x%lX\n", (unsigned long)g_all_malloc.tiny);
+		printf("TINY: 0x%lX\n", (unsigned long)g_all_malloc.tiny + 11);
 		total += print_tiny();
 	}
-	else if (g_all_malloc.small != NULL)
+	if (g_all_malloc.small != NULL)
 	{
-		printf("SMALL: 0x%lX\n", (unsigned long)g_all_malloc.small);
+		printf("SMALL: 0x%lX\n", (unsigned long)g_all_malloc.small + 12);
 		total += print_small();
 	}
-	else
+	if (g_all_malloc.large != NULL)
 	{
-		printf("LARGE: 0x%lX\n", (unsigned long)g_all_malloc.large);
+		printf("LARGE: 0x%lX\n", (unsigned long)g_all_malloc.large + 24);
 		total += print_large();
 	}
 	printf("Total: %d octets\n", total);
