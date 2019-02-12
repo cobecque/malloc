@@ -41,9 +41,11 @@ uint64_t			read_u64inu8(uint8_t *addr);
 
 uint16_t			val_for_addr(uint8_t *look_up, int jump_next);
 uint16_t			read16in8(uint8_t *addr);
+uint16_t			read16in8_block(uint8_t *addr);
 
 uint8_t				*go_to_last_header_large(uint8_t *header);
 uint8_t				*go_to_last_header(uint8_t *header);
+uint8_t				*check_type_of_malloc(uint8_t *addr);
 
 void				*creat_small(uint16_t size);
 void				*creat_large(uint64_t size);
@@ -60,6 +62,10 @@ void				free_area_large(uint8_t *header, uint8_t *addr);
 void				free_area_small(uint8_t *addr);
 void				free_area_tiny(uint8_t *addr);
 
+
+int					is_tiny_malloc(uint8_t *addr);
+int					is_small_malloc(uint8_t *addr);
+int					is_large_malloc(uint8_t *addr);
 int					look_addr(uint8_t *look_up, uint8_t *to_find, uint16_t s);
 int					is_allocated(uint8_t *addr);
 int					print_tiny(void);

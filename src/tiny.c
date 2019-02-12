@@ -18,8 +18,8 @@ uint8_t			*creat_block(uint8_t *ptr, uint8_t size)
 
 	put_u16inu8(ptr, size + read16in8(ptr) + 1);
 	tmp = ptr + SIZE_HEADER;
-	while (*tmp != 0)
-		tmp += *tmp + 1;
+	while ((*tmp & 0x7f) != 0)
+		tmp += (*tmp & 0x7f) + 1;
 	*tmp = size;
 	return (tmp + 1);
 }

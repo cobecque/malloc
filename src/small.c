@@ -31,14 +31,13 @@ uint8_t			*creat_block_small(uint8_t *ptr, uint16_t size)
 
 	put_u16inu8(ptr, size + read16in8(ptr) + 2);
 	tmp = ptr + SIZE_HEADER;
-	val = read16in8(tmp);
+	val = read16in8_block(tmp);
 	while (val != 0)
 	{
 		tmp += val + 2;
-		val = read16in8(tmp);
+		val = read16in8_block(tmp);
 	}
 	put_u16inu8(tmp, size);
-	val = read16in8(tmp);
 	return ((uint8_t*)(tmp + 2));
 }
 
@@ -54,7 +53,7 @@ uint8_t			*creat_new_area_small(size_t size)
 	creat_header((uint16_t *)area);
 	put_u16inu8(area, size + SIZE_HEADER + 2);
 	put_u16inu8(area + SIZE_HEADER, size);
-	area += 2;
+	area += SIZE_HEADER + 2;
 	return (area);
 }
 
@@ -72,7 +71,7 @@ void			*creat_small(uint16_t size)
 		creat_header((uint16_t*)area);
 		put_u16inu8(area, size + SIZE_HEADER + 2);
 		put_u16inu8(area + SIZE_HEADER, size);
-		area += 2;
+		area += SIZE_HEADER + 2;
 	}
 	else if (check_small_size(size) == -1)
 		area = creat_new_area_small(size);
