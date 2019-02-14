@@ -19,7 +19,15 @@ uint8_t			*creat_block(uint8_t *ptr, uint8_t size)
 	put_u16inu8(ptr, size + read16in8(ptr) + 1);
 	tmp = ptr + SIZE_HEADER;
 	while ((*tmp & 0x7f) != 0)
+	{
+		if (((*tmp & 0x80) == 0x80) && (*tmp & 0x7f) >= size)
+		{
+			*tmp = *tmp & 0x7f;
+			printf("ici on revient sur la premiere adresse 0x%lX\n", (unsigned long)tmp);
+			return (tmp + 1);
+		}
 		tmp += (*tmp & 0x7f) + 1;
+	}
 	*tmp = size;
 	return (tmp + 1);
 }
