@@ -37,6 +37,14 @@ void		clear_area_tiny(uint8_t *addr, uint16_t size)
 		addr[i] = 0;
 		i++;
 	}
+	if ((*(addr + i) & 0x80) == 0x80)
+	{
+		if ((*(addr + i) & 0x7f) + (*(addr - 1) & 0x7f) <= g_all_malloc.tiny_size)
+		{
+			*(addr - 1) += (*(addr + i) & 0x7f) + 1;
+			*(addr + i) = 0;
+		}
+	}
 }
 
 void		clear_area_small(uint8_t *addr, uint16_t size)
@@ -63,6 +71,14 @@ void		clear_area_small(uint8_t *addr, uint16_t size)
 	{
 		addr[i] = 0;
 		i++;
+	}
+	if ((*(addr + i) & 0x80) == 0x80)
+	{
+		put_u16inu8(addr - 2, read16in8_block(addr + i) + read16in8_block(addr - 2) + 2);
+		*(addr - 2) |= 0x80;
+		//*(addr - 1) += (*(addr + i) & 0x7f) + 1;
+		printf("On y est ! %lu\n", (unsigned long)read16in8(addr - 2)); 
+		put_u16inu8(addr + i, 0);
 	}
 }
 

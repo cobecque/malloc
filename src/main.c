@@ -33,17 +33,26 @@ int			main(void)
         i++;
     }*/
     //free(random);
-    ptr = (char *)malloc(sizeof(char) * 40);
-    ptr2 = (char *)malloc(sizeof(char) * 40);
-    ptr3 = (char *)malloc(sizeof(char) * 40);
-    ptr4 = (char *)malloc(sizeof(char) * 40);
-    ptrCrash = realloc(ptr, 40);
+    ptr = (char *)malloc(sizeof(char) * 400);
+    ptr2 = (char *)malloc(sizeof(char) * 400);
+    ptr3 = (char *)malloc(sizeof(char) * 400);
+    ptr4 = (char *)malloc(sizeof(char) * 400);
+    //ptrCrash = realloc(ptr, 400);
+    //ptr = (char *)malloc(sizeof(char) * 400);
 
     printf("\n\n");
     show_alloc_mem();
     printf("\n\n");
-    free(ptr);
     free(ptr2);
+    free(ptr);
+    //free(ptr);
+    printf("\n\n");
+    show_alloc_mem();
+    printf("\n\n");
+    ptr = (char *)malloc(sizeof(char) * 600);
+    printf("\n\n");
+    show_alloc_mem();
+    printf("\n\n");
     free(ptr3);
     free(ptr4);
     printf("ca passe\n");

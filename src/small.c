@@ -24,6 +24,17 @@ int				check_small_size(size_t size)
 	return (-1);
 }
 
+uint8_t			*une_nouvelle_fonction(uint8_t *ptr, uint16_t size)
+{
+	uint16_t	old_size;
+
+	old_size = read16in8_block(ptr);
+	put_u16inu8(ptr, size);
+	put_u16inu8(ptr + size + 2, (old_size - size - 2));
+	*(ptr + size + 2) |= 0x80;
+	return (ptr + 2);
+}
+
 uint8_t			*creat_block_small(uint8_t *ptr, uint16_t size)
 {
 	uint16_t	val;
@@ -34,6 +45,13 @@ uint8_t			*creat_block_small(uint8_t *ptr, uint16_t size)
 	val = read16in8_block(tmp);
 	while (val != 0)
 	{
+		if (((*tmp & 0x80) == 0x80) && (read16in8_block(tmp)) >= size)
+		{
+			printf("Eh salut, c'est 0x%lX\n", (unsigned long)tmp);
+			*tmp = *tmp & 0x7f;
+			return (une_nouvelle_fonction(tmp, size));
+			//return (tmp + 2);
+		}
 		tmp += val + 2;
 		val = read16in8_block(tmp);
 	}
