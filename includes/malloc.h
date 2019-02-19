@@ -6,7 +6,7 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 22:49:17 by rostroh           #+#    #+#             */
-/*   Updated: 2019/02/08 09:48:48 by cobecque         ###   ########.fr       */
+/*   Updated: 2019/02/19 01:00:03 by rostroh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,7 @@ int					is_allocated(uint8_t *addr);
 int					print_tiny(void);
 int					print_small(void);
 int					print_large(void);
+
+void				clear_area(uint8_t *addr);
 
 #endif

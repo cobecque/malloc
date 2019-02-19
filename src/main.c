@@ -6,7 +6,7 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 23:09:50 by rostroh           #+#    #+#             */
-/*   Updated: 2019/01/12 23:10:29 by rostroh          ###   ########.fr       */
+/*   Updated: 2019/02/19 00:56:42 by rostroh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ int			main(void)
         i++;
     }*/
     //free(random);
-    ptr = (char *)malloc(sizeof(char) * 400);
-    ptr2 = (char *)malloc(sizeof(char) * 400);
-    ptr3 = (char *)malloc(sizeof(char) * 400);
-    ptr4 = (char *)malloc(sizeof(char) * 400);
+    ptr = (char *)malloc(sizeof(char) * 40);
+    ptr2 = (char *)malloc(sizeof(char) * 40);
+    ptr3 = (char *)malloc(sizeof(char) * 40);
+    ptr4 = (char *)malloc(sizeof(char) * 40);
     //ptrCrash = realloc(ptr, 400);
     //ptr = (char *)malloc(sizeof(char) * 400);
 

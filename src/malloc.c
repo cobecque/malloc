@@ -6,7 +6,7 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/13 22:32:09 by rostroh           #+#    #+#             */
-/*   Updated: 2019/02/08 07:24:54 by cobecque         ###   ########.fr       */
+/*   Updated: 2019/02/19 00:58:20 by rostroh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,19 @@ void		init_global(void)
 	printf("page size = %zu\n", g_all_malloc.size_page);
 	printf("tiny size = %zu\n", g_all_malloc.tiny_size);
 	printf("small size = %zu\n", g_all_malloc.small_size);
+}
+
+void		free(void *ptr)
+{
+	uint8_t		*addr;
+
+	if (!ptr)
+		exit(0);
+	addr = (uint8_t*)ptr;
+	if (is_allocated(addr) == 0)
+		printf("PHILLIPE JE SAIS OU TU TE CACHES !\n");
+	else
+		clear_area(addr);
 }
 
 void		*malloc(size_t size)

@@ -6,25 +6,23 @@
 /*   By: cobecque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 09:04:19 by cobecque          #+#    #+#             */
-/*   Updated: 2019/02/08 09:21:44 by cobecque         ###   ########.fr       */
+/*   Updated: 2019/02/19 00:38:44 by rostroh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
 
-void		free_area_small(uint8_t *addr)
+void			free_area_small(uint8_t *addr)
 {
 	uint8_t		*tmp;
 	uint8_t		*free_this;
 	uint64_t	before;
 	uint64_t	next;
-	int			first;
 
 	tmp = addr + 2;
 	next = read_size(tmp);
 	before = (uint64_t)tmp;
-	first = 0;
-	while (next != 0 || first == 0)
+	while (1)
 	{
 		if (read16in8(tmp - 2) - 10 == 0)
 		{
@@ -43,19 +41,17 @@ void		free_area_small(uint8_t *addr)
 	}
 }
 
-void		free_area_tiny(uint8_t *addr)
+void			free_area_tiny(uint8_t *addr)
 {
 	uint8_t		*tmp;
 	uint8_t		*free_this;
 	uint64_t	before;
 	uint64_t	next;
-	int			first;
 
 	tmp = addr + 2;
 	next = read_size(tmp);
 	before = (uint64_t)tmp;
-	first = 0;
-	while (next != 0 || first == 0)
+	while (1)
 	{
 		if (read16in8(tmp - 2) - 10 == 0)
 		{
@@ -74,10 +70,22 @@ void		free_area_tiny(uint8_t *addr)
 	}
 }
 
-void		free_area_large(uint8_t *header, uint8_t *addr)
+static uint8_t	*help_free_area_large(uint8_t *tmp, uint64_t before, uint64_t s)
+{
+	uint8_t		*free_this;
+
+	free_this = tmp;
+	if ((uint64_t)tmp == before)
+		g_all_malloc.large = (void *)read_u64inu8(tmp);
+	tmp = (uint8_t *)before;
+	put_u64inu8(tmp, read_u64inu8(free_this));
+	munmap(free_this, s);
+	return (tmp);
+}
+
+void			free_area_large(uint8_t *header, uint8_t *addr)
 {
 	uint8_t		*tmp;
-	uint8_t		*free_this;
 	uint64_t	before;
 	uint64_t	next;
 	uint64_t	size;
@@ -90,14 +98,7 @@ void		free_area_large(uint8_t *header, uint8_t *addr)
 	{
 		size = read_u64inu8(tmp - 8);
 		if (read_u64inu8(tmp - 8) - 16 == 0 && tmp - 8 == addr - 24)
-		{
-			free_this = tmp;
-			if ((uint64_t)tmp == before)
-				g_all_malloc.large = (void *)read_u64inu8(tmp);
-			tmp = (uint8_t *)before;
-			put_u64inu8(tmp, read_u64inu8(free_this));
-			munmap(free_this, size);
-		}
+			tmp = help_free_area_large(tmp, before, size);
 		if (next == 0)
 			break ;
 		before = (uint64_t)tmp;

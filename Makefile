@@ -6,7 +6,7 @@
 #    By: rostroh <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/10/04 15:17:16 by rostroh           #+#    #+#              #
-#    Updated: 2019/02/12 14:51:15 by cobecque         ###   ########.fr        #
+#    Updated: 2019/02/19 01:01:24 by rostroh          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,8 @@ SRC = src/main.c \
 	  src/show.c \
 	  src/small.c \
 	  src/large.c \
-	  src/free.c
+	  src/clear_area.c \
+	  src/type.c
 
 LIB_FT = ./libft/libft.a
 

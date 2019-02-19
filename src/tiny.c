@@ -6,7 +6,7 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 19:33:21 by rostroh           #+#    #+#             */
-/*   Updated: 2019/02/08 07:54:51 by cobecque         ###   ########.fr       */
+/*   Updated: 2019/02/19 00:30:33 by rostroh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ uint8_t			*creat_block(uint8_t *ptr, uint8_t size)
 		if (((*tmp & 0x80) == 0x80) && (*tmp & 0x7f) >= size)
 		{
 			*tmp = *tmp & 0x7f;
-			printf("ici on revient sur la premiere adresse 0x%lX\n", (unsigned long)tmp);
 			return (tmp + 1);
 		}
 		tmp += (*tmp & 0x7f) + 1;
