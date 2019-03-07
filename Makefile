@@ -10,8 +10,10 @@
 #                                                                              #
 # **************************************************************************** #
 
-SRC = src/main.c \
-	  src/malloc.c \
+NAME = libft_malloc_$(HOSTTYPE).so
+
+INC_NAME = ./includes
+SRC = src/malloc.c \
 	  src/realloc.c \
 	  src/header.c \
 	  src/write_and_read.c \
@@ -24,25 +26,66 @@ SRC = src/main.c \
 	  src/clear_area.c \
 	  src/type.c
 
-LIB_FT = ./libft/libft.a
+SRC_DIR = ./src
+OBJ_DIR = ./obj
+LIB_DIR = ./libft
+LIBP_DIR = ./libft/src/printf
 
-LIB_PRINTF = ./libft/src/printf/libftprintf.a
+LIB_PATH = $(addprefix $(LIB_DIR)/, $(LIB_NAME))
+LIBP_PATH = $(addprefix $(LIBP_DIR)/, $(LIBP_NAME))
+SRC_PATH = $(addprefix $(SRC_DIR)/, $(SRC_NAME))
+OBJ_PATH = $(addprefix $(OBJ_DIR)/, $(SRC_NAME:.c=.o))
 
-FLG = -Wall -Werror -Wextra -lncurses -fsanitize=address -g3
+export HOSTTYPE=
 
-NAME = malloc
+ifeq ($(HOSTTYPE), )
+HOSTTYPE := $(shell uname -m)_$(shell uname -s)
+endif
 
-all: $(NAME)
+FLAG = -Wall -Werror -Wextra -lncurses #-fsanitize=address -g3
 
-$(NAME): $(SRC) $(SRC_MD5) $(SRC_SHA256)
-	make -C ./libft
-	gcc $(FLAG) -o $(NAME) $(SRC) -I includes $(LIB_FT) $(LIB_PRINTF)
+all:
+	@clear
+	@make -C $(LIBP_DIR)
+	@mkdir -p $(OBJ_DIR)
+
+	@$(MAKE) $(NAME)
+
+$(OBJ_DIR)/%.o:$(SRC_DIR)/%.c
+	@gcc $(FLAG) -I $(INC_NAME) -o $@ -c $<
+	@printf $(C_MAG) "        [ ✔ ] $<"
+
+$(NAME): $(OBJ_PATH)
+	gcc -o $(NAME) -L $(OBJ_PATH) -shared  2>/dev/null
+	printf $(C_GRN) "        [ ✔ ] compiled -> $(NAME)"
+
+
 
 clean:
-	make clean -C ./libft
+	@make clean -C $(LIBP_DIR)
+	@rm -rf ./obj
 
 fclean: clean
-	make fclean -C ./libft/
-	rm -f $(NAME)
+	@rm -rf $(LIBP_PATH)
+	@rm -rf $(LIB_PATH)
+	@rm -rf $(NAME)
 
 re: fclean all
+
+.PHONY: all clean fclean re
+
+# color
+C_RED = "\e[31;m%s\e[0n\n"
+C_GRN = "\e[32;m%s\e[0n\n"
+C_YEL = "\e[33;m%s\e[0n\n"
+C_BLU = "\e[34;m%s\e[0n\n"
+C_MAG = "\e[35;m%s\e[0n\n"
+C_CYA = "\e[36;m%s\e[0n\n"
+
+# color + \n
+CN_RED = "\e[31;m%s\e[0n\n\n"
+CN_GRN = "\e[32;m%s\e[0n\n\n"
+CN_YEL = "\e[33;m%s\e[0n\n\n"
+CN_BLU = "\e[34;m%s\e[0n\n\n"
+CN_MAG = "\e[35;m%s\e[0n\n\n"
+CN_CYA = "\e[36;m%s\e[0n\n\n"
