@@ -6,7 +6,7 @@
 /*   By: cobecque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 14:40:21 by cobecque          #+#    #+#             */
-/*   Updated: 2019/02/19 01:20:52 by rostroh          ###   ########.fr       */
+/*   Updated: 2019/03/09 19:32:12 by rostroh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int					check_type_size(size_t size, uint16_t s)
 void				*add_new_malloc(uint8_t *addr, size_t size)
 {
 	void	*ret;
-	uint8_t	*new;
 
 	ret = malloc(size);
 	ret = ft_memcpy(ret, addr, size);
@@ -65,6 +64,7 @@ void				*realloc(void *ptr, size_t size)
 	uint64_t	tmp;
 	uint16_t	val;
 
+	header = NULL;
 	if (ptr == NULL)
 		return (malloc(size));
 	t = (uint8_t *)ptr;

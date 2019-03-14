@@ -6,7 +6,7 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 11:33:07 by rostroh           #+#    #+#             */
-/*   Updated: 2019/02/19 01:03:41 by rostroh          ###   ########.fr       */
+/*   Updated: 2019/03/09 19:33:08 by rostroh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void				clear_area_large(uint8_t *addr, uint64_t size)
 {
 	uint64_t	next;
 	uint8_t		*tmp;
-	int			i;
+	uint64_t	i;
 
 	i = 0;
 	tmp = (uint8_t *)g_all_malloc.large;

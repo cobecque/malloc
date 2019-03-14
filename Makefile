@@ -3,89 +3,149 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rostroh <marvin@42.fr>                     +#+  +:+       +#+         #
+#    By: mverdier <mverdier@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2018/10/04 15:17:16 by rostroh           #+#    #+#              #
-#    Updated: 2019/02/19 01:01:24 by rostroh          ###   ########.fr        #
+#    Created: 2017/01/14 14:55:01 by mverdier          #+#    #+#              #
+#    Updated: 2019/03/09 19:30:12 by rostroh          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libft_malloc_$(HOSTTYPE).so
+# Colors.
 
-INC_NAME = ./includes
-SRC = src/malloc.c \
-	  src/realloc.c \
-	  src/header.c \
-	  src/write_and_read.c \
-	  src/release_memory.c \
-	  src/check_memory.c \
-	  src/tiny.c \
-	  src/show.c \
-	  src/small.c \
-	  src/large.c \
-	  src/clear_area.c \
-	  src/type.c
+ORANGE =	\033[1;33m   #It is actually Yellow, but i changed yellow to orange.
 
-SRC_DIR = ./src
-OBJ_DIR = ./obj
-LIB_DIR = ./libft
-LIBP_DIR = ./libft/src/printf
+GREEN =		\033[1;32m
 
-LIB_PATH = $(addprefix $(LIB_DIR)/, $(LIB_NAME))
-LIBP_PATH = $(addprefix $(LIBP_DIR)/, $(LIBP_NAME))
-SRC_PATH = $(addprefix $(SRC_DIR)/, $(SRC_NAME))
-OBJ_PATH = $(addprefix $(OBJ_DIR)/, $(SRC_NAME:.c=.o))
+RED =		\033[1;31m
 
-export HOSTTYPE=
+RES =		\033[0m
 
-ifeq ($(HOSTTYPE), )
-HOSTTYPE := $(shell uname -m)_$(shell uname -s)
+#------------------------------------------------------------------------------#
+
+ifeq ($(HOSTTYPE),)
+	HOSTTYPE := $(shell uname -m)_$(shell uname -s)
 endif
 
-FLAG = -Wall -Werror -Wextra -lncurses #-fsanitize=address -g3
+NAME = 		libft_malloc_$(HOSTTYPE).so
+
+SRCDIR =	./src
+
+OBJDIR =	./obj
+
+INCDIR =	./includes
+
+# List all sources, objects and includes files of 'libft'.
+
+SRC =		malloc.c realloc.c header.c write_and_read.c release_memory.c	\
+			check_memory.c tiny.c show.c small.c large.c clear_area.c		\
+			type.c
+
+INC =		malloc.h
+
+SRCS =		$(SRC:%=$(SRCDIR)/%)
+
+OBJS =		$(SRC:%.c=$(OBJDIR)/%.o)
+
+INCS =		$(INC:%=$(INCDIR)/%)
+
+LIBDIR =	./libft
+
+LIBNAME =	libft.a
+
+LIB =		$(LIBDIR)/$(LIBNAME)
+
+#------------------------------------------------------------------------------#
+# List all compilation variables.
+
+CC =		gcc
+
+CFLAGS =	-Wall			\
+			-Wextra			\
+			-Werror			\
+
+INCFLAGS =	-I $(INCDIR)
+
+LFLAGS =	-L $(LIBDIR) -l$(LIBNAME:lib%.a=%)
+
+FLAGS =		$(CFLAGS)		\
+			$(INCFLAGS)
+
+#------------------------------------------------------------------------------#
+# List all rules used to make libft.a
 
 all:
-	@clear
-	@make -C $(LIBP_DIR)
-	@mkdir -p $(OBJ_DIR)
-
+	@$(MAKE) -C $(LIBDIR)
 	@$(MAKE) $(NAME)
 
-$(OBJ_DIR)/%.o:$(SRC_DIR)/%.c
-	@gcc $(FLAG) -I $(INC_NAME) -o $@ -c $<
-	@printf $(C_MAG) "        [ ✔ ] $<"
+$(NAME): $(OBJS) $(LIB)
+	@$(MAKE) printname
+	@printf "%-15s%s\n" Linking $@
+	@$(CC) $(CFLAGS) $^ -shared -o $@ $(LFLAGS)
+	@ln -fs $(NAME) libft_malloc.so
+	@printf "$(GREEN)"
+	@echo "Compilation done !"
+	@printf "$(RES)"
 
-$(NAME): $(OBJ_PATH)
-	gcc -o $(NAME) -L $(OBJ_PATH) -shared  2>/dev/null
-	printf $(C_GRN) "        [ ✔ ] compiled -> $(NAME)"
+$(OBJS): $(INCS)
 
+$(OBJDIR)/%.o: $(SRCDIR)/%.c
+	@mkdir -p $(OBJDIR)
+	@$(MAKE) printname
+	@printf "%-15s%s\n" Compiling $@
+	@$(CC) $(FLAGS) -o $@ -c -fPIC $<
 
+printname:
+	@printf "$(ORANGE)"
+	@printf "[%-15s " "$(NAME)]"
+	@printf "$(RES)"
 
 clean:
-	@make clean -C $(LIBP_DIR)
-	@rm -rf ./obj
+	@$(MAKE) printname
+	@echo Suppressing obj files
+	@printf "$(RED)"
+	rm -rf $(OBJS)
+	@rm -rf $(OBJDIR)
+	@printf "$(RES)"
 
 fclean: clean
-	@rm -rf $(LIBP_PATH)
-	@rm -rf $(LIB_PATH)
-	@rm -rf $(NAME)
+	@$(MAKE) printname
+	@echo Suppressing $(NAME)
+	@printf "$(RED)"
+	rm -rf $(NAME)
+	rm -rf libft_malloc.so
+	@printf "$(RES)"
 
-re: fclean all
+re: fclean
+	@$(MAKE) all
 
-.PHONY: all clean fclean re
+#------------------------------------------------------------------------------#
+# List of all my optionnals but usefull rules.
 
-# color
-C_RED = "\e[31;m%s\e[0n\n"
-C_GRN = "\e[32;m%s\e[0n\n"
-C_YEL = "\e[33;m%s\e[0n\n"
-C_BLU = "\e[34;m%s\e[0n\n"
-C_MAG = "\e[35;m%s\e[0n\n"
-C_CYA = "\e[36;m%s\e[0n\n"
+NORM = `norminette $(SRCS) $(INCS) | grep -B1 Error | cat`
 
-# color + \n
-CN_RED = "\e[31;m%s\e[0n\n\n"
-CN_GRN = "\e[32;m%s\e[0n\n\n"
-CN_YEL = "\e[33;m%s\e[0n\n\n"
-CN_BLU = "\e[34;m%s\e[0n\n\n"
-CN_MAG = "\e[35;m%s\e[0n\n\n"
-CN_CYA = "\e[36;m%s\e[0n\n\n"
+norm:
+	@$(MAKE) printname
+	@echo "Passage de la norminette :"
+	@if [ "$(NORM)" == "`echo ""`" ];									\
+		then															\
+			echo "$(GREEN)Tous les fichiers sont a la norme !$(RES)";	\
+		else															\
+			echo "$(RED)$(NORM)$(RES)";									\
+	fi
+
+check:
+	#@$(MAKE) -C $(LIBDIR) check
+	@$(MAKE) norm
+
+# A rule to make git add easier
+
+git:
+	@$(MAKE) -C $(LIBDIR) git
+	@$(MAKE) printname
+	@echo Adding files to git repository
+	@printf "$(GREEN)"
+	git add $(SRCS) $(INCS) Makefile
+	@printf "$(RES)"
+	git status
+
+.PHONY: all clean re fclean git norm check

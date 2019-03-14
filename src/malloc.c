@@ -6,7 +6,7 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/13 22:32:09 by rostroh           #+#    #+#             */
-/*   Updated: 2019/02/19 00:58:20 by rostroh          ###   ########.fr       */
+/*   Updated: 2019/03/09 18:42:41 by rostroh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void		*malloc(size_t size)
 {
 	void	*ptr;
 
+	puts("Malloc de rostroh");
 	if (g_all_malloc.small_size == 0 || g_all_malloc.tiny_size == 0)
 		init_global();
 	if (size < g_all_malloc.tiny_size)
