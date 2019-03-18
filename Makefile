@@ -108,6 +108,7 @@ clean:
 	@printf "$(RES)"
 
 fclean: clean
+	@make fclean -C $(LIBDIR)
 	@$(MAKE) printname
 	@echo Suppressing $(NAME)
 	@printf "$(RED)"

@@ -12,6 +12,38 @@
 
 #include "../includes/malloc.h"
 
+void		ft_puthex(unsigned long nb)
+{
+	char	buf[25];
+	char	tmp[25];
+	int	i;
+	int	j;
+	int	reste;
+
+	reste = 0;
+	i = 0;
+	j = 0;
+	while (nb > 0)
+	{
+		reste = nb % 16;
+		nb = nb / 16;
+		if (reste < 10)
+			buf[i] = reste + '0';
+		else
+			buf[i] = reste - 10 + 'A';
+		i++;
+	}
+	buf[i] = '\0';
+	while (i >= 0)
+	{
+		tmp[j] = buf[i];
+		ft_putchar(tmp[j]);
+		i--;
+		j++;
+	}
+	tmp[j] = '\0';
+}
+
 int			print_block_tiny(uint8_t *addr, uint8_t size)
 {
 	uint8_t		*end;
@@ -19,9 +51,16 @@ int			print_block_tiny(uint8_t *addr, uint8_t size)
 	if ((*addr & 0x80) == 0x80)
 		return (0);
 	end = addr + size;
-	printf("0x%lX - 0x%lX : %u octets\n", (unsigned long)(addr + 1), \
+	ft_putstr("0x");
+	ft_puthex((unsigned long)(addr + 1));
+	ft_putstr(" - 0X");
+	ft_puthex((unsigned long)(end + 1));
+	ft_putstr(" : ");
+	ft_putnbr(size);
+	ft_putstr(" octets\n");
+	/*printf("0x%lX - 0x%lX : %u octets\n", (unsigned long)(addr + 1), \
 			(unsigned long)(end + 1), size);
-	return (size);
+	*/return (size);
 }
 
 int			print_block_small(uint8_t *addr, uint16_t size)
@@ -31,9 +70,16 @@ int			print_block_small(uint8_t *addr, uint16_t size)
 	if ((*addr & 0x80) == 0x80)
 		return (0);
 	end = addr + size;
-	printf("0x%lX - 0x%lX : %lu octets\n", (unsigned long)(addr + 2), \
+	ft_putstr("0x");
+	ft_puthex((unsigned long)(addr + 2));
+	ft_putstr(" - 0X");
+	ft_puthex((unsigned long)(end + 2));
+	ft_putstr(" : ");
+	ft_putnbr(size);
+	ft_putstr(" octets\n");
+	/*printf("0x%lX - 0x%lX : %lu octets\n", (unsigned long)(addr + 2), \
 		(unsigned long)(end + 2), (unsigned long)size);
-	return (size);
+	*/return (size);
 }
 
 int			print_tiny(void)
@@ -111,9 +157,16 @@ int			print_large(void)
 		size = read_u64inu8(addr);
 		total += size;
 		end = addr + size;
-		printf("0x%lX - 0x%lX : %lu octets\n", (unsigned long)(addr + 1), \
+		ft_putstr("0x");
+		ft_puthex((unsigned long)(addr + 1));
+		ft_putstr(" - 0X");
+		ft_puthex((unsigned long)(end + 1));
+		ft_putstr(" : ");
+		ft_putnbr(size);
+		ft_putstr(" octets\n");
+/*		printf("0x%lX - 0x%lX : %lu octets\n", (unsigned long)(addr + 1), \
 				(unsigned long)(end + 1), (unsigned long)size);
-		addr = (uint8_t *)tmp;
+*/		addr = (uint8_t *)tmp;
 		size = 0;
 		if (tmp != 0)
 			size = read_u64inu8(addr + 16);

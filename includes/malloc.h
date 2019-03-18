@@ -16,7 +16,7 @@
 # include "libft.h"
 # include "ft_printf.h"
 # include "sys/mman.h"
-
+# include <pthread.h>
 # define SIZE_HEADER 10
 
 void				free(void *ptr);
@@ -62,6 +62,7 @@ void				free_area_large(uint8_t *header, uint8_t *addr);
 void				free_area_small(uint8_t *addr);
 void				free_area_tiny(uint8_t *addr);
 
+void				ft_puthex(unsigned long nb);
 
 int					is_tiny_malloc(uint8_t *addr);
 int					is_small_malloc(uint8_t *addr);

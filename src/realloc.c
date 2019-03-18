@@ -25,16 +25,6 @@ int					check_type_size(size_t size, uint16_t s)
 		return (-1);
 }
 
-void				*add_new_malloc(uint8_t *addr, size_t size)
-{
-	void	*ret;
-
-	ret = malloc(size);
-	ret = ft_memcpy(ret, addr, size);
-	free(addr);
-	return (ret);
-}
-
 static uint16_t		get_size_type(void *ptr, uint8_t *header)
 {
 	uint16_t	s;
@@ -56,6 +46,27 @@ static int			nb_page(uint16_t s)
 	return (2);
 }
 
+
+void				*add_new_malloc(uint8_t *addr, size_t size)
+{
+	void	*ret;
+	uint8_t *header;
+	uint16_t s;
+
+	header = NULL;
+	ret = malloc(size);
+	s = get_size_type(addr, header);
+	if (s == 1)
+		s = *(addr - 1);
+	else if (s == 2)
+		s = read16in8_block(addr - 2);
+	else
+		s = read_u64inu8(addr - 8);
+	ret = ft_memcpy(ret, addr, s);
+	free(addr);
+	return (ret);
+}
+
 void				*realloc(void *ptr, size_t size)
 {
 	uint8_t		*header;
@@ -64,6 +75,7 @@ void				*realloc(void *ptr, size_t size)
 	uint64_t	tmp;
 	uint16_t	val;
 
+	ft_putstr("coucou realloc\n");
 	header = NULL;
 	if (ptr == NULL)
 		return (malloc(size));

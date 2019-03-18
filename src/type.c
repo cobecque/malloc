@@ -18,8 +18,6 @@ int			is_tiny_malloc(uint8_t *addr)
 	uint16_t	size;
 	uint64_t	tmp;
 
-	if (*(addr - 1) == 0)
-		return (-1);
 	header = g_all_malloc.tiny;
 	if (header == 0)
 		return (-1);
@@ -43,8 +41,8 @@ int			is_small_malloc(uint8_t *addr)
 	uint16_t	size;
 	uint64_t	tmp;
 
-	if (read16in8_block(addr - 2) == 0)
-		return (-1);
+	/*if (read16in8_block(addr - 2) == 0)
+		return (-1);*/
 	header = g_all_malloc.small;
 	if (header == NULL)
 		return (-1);
@@ -68,9 +66,9 @@ int			is_large_malloc(uint8_t *addr)
 	uint64_t	size;
 	uint64_t	tmp;
 
-	if (read_u64inu8(addr - 8) == 0)
+/*	if (read_u64inu8(addr - 8) == 0)
 		return (-1);
-	header = g_all_malloc.large;
+*/	header = g_all_malloc.large;
 	if (header == 0)
 		return (-1);
 	size = read_u64inu8(header);
