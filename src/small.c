@@ -19,7 +19,7 @@ int				check_small_size(size_t size)
 
 	tmp = go_to_last_header((uint8_t *)g_all_malloc.small);
 	size_in_page = read16in8(tmp);
-	if (size_in_page + size + 2 < g_all_malloc.size_page * 16)
+	if (size_in_page + size + 2 < g_all_malloc.size_page * 33)
 		return (1);
 	return (-1);
 }
@@ -61,7 +61,7 @@ uint8_t			*creat_new_area_small(size_t size)
 {
 	uint8_t	*area;
 
-	area = mmap(0, g_all_malloc.size_page * 16, \
+	area = mmap(0, g_all_malloc.size_page * 33, \
 			PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0);
 	if (area == MAP_FAILED)
 		return (NULL);
@@ -79,7 +79,7 @@ void			*creat_small(uint16_t size)
 
 	if (g_all_malloc.small == NULL)
 	{
-		g_all_malloc.small = mmap(0, g_all_malloc.size_page * 16,\
+		g_all_malloc.small = mmap(0, g_all_malloc.size_page * 33,\
 				PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0);
 		area = g_all_malloc.small;
 		if (area == MAP_FAILED)

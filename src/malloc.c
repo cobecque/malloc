@@ -12,6 +12,8 @@
 
 #include "../includes/malloc.h"
 
+pthread_mutex_t 	mutex;
+
 void		show_alloc_mem(void)
 {
 	int		total;
@@ -50,30 +52,27 @@ void		init_global(void)
 	g_all_malloc.tiny_size =\
 							(((g_all_malloc.size_page - 24) * 2) - 800) / 100;
 	g_all_malloc.small_size =\
-							(((g_all_malloc.size_page - 24) * 16) - 800) / 100;
+							(((g_all_malloc.size_page - 24) * 33) - 800) / 100;
 }
 
 void		free(void *ptr)
 {
 	uint8_t		*addr;
-	pthread_mutex_t		mutex;
 
-    mutex = (pthread_mutex_t)PTHREAD_MUTEX_INITIALIZER;
 	pthread_mutex_lock(&mutex);
-	ft_putstr("\nIci free : 0x");
+	/*ft_putstr("\nIci free : 0x");
 	ft_puthex((unsigned long)ptr);
-	ft_putchar('\n');
+	ft_putchar('\n');*/
 	if (!ptr)
-		ft_putstr("MDR\n");
+		;
 	else
 	{
 		addr = (uint8_t*)ptr;
 		if (is_allocated(addr) == 0)
-			/*ft_putstr("\nPHILLIPE JE SAIS OU TU TE CACHES !\n")*/;
+			;
 		else
 		{
 			clear_area(addr);
-		//	ft_putstr("OU T'ES PHILLIPE\n");
 		}
 	}
 	pthread_mutex_unlock(&mutex);
@@ -82,10 +81,20 @@ void		free(void *ptr)
 void		*malloc(size_t size)
 {
 	void	*ptr;
-	pthread_mutex_t		mutex;
 
-    mutex = (pthread_mutex_t)PTHREAD_MUTEX_INITIALIZER;
 	pthread_mutex_lock(&mutex);
+/*	ft_putstr("\nmalloc size = ");
+	ft_putnbr(size);
+	ft_putchar('\n');
+*/	if (size % 8 != 0)
+	{
+		//ft_putstr("\nchange size : ");
+		//ft_putnbr(size);
+		size += 8 - (size % 8);
+		/*ft_putstr("   en : ");
+		ft_putnbr(size);
+		ft_putchar('\n');*/
+	}
 	if (g_all_malloc.small_size == 0 || g_all_malloc.tiny_size == 0)
 		init_global();
 	if (size < g_all_malloc.tiny_size)
@@ -94,10 +103,9 @@ void		*malloc(size_t size)
 		ptr = creat_small((uint16_t)size);
 	else
 		ptr = creat_large((uint64_t)size);
-	//show_alloc_mem();
-	pthread_mutex_unlock(&mutex);
-	ft_putstr("\nSalut malloc: 0x");
+	/*ft_putstr("\nSalut malloc: 0x");
 	ft_puthex((unsigned long)(ptr));
-	ft_putstr("\n\n");
+	ft_putstr("\n\n");*/
+	pthread_mutex_unlock(&mutex);
 	return (ptr);
 }

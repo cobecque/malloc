@@ -12,6 +12,48 @@
 
 #include "malloc.h"
 
+static int			check_block(uint8_t *header, uint8_t *find, int type)
+{
+	uint8_t		*addr;
+	uint16_t	val;
+
+	addr = header;
+	if (type == 8)
+		addr += 24;
+	else
+		addr += 10;
+	if (type == 1)
+	{
+		while ((*addr & 0x7f) != 0)
+		{
+			if (addr > find)
+				return (-1);
+			if (addr + 1 == find)
+				return (1);
+			addr += (*addr & 0x7f) + 1;
+		}
+	}
+	else if (type == 2)
+	{
+		val = read16in8_block(addr);
+		while (val != 0)
+		{
+			if (addr > find)
+				return (-1);
+			if (addr + 2 == find)
+				return (1);
+			addr += val + 2;
+			val = read16in8_block(addr);
+		}
+	}
+	else
+	{
+		if (addr == find)
+			return (1);
+	}
+	return (-1);
+}
+
 int			is_tiny_malloc(uint8_t *addr)
 {
 	uint8_t		*header;
@@ -26,12 +68,12 @@ int			is_tiny_malloc(uint8_t *addr)
 	while (tmp != 0)
 	{
 		if (addr >= header && addr <= header + g_all_malloc.size_page * 2)
-			return (1);
+			return(check_block(header, addr, 1));
 		header = (uint8_t *)tmp;
 		tmp = read_size(header + 2);
 	}
 	if (addr >= header && addr <= header + g_all_malloc.size_page * 2)
-		return (1);
+		return(check_block(header, addr, 1));
 	return (0);
 }
 
@@ -51,12 +93,12 @@ int			is_small_malloc(uint8_t *addr)
 	while (tmp != 0)
 	{
 		if (addr >= header && addr <= header + g_all_malloc.size_page * 16)
-			return (1);
+			return(check_block(header, addr, 2));
 		header = (uint8_t *)tmp;
 		tmp = read_size(header + 2);
 	}
 	if (addr >= header && addr <= header + g_all_malloc.size_page * 16)
-		return (1);
+		return(check_block(header, addr, 2));
 	return (0);
 }
 
@@ -76,12 +118,12 @@ int			is_large_malloc(uint8_t *addr)
 	while (tmp != 0)
 	{
 		if (addr >= header && addr <= header + size)
-			return (1);
+			return(check_block(header, addr, 8));
 		header = (uint8_t *)tmp;
 		tmp = read_u64inu8(header + 8);
 	}
 	if (addr >= header && addr <= header + size)
-		return (1);
+		return(check_block(header, addr, 8));
 	return (0);
 }
 

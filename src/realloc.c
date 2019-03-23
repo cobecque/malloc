@@ -30,6 +30,8 @@ static uint16_t		get_size_type(void *ptr, uint8_t *header)
 	uint16_t	s;
 
 	header = check_type_of_malloc(ptr);
+	if (header == NULL)
+		return (0);
 	if (header == g_all_malloc.tiny)
 		s = 1;
 	else if (header == g_all_malloc.small)
@@ -51,7 +53,7 @@ void				*add_new_malloc(uint8_t *addr, size_t size)
 {
 	void	*ret;
 	uint8_t *header;
-	uint16_t s;
+	uint64_t s;
 
 	header = NULL;
 	ret = malloc(size);
@@ -62,10 +64,19 @@ void				*add_new_malloc(uint8_t *addr, size_t size)
 		s = read16in8_block(addr - 2);
 	else
 		s = read_u64inu8(addr - 8);
-	ret = ft_memcpy(ret, addr, s);
+	if (s < size)
+		ret = ft_memcpy(ret, addr, s);
+	else
+		ret = ft_memcpy(ret, addr, size);
 	free(addr);
 	return (ret);
 }
+
+//1024
+//1024 * 32
+//1024 * 1024 
+			// * 16
+			// * 128
 
 void				*realloc(void *ptr, size_t size)
 {
@@ -81,6 +92,8 @@ void				*realloc(void *ptr, size_t size)
 		return (malloc(size));
 	t = (uint8_t *)ptr;
 	s = get_size_type(ptr, header);
+	if (s == 0)
+		return (NULL);
 	if (check_type_size(size, s) == -1)
 		return (add_new_malloc((uint8_t *)ptr, size));
 	val = val_for_addr(t - s, s);
@@ -90,7 +103,11 @@ void				*realloc(void *ptr, size_t size)
 		return (add_new_malloc((uint8_t *)ptr, size));
 	if (val_for_addr((uint8_t *)t, s) == 0 && (uint64_t)(ptr - s + size) < \
 			(uint64_t)(g_all_malloc.size_page * nb_page(s) + header))
+	{
+		pthread_mutex_lock(&mutex);
 		return (ptr);
+		pthread_mutex_unlock(&mutex);
+	}
 	else
 		return (add_new_malloc((uint8_t *)ptr, size));
 	return (NULL);

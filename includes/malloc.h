@@ -35,6 +35,7 @@ typedef struct		s_malloc
 }					t_malloc;
 
 t_malloc			g_all_malloc;
+extern pthread_mutex_t		mutex;
 
 uint64_t			read_size(uint8_t *addr);
 uint64_t			read_u64inu8(uint8_t *addr);
@@ -73,6 +74,7 @@ int					print_tiny(void);
 int					print_small(void);
 int					print_large(void);
 
+void				show_alloc_mem(void);
 void				clear_area(uint8_t *addr);
 
 #endif
