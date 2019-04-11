@@ -6,15 +6,23 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/13 22:32:09 by rostroh           #+#    #+#             */
-/*   Updated: 2019/03/09 18:42:41 by rostroh          ###   ########.fr       */
+/*   Updated: 2019/04/11 16:27:29 by rostroh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/malloc.h"
 
-pthread_mutex_t 	mutex;
+pthread_mutex_t		g_mutex;
 
-void		show_alloc_mem(void)
+void				print_total(int total)
+{
+	ft_putstr("Total: ");
+	ft_putnbr(total);
+	ft_putchar('\n');
+	ft_putchar('\n');
+}
+
+void				show_alloc_mem(void)
 {
 	int		total;
 
@@ -40,13 +48,10 @@ void		show_alloc_mem(void)
 		ft_putchar('\n');
 		total += print_large();
 	}
-	ft_putstr("Total: ");
-	ft_putnbr(total);
-	ft_putchar('\n');
-	ft_putchar('\n');
+	print_total(total);
 }
 
-void		init_global(void)
+void				init_global(void)
 {
 	g_all_malloc.size_page = getpagesize();
 	g_all_malloc.tiny_size =\
@@ -55,14 +60,11 @@ void		init_global(void)
 							(((g_all_malloc.size_page - 24) * 33) - 800) / 100;
 }
 
-void		free(void *ptr)
+void				free(void *ptr)
 {
 	uint8_t		*addr;
 
-	pthread_mutex_lock(&mutex);
-	/*ft_putstr("\nIci free : 0x");
-	ft_puthex((unsigned long)ptr);
-	ft_putchar('\n');*/
+	pthread_mutex_lock(&g_mutex);
 	if (!ptr)
 		;
 	else
@@ -71,30 +73,18 @@ void		free(void *ptr)
 		if (is_allocated(addr) == 0)
 			;
 		else
-		{
 			clear_area(addr);
-		}
 	}
-	pthread_mutex_unlock(&mutex);
+	pthread_mutex_unlock(&g_mutex);
 }
 
-void		*malloc(size_t size)
+void				*malloc(size_t size)
 {
 	void	*ptr;
 
-	pthread_mutex_lock(&mutex);
-/*	ft_putstr("\nmalloc size = ");
-	ft_putnbr(size);
-	ft_putchar('\n');
-*/	if (size % 8 != 0)
-	{
-		//ft_putstr("\nchange size : ");
-		//ft_putnbr(size);
+	pthread_mutex_lock(&g_mutex);
+	if (size % 8 != 0)
 		size += 8 - (size % 8);
-		/*ft_putstr("   en : ");
-		ft_putnbr(size);
-		ft_putchar('\n');*/
-	}
 	if (g_all_malloc.small_size == 0 || g_all_malloc.tiny_size == 0)
 		init_global();
 	if (size < g_all_malloc.tiny_size)
@@ -103,9 +93,6 @@ void		*malloc(size_t size)
 		ptr = creat_small((uint16_t)size);
 	else
 		ptr = creat_large((uint64_t)size);
-	/*ft_putstr("\nSalut malloc: 0x");
-	ft_puthex((unsigned long)(ptr));
-	ft_putstr("\n\n");*/
-	pthread_mutex_unlock(&mutex);
+	pthread_mutex_unlock(&g_mutex);
 	return (ptr);
 }
