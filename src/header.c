@@ -6,7 +6,7 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 00:03:44 by rostroh           #+#    #+#             */
-/*   Updated: 2019/02/08 07:35:27 by cobecque         ###   ########.fr       */
+/*   Updated: 2019/04/24 05:06:02 by rostroh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ void		creat_header_large(uint8_t *ptr)
  ** create header for small and tiny malloc
 */
 
-void		creat_header(uint16_t *ptr)
+void		creat_header(uint16_t *ptr, int off)
 {
 	*ptr = 10;
-	*(ptr + 1) = 0;
+	*(ptr + off) = 0;
 }
 
 /*
@@ -50,6 +50,24 @@ uint8_t		*go_to_last_header(uint8_t *header)
 		tmp = read_size(addr);
 	}
 	return (addr - 2);
+}
+
+uint8_t		*go_to_last_header_small(uint8_t *header)
+{
+	uint64_t	tmp;
+	uint8_t		*addr;
+
+	addr = header;
+	addr += 4;
+	tmp = read_size(addr);
+	while (tmp != 0)
+	{
+		ft_putstr("suite de la traque\n");
+		addr = (uint8_t *)tmp + 4;
+		tmp = read_size(addr);
+	}
+	ft_putstr("sorti de la traque \n");
+	return (addr - 4);
 }
 
 /*
@@ -85,6 +103,23 @@ void		write_next_area_addr(uint64_t next_addr, uint8_t *header)
 	i = 0;
 	offset = 56;
 	addr = go_to_last_header(header) + 2;
+	while (i < 8)
+	{
+		addr[i] = (uint8_t)(next_addr >> offset);
+		i++;
+		offset -= 8;
+	}
+}
+
+void		write_next_area_addr_small(uint64_t next_addr, uint8_t *header)
+{
+	int		i;
+	int		offset;
+	uint8_t	*addr;
+
+	i = 0;
+	offset = 56;
+	addr = go_to_last_header_small(header) + 4;
 	while (i < 8)
 	{
 		addr[i] = (uint8_t)(next_addr >> offset);

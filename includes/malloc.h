@@ -6,7 +6,7 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 22:49:17 by rostroh           #+#    #+#             */
-/*   Updated: 2019/02/19 01:00:03 by rostroh          ###   ########.fr       */
+/*   Updated: 2019/04/24 05:05:53 by rostroh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,15 @@
 # include "ft_printf.h"
 # include "sys/mman.h"
 # include <pthread.h>
+
 # define SIZE_HEADER 10
+# define SIZE_HEADER_SMALL 12
+
+# define SIZE_TINY 512
+# define SIZE_SMALL 1025
+
+# define NBPAGE_TINY 13
+# define NBPAGE_SMALL 51
 
 void				free(void *ptr);
 void				*malloc(size_t size);
@@ -44,7 +52,11 @@ uint16_t			val_for_addr(uint8_t *look_up, int jump_next);
 uint16_t			read16in8(uint8_t *addr);
 uint16_t			read16in8_block(uint8_t *addr);
 
+uint32_t			read32in8(uint8_t *addr);
+uint32_t			read32in8_block(uint8_t *addr);
+
 uint8_t				*go_to_last_header_large(uint8_t *header);
+uint8_t				*go_to_last_header_small(uint8_t *header);
 uint8_t				*go_to_last_header(uint8_t *header);
 uint8_t				*check_type_of_malloc(uint8_t *addr);
 
@@ -53,11 +65,13 @@ void				*creat_large(uint64_t size);
 void				*creat_tiny(uint8_t size);
 
 void				write_next_area_addr(uint64_t next_addr, uint8_t *header);
+void				write_next_area_addr_small(uint64_t next_addr, uint8_t *h);
 void				put_u16inu8(uint8_t *addr, uint16_t size);
 void				put_size_tiny(uint8_t *ptr, uint8_t size);
+void				put_u32inu8(uint8_t *addr, uint32_t size);
 void				put_u64inu8(uint8_t *addr, uint64_t size);
 void				creat_header_large(uint8_t *ptr);
-void				creat_header(uint16_t *ptr);
+void				creat_header(uint16_t *ptr, int off);
 
 void				free_area_large(uint8_t *header, uint8_t *addr);
 void				free_area_small(uint8_t *addr);

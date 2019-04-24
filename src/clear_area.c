@@ -6,7 +6,7 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 11:33:07 by rostroh           #+#    #+#             */
-/*   Updated: 2019/03/09 19:33:08 by rostroh          ###   ########.fr       */
+/*   Updated: 2019/04/24 05:18:28 by rostroh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ void				clear_area_small(uint8_t *addr, uint16_t size)
 
 	i = 0;
 	tmp = (uint8_t *)g_all_malloc.small;
-	tmp = get_next(tmp + 2, addr);
-	put_u16inu8(tmp, read16in8(tmp) - size - 2);
+	tmp = get_next(tmp + 4, addr);
+	put_u32inu8(tmp, read16in8(tmp) - size - 2);
 	*(addr - 2) |= 0x80;
 	while (i < size)
 	{

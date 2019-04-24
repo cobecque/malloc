@@ -6,7 +6,7 @@
 /*   By: cobecque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 09:04:19 by cobecque          #+#    #+#             */
-/*   Updated: 2019/02/19 00:38:44 by rostroh          ###   ########.fr       */
+/*   Updated: 2019/04/24 05:17:51 by rostroh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,20 @@ void			free_area_small(uint8_t *addr)
 	uint64_t	before;
 	uint64_t	next;
 
-	tmp = addr + 2;
+	tmp = addr + 4;
 	next = read_size(tmp);
 	before = (uint64_t)tmp;
+	ft_putstr("hello\n");
 	while (1)
 	{
-		if (read16in8(tmp - 2) - 10 == 0)
+		if (read32in8(tmp - 4) == 0)
 		{
 			free_this = tmp;
 			if ((uint64_t)tmp == before)
 				g_all_malloc.small = (void *)read_size(tmp);
 			tmp = (uint8_t *)before;
-			put_u16inu8(tmp, (uint16_t)(*free_this));
-			munmap(free_this, g_all_malloc.size_page * 16);
+			put_u64inu8(tmp, read_u64inu8(free_this));
+			munmap(free_this, g_all_malloc.size_page * NBPAGE_SMALL);
 		}
 		if (next == 0)
 			break ;
@@ -60,7 +61,7 @@ void			free_area_tiny(uint8_t *addr)
 				g_all_malloc.tiny = (void *)read_size(tmp);
 			tmp = (uint8_t *)before;
 			put_u16inu8(tmp, (uint16_t)(*free_this));
-			munmap(free_this, g_all_malloc.size_page * 2);
+			munmap(free_this, g_all_malloc.size_page * NBPAGE_TINY);
 		}
 		if (next == 0)
 			break ;

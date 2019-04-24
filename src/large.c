@@ -6,7 +6,7 @@
 /*   By: cobecque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 02:49:46 by cobecque          #+#    #+#             */
-/*   Updated: 2019/02/08 07:14:51 by cobecque         ###   ########.fr       */
+/*   Updated: 2019/04/18 19:34:28 by rostroh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ void		*creat_large(uint64_t size)
 {
 	uint8_t		*area;
 
+	ft_putstr("CLOSE YOUR EYES\n");
 	if (g_all_malloc.large == NULL)
 	{
 		g_all_malloc.large = mmap(0, size + 16 + 8, PROT_READ | PROT_WRITE, \

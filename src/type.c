@@ -6,7 +6,7 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 00:44:09 by rostroh           #+#    #+#             */
-/*   Updated: 2019/04/11 16:31:25 by rostroh          ###   ########.fr       */
+/*   Updated: 2019/04/24 05:19:30 by rostroh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,12 @@ int				is_tiny_malloc(uint8_t *addr)
 	tmp = read_size(header + 2);
 	while (tmp != 0)
 	{
-		if (addr >= header && addr <= header + g_all_malloc.size_page * 2)
+		if (addr >= header && addr <= header + g_all_malloc.size_page * NBPAGE_TINY)
 			return (check_block(header, addr, 1));
 		header = (uint8_t *)tmp;
 		tmp = read_size(header + 2);
 	}
-	if (addr >= header && addr <= header + g_all_malloc.size_page * 2)
+	if (addr >= header && addr <= header + g_all_malloc.size_page * NBPAGE_TINY)
 		return (check_block(header, addr, 1));
 	return (0);
 }
@@ -90,12 +90,12 @@ int				is_small_malloc(uint8_t *addr)
 	tmp = read_size(header + 2);
 	while (tmp != 0)
 	{
-		if (addr >= header && addr <= header + g_all_malloc.size_page * 16)
+		if (addr >= header && addr <= header + g_all_malloc.size_page * NBPAGE_SMALL)
 			return (check_block(header, addr, 2));
 		header = (uint8_t *)tmp;
 		tmp = read_size(header + 2);
 	}
-	if (addr >= header && addr <= header + g_all_malloc.size_page * 16)
+	if (addr >= header && addr <= header + g_all_malloc.size_page * NBPAGE_SMALL)
 		return (check_block(header, addr, 2));
 	return (0);
 }

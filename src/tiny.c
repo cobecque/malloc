@@ -6,7 +6,7 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 19:33:21 by rostroh           #+#    #+#             */
-/*   Updated: 2019/02/19 00:30:33 by rostroh          ###   ########.fr       */
+/*   Updated: 2019/04/24 04:39:44 by rostroh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int				check_tiny_size(size_t size)
 
 	tmp = go_to_last_header((uint8_t *)g_all_malloc.tiny);
 	size_in_page = read16in8(tmp);
-	if (size_in_page + size + 1 <= g_all_malloc.size_page * 2)
+	if (size_in_page + size + 1 <= g_all_malloc.size_page * NBPAGE_TINY)
 		return (1);
 	return (-1);
 }
@@ -47,10 +47,10 @@ uint8_t			*creat_new_area_tiny(uint8_t size)
 {
 	uint8_t	*area;
 
-	area = mmap(0, getpagesize() * 2, PROT_READ | PROT_WRITE, \
+	area = mmap(0, getpagesize() * NBPAGE_TINY, PROT_READ | PROT_WRITE, \
 			MAP_ANON | MAP_PRIVATE, -1, 0);
 	write_next_area_addr((uint64_t)area, (uint8_t *)g_all_malloc.tiny);
-	creat_header((uint16_t *)area);
+	creat_header((uint16_t *)area, 1);
 	put_u16inu8(area, size + SIZE_HEADER + 1);
 	area += SIZE_HEADER;
 	put_size_tiny(area, size);
@@ -64,12 +64,12 @@ void			*creat_tiny(uint8_t size)
 
 	if (g_all_malloc.tiny == NULL)
 	{
-		g_all_malloc.tiny = mmap(0, g_all_malloc.size_page * 2, \
+		g_all_malloc.tiny = mmap(0, g_all_malloc.size_page * NBPAGE_TINY, \
 				PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0);
 		area = g_all_malloc.tiny;
 		if (area == MAP_FAILED)
 			return (NULL);
-		creat_header((uint16_t*)area);
+		creat_header((uint16_t*)area, 1);
 		put_u16inu8(area, size + SIZE_HEADER + 1);
 		area += SIZE_HEADER;
 		put_size_tiny(area, size);

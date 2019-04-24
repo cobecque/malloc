@@ -6,7 +6,7 @@
 /*   By: cobecque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 14:40:21 by cobecque          #+#    #+#             */
-/*   Updated: 2019/03/09 19:32:12 by rostroh          ###   ########.fr       */
+/*   Updated: 2019/04/11 21:19:26 by rostroh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,11 +103,7 @@ void				*realloc(void *ptr, size_t size)
 		return (add_new_malloc((uint8_t *)ptr, size));
 	if (val_for_addr((uint8_t *)t, s) == 0 && (uint64_t)(ptr - s + size) < \
 			(uint64_t)(g_all_malloc.size_page * nb_page(s) + header))
-	{
-		pthread_mutex_lock(&mutex);
 		return (ptr);
-		pthread_mutex_unlock(&mutex);
-	}
 	else
 		return (add_new_malloc((uint8_t *)ptr, size));
 	return (NULL);

@@ -6,17 +6,56 @@
 /*   By: cobecque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 07:35:56 by cobecque          #+#    #+#             */
-/*   Updated: 2019/02/08 07:56:24 by cobecque         ###   ########.fr       */
+/*   Updated: 2019/04/24 04:59:10 by rostroh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
+
+void			put_u32inu8(uint8_t *addr, uint32_t size)
+{
+	int		i;
+	int		off;
+
+	i = 0;
+	off = 24;
+	while (i < 4)
+	{
+		addr[i] = (uint8_t)(size >> off);
+		i++;
+		off -= 8;
+	}
+}
 
 void			put_u16inu8(uint8_t *addr, uint16_t size)
 {
 	addr[0] = (uint8_t)(size >> 8);
 	addr[1] = (uint8_t)(size);
 }
+
+uint32_t		read32in8_block(uint8_t *addr)
+{
+	uint32_t	nu;
+
+	nu = ((uint32_t)((addr)[0] & 0x7f) << 24) | \
+		 ((uint32_t)(addr)[1] << 16) | \
+		 ((uint32_t)(addr)[2] << 8) | \
+		 ((uint32_t)(addr)[3]);
+	return (nu);
+}
+
+uint32_t		read32in8(uint8_t *addr)
+{
+	uint32_t	nu;
+
+	nu = ((uint32_t)(addr)[0] << 24) | \
+		 ((uint32_t)(addr)[1] << 16) | \
+		 ((uint32_t)(addr)[2] << 8) | \
+		 ((uint32_t)(addr)[3]);
+	ft_putstr("hey my bro\n");
+	return (nu);
+}
+
 
 uint16_t		read16in8_block(uint8_t *addr)
 {
