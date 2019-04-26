@@ -52,7 +52,6 @@ uint32_t		read32in8(uint8_t *addr)
 		 ((uint32_t)(addr)[1] << 16) | \
 		 ((uint32_t)(addr)[2] << 8) | \
 		 ((uint32_t)(addr)[3]);
-	ft_putstr("hey my bro\n");
 	return (nu);
 }
 

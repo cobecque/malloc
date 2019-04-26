@@ -18,22 +18,12 @@ static int		check_block(uint8_t *header, uint8_t *find, int type)
 	uint16_t	val;
 
 	addr = header;
+	addr += 10;
 	if (type == 8)
-		addr += 24;
-	else
-		addr += 10;
-	if (type == 1)
-	{
-		while ((*addr & 0x7f) != 0)
-		{
-			if (addr > find)
-				return (-1);
-			if (addr + 1 == find)
-				return (1);
-			addr += (*addr & 0x7f) + 1;
-		}
-	}
+		addr += 14;
 	else if (type == 2)
+		addr += 2;
+	if (type == 2 || type == 1)
 	{
 		val = read16in8_block(addr);
 		while (val != 0)
@@ -87,13 +77,13 @@ int				is_small_malloc(uint8_t *addr)
 	if (header == NULL)
 		return (-1);
 	size = read16in8(header);
-	tmp = read_size(header + 2);
+	tmp = read_size(header + 4);
 	while (tmp != 0)
 	{
 		if (addr >= header && addr <= header + g_all_malloc.size_page * NBPAGE_SMALL)
 			return (check_block(header, addr, 2));
 		header = (uint8_t *)tmp;
-		tmp = read_size(header + 2);
+		tmp = read_size(header + 4);
 	}
 	if (addr >= header && addr <= header + g_all_malloc.size_page * NBPAGE_SMALL)
 		return (check_block(header, addr, 2));

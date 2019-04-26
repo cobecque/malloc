@@ -14,21 +14,24 @@
 
 uint8_t			*creat_block(uint8_t *ptr, uint8_t size)
 {
+	uint32_t	val;
 	uint8_t		*tmp;
 
-	put_u16inu8(ptr, size + read16in8(ptr) + 1);
-	tmp = ptr + SIZE_HEADER;
-	while ((*tmp & 0x7f) != 0)
+	put_u16inu8(ptr, size + read16in8(ptr) + 2);;
+	tmp = ptr + 10;
+	val = read16in8_block(tmp);
+	while (val != 0)
 	{
-		if (((*tmp & 0x80) == 0x80) && (*tmp & 0x7f) >= size)
+		if (((*tmp & 0x80) == 0x80) && (read16in8_block(tmp)) >= size)
 		{
 			*tmp = *tmp & 0x7f;
-			return (tmp + 1);
+			return (refactorisation(tmp, size));
 		}
-		tmp += (*tmp & 0x7f) + 1;
+		tmp += val + 2;
+		val = read16in8_block(tmp);
 	}
-	*tmp = size;
-	return (tmp + 1);
+	put_u16inu8(tmp, size);
+	return ((uint8_t*)(tmp + 2));
 }
 
 int				check_tiny_size(size_t size)
@@ -38,7 +41,7 @@ int				check_tiny_size(size_t size)
 
 	tmp = go_to_last_header((uint8_t *)g_all_malloc.tiny);
 	size_in_page = read16in8(tmp);
-	if (size_in_page + size + 1 <= g_all_malloc.size_page * NBPAGE_TINY)
+	if (size_in_page + size + 2 <= g_all_malloc.size_page * NBPAGE_TINY)
 		return (1);
 	return (-1);
 }
@@ -51,10 +54,10 @@ uint8_t			*creat_new_area_tiny(uint8_t size)
 			MAP_ANON | MAP_PRIVATE, -1, 0);
 	write_next_area_addr((uint64_t)area, (uint8_t *)g_all_malloc.tiny);
 	creat_header((uint16_t *)area, 1);
-	put_u16inu8(area, size + SIZE_HEADER + 1);
+	put_u16inu8(area, size + SIZE_HEADER + 2);
 	area += SIZE_HEADER;
 	put_size_tiny(area, size);
-	area++;
+	area += 2;
 	return (area);
 }
 
@@ -70,10 +73,10 @@ void			*creat_tiny(uint8_t size)
 		if (area == MAP_FAILED)
 			return (NULL);
 		creat_header((uint16_t*)area, 1);
-		put_u16inu8(area, size + SIZE_HEADER + 1);
+		put_u16inu8(area, size + SIZE_HEADER + 2);
 		area += SIZE_HEADER;
 		put_size_tiny(area, size);
-		area++;
+		area += 2;
 	}
 	else if (check_tiny_size(size) == -1)
 		area = creat_new_area_tiny(size);

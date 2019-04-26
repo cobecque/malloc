@@ -62,11 +62,9 @@ uint8_t		*go_to_last_header_small(uint8_t *header)
 	tmp = read_size(addr);
 	while (tmp != 0)
 	{
-		ft_putstr("suite de la traque\n");
 		addr = (uint8_t *)tmp + 4;
 		tmp = read_size(addr);
 	}
-	ft_putstr("sorti de la traque \n");
 	return (addr - 4);
 }
 

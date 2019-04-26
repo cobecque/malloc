@@ -54,26 +54,14 @@ void				show_alloc_mem(void)
 void				init_global(void)
 {
 	g_all_malloc.size_page = getpagesize();
-	g_all_malloc.tiny_size = SIZE_TINY;//\
-							//(((g_all_malloc.size_page - 24) * 2) - 800) / 100;
-	g_all_malloc.small_size = SIZE_SMALL;//\
-							//(((g_all_malloc.size_page - 24) * SIZE_SMALL) - 800) / 100;
-	ft_putstr("Size page = ");
-	ft_putnbr(g_all_malloc.size_page);
-	ft_putchar('\n');
-	ft_putstr("Size tiny = ");
-	ft_putnbr(g_all_malloc.tiny_size);
-	ft_putchar('\n');
-	ft_putstr("Size small = ");
-	ft_putnbr(g_all_malloc.small_size);
-	ft_putchar('\n');
+	g_all_malloc.tiny_size = SIZE_TINY;
+	g_all_malloc.small_size = SIZE_SMALL;
 }
 
 void				free(void *ptr)
 {
 	uint8_t		*addr;
 
-	//ft_putstr("Coucou\n");
 	if (!ptr)
 		;
 	else
@@ -90,29 +78,21 @@ void				*malloc(size_t size)
 {
 	void	*ptr;
 
-	pthread_mutex_lock(&g_mutex);
 	if (size % 8 != 0)
 		size += 8 - (size % 8);
 	if (g_all_malloc.small_size == 0 || g_all_malloc.tiny_size == 0)
 		init_global();
 	if (size <= g_all_malloc.tiny_size)
 	{
-		ft_putstr("Debut Tiny\n");
 		ptr = creat_tiny((uint8_t)size);
-		ft_putstr("Fin Tiny\n");
 	}
 	else if (size <= g_all_malloc.small_size)
 	{
-		ft_putstr("Debut Small\n");
 		ptr = creat_small((uint16_t)size);
-		ft_putstr("Fin Small\n");
 	}
 	else
 	{
-		ft_putstr("Debut Large\n");
 		ptr = creat_large((uint64_t)size);
-		ft_putstr("Fin Large\n");
 	}
-	pthread_mutex_unlock(&g_mutex);
 	return (ptr);
 }

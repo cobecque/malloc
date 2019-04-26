@@ -22,22 +22,29 @@ void			free_area_small(uint8_t *addr)
 	tmp = addr + 4;
 	next = read_size(tmp);
 	before = (uint64_t)tmp;
-	ft_putstr("hello\n");
+	ft_putstr("on free ");
+	ft_putnbr(read32in8(tmp - 4));
+	ft_putchar('\n');
 	while (1)
 	{
-		if (read32in8(tmp - 4) == 0)
+		if (read32in8(tmp - 4) - 12 == 0)
 		{
 			free_this = tmp;
-			if ((uint64_t)tmp == before)
-				g_all_malloc.small = (void *)read_size(tmp);
+			if (tmp - 4 == g_all_malloc.small)
+			{
+				if (next != 0)
+					g_all_malloc.small = (void *)(next - 4);
+				else
+					break ;
+			}
 			tmp = (uint8_t *)before;
 			put_u64inu8(tmp, read_u64inu8(free_this));
-			munmap(free_this, g_all_malloc.size_page * NBPAGE_SMALL);
+			munmap(free_this - 4, g_all_malloc.size_page * NBPAGE_SMALL);
 		}
 		if (next == 0)
 			break ;
 		before = (uint64_t)tmp;
-		tmp = (uint8_t *)next + 2;
+		tmp = (uint8_t *)next + 4;
 		next = read_size(tmp);
 	}
 }
@@ -60,7 +67,7 @@ void			free_area_tiny(uint8_t *addr)
 			if ((uint64_t)tmp == before)
 				g_all_malloc.tiny = (void *)read_size(tmp);
 			tmp = (uint8_t *)before;
-			put_u16inu8(tmp, (uint16_t)(*free_this));
+			put_u64inu8(tmp, read_u64inu8(free_this));
 			munmap(free_this, g_all_malloc.size_page * NBPAGE_TINY);
 		}
 		if (next == 0)

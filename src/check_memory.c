@@ -55,9 +55,9 @@ int			look_addr(uint8_t *look_up, uint8_t *to_find, uint16_t size)
 void		get_size_jump(uint16_t *size, uint16_t *jump, uint8_t *current)
 {
 	*size = 2;
-	*jump = 1;
+	*jump = 2;
 	if (current == g_all_malloc.small)
-		*jump = 2;
+		*size = 4;
 	if (current == g_all_malloc.large)
 	{
 		*jump = 8;

@@ -59,6 +59,8 @@ uint8_t				*go_to_last_header_large(uint8_t *header);
 uint8_t				*go_to_last_header_small(uint8_t *header);
 uint8_t				*go_to_last_header(uint8_t *header);
 uint8_t				*check_type_of_malloc(uint8_t *addr);
+uint8_t				*refactorisation(uint8_t *ptr, uint16_t size);
+
 
 void				*creat_small(uint16_t size);
 void				*creat_large(uint64_t size);

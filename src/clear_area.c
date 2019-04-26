@@ -12,19 +12,19 @@
 
 #include "malloc.h"
 
-static uint8_t		*get_next(uint8_t *tmp, uint8_t *addr)
+static uint8_t		*get_next(uint8_t *tmp, uint8_t *addr, int type)
 {
 	uint64_t	next;
 
 	next = read_size(tmp);
 	while (next != 0)
 	{
-		if (addr >= tmp - 2 && addr <= tmp - 2 + read16in8(tmp - 2))
+		if (addr >= tmp - type && addr <= tmp - type + read16in8(tmp - type))
 			break ;
-		tmp = (uint8_t *)next + 2;
+		tmp = (uint8_t *)next + type;
 		next = read_size(tmp);
 	}
-	return (tmp - 2);
+	return (tmp - type);
 }
 
 void				clear_area_tiny(uint8_t *addr, uint16_t size)
@@ -34,9 +34,9 @@ void				clear_area_tiny(uint8_t *addr, uint16_t size)
 
 	i = 0;
 	tmp = (uint8_t *)g_all_malloc.tiny;
-	tmp = get_next(tmp + 2, addr);
-	put_u16inu8(tmp, read16in8(tmp) - size - 1);
-	*(addr - 1) |= 0x80;
+	tmp = get_next(tmp + 2, addr, 2);
+	put_u16inu8(tmp, read16in8(tmp) - size - 2);
+	*(addr - 2) |= 0x80;
 	while (i < size)
 	{
 		addr[i] = 0;
@@ -44,12 +44,10 @@ void				clear_area_tiny(uint8_t *addr, uint16_t size)
 	}
 	if ((*(addr + i) & 0x80) == 0x80)
 	{
-		if ((*(addr + i) & 0x7f) + (*(addr - 1) & 0x7f) <= \
-				g_all_malloc.tiny_size)
-		{
-			*(addr - 1) += (*(addr + i) & 0x7f) + 1;
-			*(addr + i) = 0;
-		}
+		put_u16inu8(addr - 2, read16in8_block(addr + i) + \
+				read16in8_block(addr - 2) + 2);
+		*(addr - 2) |= 0x80;
+		put_u16inu8(addr + i, 0);
 	}
 }
 
@@ -60,8 +58,8 @@ void				clear_area_small(uint8_t *addr, uint16_t size)
 
 	i = 0;
 	tmp = (uint8_t *)g_all_malloc.small;
-	tmp = get_next(tmp + 4, addr);
-	put_u32inu8(tmp, read16in8(tmp) - size - 2);
+	tmp = get_next(tmp + 4, addr, 4);
+	put_u32inu8(tmp, read32in8(tmp) - size - 2);
 	*(addr - 2) |= 0x80;
 	while (i < size)
 	{
@@ -111,7 +109,7 @@ void				clear_area(uint8_t *addr)
 
 	tmp = check_type_of_malloc(addr);
 	if (tmp == g_all_malloc.tiny)
-		size = *(addr - 1) & 0x7f;
+		size = read16in8_block(addr - 2);
 	else if (tmp == g_all_malloc.small)
 		size = read16in8_block(addr - 2);
 	else
