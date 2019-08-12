@@ -6,11 +6,23 @@
 /*   By: cobecque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 09:04:19 by cobecque          #+#    #+#             */
-/*   Updated: 2019/04/24 05:17:51 by rostroh          ###   ########.fr       */
+/*   Updated: 2019/08/12 06:04:04 by rostroh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
+
+int				pasdinspi(uint8_t *tmp, uint64_t next)
+{
+	if (tmp - 4 == g_all_malloc.small)
+	{
+		if (next != 0)
+			g_all_malloc.small = (void *)(next - 4);
+		else
+			return (-1);
+	}
+	return (1);
+}
 
 void			free_area_small(uint8_t *addr)
 {
@@ -22,21 +34,13 @@ void			free_area_small(uint8_t *addr)
 	tmp = addr + 4;
 	next = read_size(tmp);
 	before = (uint64_t)tmp;
-	ft_putstr("on free ");
-	ft_putnbr(read32in8(tmp - 4));
-	ft_putchar('\n');
 	while (1)
 	{
 		if (read32in8(tmp - 4) - 12 == 0)
 		{
 			free_this = tmp;
-			if (tmp - 4 == g_all_malloc.small)
-			{
-				if (next != 0)
-					g_all_malloc.small = (void *)(next - 4);
-				else
-					break ;
-			}
+			if (pasdinspi(tmp, next) == -1)
+				break ;
 			tmp = (uint8_t *)before;
 			put_u64inu8(tmp, read_u64inu8(free_this));
 			munmap(free_this - 4, g_all_malloc.size_page * NBPAGE_SMALL);

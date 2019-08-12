@@ -6,31 +6,11 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 00:03:44 by rostroh           #+#    #+#             */
-/*   Updated: 2019/04/24 05:06:02 by rostroh          ###   ########.fr       */
+/*   Updated: 2019/08/12 04:50:49 by rostroh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
-
-/*
- ** create header for large malloc
-*/
-
-void		creat_header_large(uint8_t *ptr)
-{
-	put_u64inu8(ptr, 16);
-	put_u64inu8(ptr + 1, 0);
-}
-
-/*
- ** create header for small and tiny malloc
-*/
-
-void		creat_header(uint16_t *ptr, int off)
-{
-	*ptr = 10;
-	*(ptr + off) = 0;
-}
 
 /*
  ** use this to get the last header in memory

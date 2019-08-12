@@ -6,7 +6,7 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 19:33:21 by rostroh           #+#    #+#             */
-/*   Updated: 2019/08/12 04:45:14 by cobecque         ###   ########.fr       */
+/*   Updated: 2019/08/12 06:06:35 by rostroh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ uint8_t			*creat_block(uint8_t *ptr, uint8_t size)
 	uint32_t	val;
 	uint8_t		*tmp;
 
-	put_u16inu8(ptr, size + read16in8(ptr) + 2);;
+	put_u16inu8(ptr, size + read16in8(ptr) + 2);
 	tmp = ptr + 10;
 	val = read16in8_block(tmp);
 	while (val != 0)

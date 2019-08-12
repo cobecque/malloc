@@ -6,7 +6,7 @@
 /*   By: cobecque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 07:35:56 by cobecque          #+#    #+#             */
-/*   Updated: 2019/04/24 04:59:10 by rostroh          ###   ########.fr       */
+/*   Updated: 2019/08/12 06:07:23 by rostroh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ uint32_t		read32in8_block(uint8_t *addr)
 	uint32_t	nu;
 
 	nu = ((uint32_t)((addr)[0] & 0x7f) << 24) | \
-		 ((uint32_t)(addr)[1] << 16) | \
-		 ((uint32_t)(addr)[2] << 8) | \
-		 ((uint32_t)(addr)[3]);
+		((uint32_t)(addr)[1] << 16) | \
+		((uint32_t)(addr)[2] << 8) | \
+		((uint32_t)(addr)[3]);
 	return (nu);
 }
 
@@ -49,12 +49,11 @@ uint32_t		read32in8(uint8_t *addr)
 	uint32_t	nu;
 
 	nu = ((uint32_t)(addr)[0] << 24) | \
-		 ((uint32_t)(addr)[1] << 16) | \
-		 ((uint32_t)(addr)[2] << 8) | \
-		 ((uint32_t)(addr)[3]);
+		((uint32_t)(addr)[1] << 16) | \
+		((uint32_t)(addr)[2] << 8) | \
+		((uint32_t)(addr)[3]);
 	return (nu);
 }
-
 
 uint16_t		read16in8_block(uint8_t *addr)
 {
