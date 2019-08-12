@@ -6,7 +6,7 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 22:40:28 by rostroh           #+#    #+#             */
-/*   Updated: 2019/02/08 08:50:09 by cobecque         ###   ########.fr       */
+/*   Updated: 2019/08/12 04:40:40 by cobecque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,7 @@ int			print_block_tiny(uint8_t *addr, uint8_t size)
 	ft_putstr(" : ");
 	ft_putnbr(size);
 	ft_putstr(" octets\n");
-	/*printf("0x%lX - 0x%lX : %u octets\n", (unsigned long)(addr + 1), \
-			(unsigned long)(end + 1), size);
-	*/return (size);
+	return (size);
 }
 
 int			print_block_small(uint8_t *addr, uint16_t size)
@@ -77,9 +75,7 @@ int			print_block_small(uint8_t *addr, uint16_t size)
 	ft_putstr(" : ");
 	ft_putnbr(size);
 	ft_putstr(" octets\n");
-	/*printf("0x%lX - 0x%lX : %lu octets\n", (unsigned long)(addr + 2), \
-		(unsigned long)(end + 2), (unsigned long)size);
-	*/return (size);
+	return (size);
 }
 
 int			print_tiny(void)
@@ -116,15 +112,14 @@ int			print_small(void)
 	uint16_t	size;
 	uint64_t	tmp;
 	int			total;
-
 	addr = g_all_malloc.small;
-	tmp = read_size(addr + 2);
-	size = read16in8_block(addr + 10);
+	tmp = read_size(addr + 4);
+	size = read16in8_block(addr + SIZE_HEADER_SMALL);
 	total = 0;
 	while (tmp != 0 || size != 0)
 	{
-		tmp = read_size(addr + 2);
-		addr += 10;
+		tmp = read_size(addr + 4);
+		addr += SIZE_HEADER_SMALL;
 		while (size != 0)
 		{
 			total += print_block_small(addr, size);
@@ -133,7 +128,7 @@ int			print_small(void)
 		}
 		addr = (uint8_t *)tmp;
 		if (tmp != 0)
-			size = read16in8_block(addr + 10);
+			size = read16in8_block(addr + SIZE_HEADER_SMALL);
 	}
 	return (total);
 }
@@ -164,9 +159,7 @@ int			print_large(void)
 		ft_putstr(" : ");
 		ft_putnbr(size);
 		ft_putstr(" octets\n");
-/*		printf("0x%lX - 0x%lX : %lu octets\n", (unsigned long)(addr + 1), \
-				(unsigned long)(end + 1), (unsigned long)size);
-*/		addr = (uint8_t *)tmp;
+		addr = (uint8_t *)tmp;
 		size = 0;
 		if (tmp != 0)
 			size = read_u64inu8(addr + 16);

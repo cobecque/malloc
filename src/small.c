@@ -6,7 +6,7 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 19:33:21 by rostroh           #+#    #+#             */
-/*   Updated: 2019/04/24 05:06:10 by rostroh          ###   ########.fr       */
+/*   Updated: 2019/08/12 04:24:06 by cobecque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ uint8_t			*creat_new_area_small(size_t size)
 {
 	uint8_t	*area;
 
-	//ft_putstr("\n\t\t\tNEW AREA RECLAIM\n");
 	g_index = 0;
 	area = mmap(0, g_all_malloc.size_page * NBPAGE_SMALL, \
 			PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0);
@@ -103,12 +102,6 @@ void			*creat_small(uint16_t size)
 		put_u32inu8(area, size + SIZE_HEADER_SMALL + 2);
 		put_u64inu8(area + 4, 0);
 		put_u16inu8(area + SIZE_HEADER_SMALL, size);
-		ft_putstr("area addr\t");
-		ft_puthex((unsigned long)area);
-		ft_putchar('\n');
-		ft_putstr("hello my dear ");
-		ft_putnbr(read32in8(area));
-		ft_putchar('\n');
 		area += SIZE_HEADER_SMALL + 2;
 	}
 	else if (check_small_size(size) == -1)

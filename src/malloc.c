@@ -6,7 +6,7 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/13 22:32:09 by rostroh           #+#    #+#             */
-/*   Updated: 2019/04/24 05:18:40 by rostroh          ###   ########.fr       */
+/*   Updated: 2019/08/12 04:40:38 by cobecque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void				print_total(int total)
 {
 	ft_putstr("Total: ");
 	ft_putnbr(total);
-	ft_putchar('\n');
 	ft_putchar('\n');
 }
 

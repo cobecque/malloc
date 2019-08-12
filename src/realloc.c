@@ -6,7 +6,7 @@
 /*   By: cobecque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 14:40:21 by cobecque          #+#    #+#             */
-/*   Updated: 2019/04/11 21:19:26 by rostroh          ###   ########.fr       */
+/*   Updated: 2019/08/12 04:23:30 by cobecque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ void				*realloc(void *ptr, size_t size)
 	uint64_t	tmp;
 	uint16_t	val;
 
-	ft_putstr("coucou realloc\n");
 	header = NULL;
 	if (ptr == NULL)
 		return (malloc(size));
