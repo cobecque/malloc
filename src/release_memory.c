@@ -6,13 +6,13 @@
 /*   By: cobecque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 09:04:19 by cobecque          #+#    #+#             */
-/*   Updated: 2019/08/12 06:04:04 by rostroh          ###   ########.fr       */
+/*   Updated: 2019/08/13 03:45:47 by cobecque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
 
-int				pasdinspi(uint8_t *tmp, uint64_t next)
+static int		pasdinspi(uint8_t *tmp, uint64_t next)
 {
 	if (tmp - 4 == g_all_malloc.small)
 	{
@@ -22,6 +22,19 @@ int				pasdinspi(uint8_t *tmp, uint64_t next)
 			return (-1);
 	}
 	return (1);
+}
+
+static uint8_t	*help_free_area_large(uint8_t *tmp, uint64_t before, uint64_t s)
+{
+	uint8_t		*free_this;
+
+	free_this = tmp;
+	if ((uint64_t)tmp == before)
+		g_all_malloc.large = (void *)read_u64inu8(tmp);
+	tmp = (uint8_t *)before;
+	put_u64inu8(tmp, read_u64inu8(free_this));
+	munmap(free_this, s);
+	return (tmp);
 }
 
 void			free_area_small(uint8_t *addr)
@@ -80,19 +93,6 @@ void			free_area_tiny(uint8_t *addr)
 		tmp = (uint8_t *)next + 2;
 		next = read_size(tmp);
 	}
-}
-
-static uint8_t	*help_free_area_large(uint8_t *tmp, uint64_t before, uint64_t s)
-{
-	uint8_t		*free_this;
-
-	free_this = tmp;
-	if ((uint64_t)tmp == before)
-		g_all_malloc.large = (void *)read_u64inu8(tmp);
-	tmp = (uint8_t *)before;
-	put_u64inu8(tmp, read_u64inu8(free_this));
-	munmap(free_this, s);
-	return (tmp);
 }
 
 void			free_area_large(uint8_t *header, uint8_t *addr)

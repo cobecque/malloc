@@ -6,13 +6,13 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 19:33:21 by rostroh           #+#    #+#             */
-/*   Updated: 2019/08/12 06:06:35 by rostroh          ###   ########.fr       */
+/*   Updated: 2019/08/13 03:41:50 by cobecque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
 
-uint8_t			*creat_block(uint8_t *ptr, uint8_t size)
+static uint8_t	*creat_block(uint8_t *ptr, uint8_t size)
 {
 	uint32_t	val;
 	uint8_t		*tmp;
@@ -34,7 +34,7 @@ uint8_t			*creat_block(uint8_t *ptr, uint8_t size)
 	return ((uint8_t*)(tmp + 2));
 }
 
-int				check_tiny_size(size_t size)
+static int		check_tiny_size(size_t size)
 {
 	uint8_t		*tmp;
 	int			size_in_page;
@@ -46,7 +46,7 @@ int				check_tiny_size(size_t size)
 	return (-1);
 }
 
-uint8_t			*creat_new_area_tiny(uint8_t size)
+static uint8_t	*creat_new_area_tiny(uint8_t size)
 {
 	uint8_t	*area;
 

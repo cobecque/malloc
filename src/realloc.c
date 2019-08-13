@@ -6,24 +6,11 @@
 /*   By: cobecque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 14:40:21 by cobecque          #+#    #+#             */
-/*   Updated: 2019/08/12 05:17:25 by rostroh          ###   ########.fr       */
+/*   Updated: 2019/08/13 03:36:38 by cobecque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
-
-int					check_type_size(size_t size, uint16_t s)
-{
-	if (s == 1 && size < g_all_malloc.tiny_size)
-		return (1);
-	else if (s == 2 && size < g_all_malloc.small_size && size >= \
-			g_all_malloc.tiny_size)
-		return (1);
-	else if (s == 8 && size >= g_all_malloc.small_size)
-		return (1);
-	else
-		return (-1);
-}
 
 static uint16_t		get_size_type(void *ptr, uint8_t *header)
 {
@@ -48,7 +35,7 @@ static int			nb_page(uint16_t s)
 	return (2);
 }
 
-void				*add_new_malloc(uint8_t *addr, size_t size)
+static void			*add_new_malloc(uint8_t *addr, size_t size)
 {
 	void		*ret;
 	uint8_t		*header;

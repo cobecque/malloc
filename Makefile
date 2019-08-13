@@ -6,7 +6,7 @@
 #    By: mverdier <mverdier@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/01/14 14:55:01 by mverdier          #+#    #+#              #
-#    Updated: 2019/08/13 03:10:17 by cobecque         ###   ########.fr        #
+#    Updated: 2019/08/13 03:43:00 by cobecque         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,9 +36,9 @@ INCDIR =	./includes
 
 # List all sources, objects and includes files of 'libft'.
 
-SRC =		malloc.c realloc.c header.c write_and_read.c release_memory.c	\
+SRC =		malloc.c realloc.c header.c write.c release_memory.c	\
 			check_memory.c tiny.c show.c small.c large.c clear_area.c		\
-			type.c creation.c read.c
+			type.c creation.c read.c block.c
 
 INC =		malloc.h
 

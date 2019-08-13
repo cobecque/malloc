@@ -6,13 +6,13 @@
 /*   By: cobecque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 09:38:44 by cobecque          #+#    #+#             */
-/*   Updated: 2019/02/19 00:45:35 by rostroh          ###   ########.fr       */
+/*   Updated: 2019/08/13 03:30:52 by cobecque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
 
-uint16_t	val_for_addr(uint8_t *look_up, int jump_next)
+uint16_t		val_for_addr(uint8_t *look_up, int jump_next)
 {
 	uint16_t	val;
 
@@ -24,7 +24,7 @@ uint16_t	val_for_addr(uint8_t *look_up, int jump_next)
 	return (val);
 }
 
-int			look_addr(uint8_t *look_up, uint8_t *to_find, uint16_t size)
+int				look_addr(uint8_t *look_up, uint8_t *to_find, uint16_t size)
 {
 	uint8_t			*last;
 	uint16_t		val;
@@ -52,7 +52,7 @@ int			look_addr(uint8_t *look_up, uint8_t *to_find, uint16_t size)
 	return (0);
 }
 
-void		get_size_jump(uint16_t *size, uint16_t *jump, uint8_t *current)
+static void		get_size_jump(uint16_t *size, uint16_t *jump, uint8_t *current)
 {
 	*size = 2;
 	*jump = 2;
@@ -65,7 +65,7 @@ void		get_size_jump(uint16_t *size, uint16_t *jump, uint8_t *current)
 	}
 }
 
-int			is_allocated(uint8_t *addr)
+int				is_allocated(uint8_t *addr)
 {
 	uint64_t		tmp;
 	uint8_t			*current;

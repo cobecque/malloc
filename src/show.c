@@ -6,56 +6,14 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 22:40:28 by rostroh           #+#    #+#             */
-/*   Updated: 2019/08/13 03:17:07 by rostroh          ###   ########.fr       */
+/*   Updated: 2019/08/13 03:38:36 by cobecque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/malloc.h"
 
-static char	cal_hex(int reste)
+static void	put_large(uint8_t *addr, uint8_t *end, uint64_t size)
 {
-	if (reste < 10)
-		return (reste + '0');
-	else
-		return (reste - 10 + 'A');
-}
-
-void		ft_puthex(unsigned long nb)
-{
-	char	buf[25];
-	char	tmp[25];
-	int		i;
-	int		j;
-	int		reste;
-
-	reste = 0;
-	i = 0;
-	j = 0;
-	while (nb > 0)
-	{
-		reste = nb % 16;
-		nb = nb / 16;
-		buf[i] = cal_hex(reste);
-		i++;
-	}
-	buf[i] = '\0';
-	while (i >= 0)
-	{
-		tmp[j] = buf[i];
-		ft_putchar(tmp[j]);
-		i--;
-		j++;
-	}
-	tmp[j] = '\0';
-}
-
-int			print_block_tiny(uint8_t *addr, uint8_t size)
-{
-	uint8_t		*end;
-
-	if ((*addr & 0x80) == 0x80)
-		return (0);
-	end = addr + size;
 	ft_putstr("0x");
 	ft_puthex((unsigned long)(addr + 1));
 	ft_putstr(" - 0X");
@@ -63,24 +21,6 @@ int			print_block_tiny(uint8_t *addr, uint8_t size)
 	ft_putstr(" : ");
 	ft_putnbr(size);
 	ft_putstr(" octets\n");
-	return (size);
-}
-
-int			print_block_small(uint8_t *addr, uint16_t size)
-{
-	uint8_t		*end;
-
-	if ((*addr & 0x80) == 0x80)
-		return (0);
-	end = addr + size;
-	ft_putstr("0x");
-	ft_puthex((unsigned long)(addr + 2));
-	ft_putstr(" - 0X");
-	ft_puthex((unsigned long)(end + 2));
-	ft_putstr(" : ");
-	ft_putnbr(size);
-	ft_putstr(" octets\n");
-	return (size);
 }
 
 int			print_tiny(void)
@@ -137,17 +77,6 @@ int			print_small(void)
 			size = read16in8_block(addr + SIZE_HEADER_SMALL);
 	}
 	return (total);
-}
-
-static void	put_large(uint8_t *addr, uint8_t *end, uint64_t size)
-{
-	ft_putstr("0x");
-	ft_puthex((unsigned long)(addr + 1));
-	ft_putstr(" - 0X");
-	ft_puthex((unsigned long)(end + 1));
-	ft_putstr(" : ");
-	ft_putnbr(size);
-	ft_putstr(" octets\n");
 }
 
 int			print_large(void)

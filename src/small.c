@@ -6,15 +6,13 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 19:33:21 by rostroh           #+#    #+#             */
-/*   Updated: 2019/08/13 03:18:35 by cobecque         ###   ########.fr       */
+/*   Updated: 2019/08/13 03:45:19 by cobecque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
 
-int				g_index = 0;
-
-int				check_small_size(size_t size)
+static int		check_small_size(size_t size)
 {
 	uint8_t		*tmp;
 	uint32_t	size_in_page;
@@ -26,18 +24,7 @@ int				check_small_size(size_t size)
 	return (-1);
 }
 
-uint8_t			*refactorisation(uint8_t *ptr, uint16_t size)
-{
-	uint16_t	old_size;
-
-	old_size = read16in8_block(ptr);
-	put_u16inu8(ptr, size);
-	put_u16inu8(ptr + size + 2, (old_size - size - 2));
-	*(ptr + size + 2) |= 0x80;
-	return (ptr + 2);
-}
-
-uint8_t			*creat_block_small(uint8_t *ptr, uint32_t size)
+static uint8_t	*creat_block_small(uint8_t *ptr, uint32_t size)
 {
 	uint32_t	val;
 	uint8_t		*tmp;
@@ -59,11 +46,10 @@ uint8_t			*creat_block_small(uint8_t *ptr, uint32_t size)
 	return ((uint8_t*)(tmp + 2));
 }
 
-uint8_t			*creat_new_area_small(size_t size)
+static uint8_t	*creat_new_area_small(size_t size)
 {
 	uint8_t	*area;
 
-	g_index = 0;
 	area = mmap(0, g_all_malloc.size_page * NBPAGE_SMALL, \
 			PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0);
 	if (area == MAP_FAILED)
@@ -75,6 +61,17 @@ uint8_t			*creat_new_area_small(size_t size)
 	put_u16inu8(area + SIZE_HEADER_SMALL, size);
 	area += SIZE_HEADER_SMALL + 2;
 	return (area);
+}
+
+uint8_t			*refactorisation(uint8_t *ptr, uint16_t size)
+{
+	uint16_t	old_size;
+
+	old_size = read16in8_block(ptr);
+	put_u16inu8(ptr, size);
+	put_u16inu8(ptr + size + 2, (old_size - size - 2));
+	*(ptr + size + 2) |= 0x80;
+	return (ptr + 2);
 }
 
 void			*creat_small(uint16_t size)
@@ -98,7 +95,6 @@ void			*creat_small(uint16_t size)
 		area = creat_new_area_small(size);
 	else
 	{
-		g_index++;
 		area = go_to_last_header_small((uint8_t *)g_all_malloc.small);
 		area = creat_block_small(area, size);
 	}

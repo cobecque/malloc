@@ -6,13 +6,13 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 11:33:07 by rostroh           #+#    #+#             */
-/*   Updated: 2019/04/24 05:18:28 by rostroh          ###   ########.fr       */
+/*   Updated: 2019/08/13 03:31:48 by cobecque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
 
-static uint8_t		*get_next(uint8_t *tmp, uint8_t *addr, int type)
+static uint8_t			*get_next(uint8_t *tmp, uint8_t *addr, int type)
 {
 	uint64_t	next;
 
@@ -27,7 +27,7 @@ static uint8_t		*get_next(uint8_t *tmp, uint8_t *addr, int type)
 	return (tmp - type);
 }
 
-void				clear_area_tiny(uint8_t *addr, uint16_t size)
+static void				clear_area_tiny(uint8_t *addr, uint16_t size)
 {
 	uint8_t		*tmp;
 	int			i;
@@ -51,7 +51,7 @@ void				clear_area_tiny(uint8_t *addr, uint16_t size)
 	}
 }
 
-void				clear_area_small(uint8_t *addr, uint16_t size)
+static void				clear_area_small(uint8_t *addr, uint16_t size)
 {
 	uint8_t		*tmp;
 	int			i;
@@ -75,7 +75,7 @@ void				clear_area_small(uint8_t *addr, uint16_t size)
 	}
 }
 
-void				clear_area_large(uint8_t *addr, uint64_t size)
+static void				clear_area_large(uint8_t *addr, uint64_t size)
 {
 	uint64_t	next;
 	uint8_t		*tmp;
@@ -102,7 +102,7 @@ void				clear_area_large(uint8_t *addr, uint64_t size)
 	}
 }
 
-void				clear_area(uint8_t *addr)
+void					clear_area(uint8_t *addr)
 {
 	uint16_t		size;
 	uint8_t			*tmp;

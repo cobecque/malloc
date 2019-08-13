@@ -6,7 +6,7 @@
 /*   By: cobecque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 02:49:46 by cobecque          #+#    #+#             */
-/*   Updated: 2019/08/12 04:23:11 by cobecque         ###   ########.fr       */
+/*   Updated: 2019/08/13 03:33:55 by cobecque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
  ** Write in a uint64_t in a uint8_t *
 */
 
-void		put_u64inu8(uint8_t *addr, uint64_t size)
+void			put_u64inu8(uint8_t *addr, uint64_t size)
 {
 	int	i;
 	int	off;
@@ -35,7 +35,7 @@ void		put_u64inu8(uint8_t *addr, uint64_t size)
  ** Read a value in uint64_t into a uint8_t *
 */
 
-uint64_t	read_u64inu8(uint8_t *addr)
+uint64_t		read_u64inu8(uint8_t *addr)
 {
 	uint64_t	val;
 
@@ -54,7 +54,7 @@ uint64_t	read_u64inu8(uint8_t *addr)
  ** Write the new next header addr into the last header create
 */
 
-void		write_next_addr_large(uint64_t next_addr, uint8_t *header)
+static void		write_next_addr_large(uint64_t next_addr, uint8_t *header)
 {
 	int			i;
 	int			offset;
@@ -75,7 +75,7 @@ void		write_next_addr_large(uint64_t next_addr, uint8_t *header)
  ** Create large malloc
 */
 
-void		*creat_large(uint64_t size)
+void			*creat_large(uint64_t size)
 {
 	uint8_t		*area;
 
