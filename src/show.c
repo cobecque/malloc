@@ -6,19 +6,27 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 22:40:28 by rostroh           #+#    #+#             */
-/*   Updated: 2019/08/12 04:40:40 by cobecque         ###   ########.fr       */
+/*   Updated: 2019/08/13 03:17:07 by rostroh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/malloc.h"
 
+static char	cal_hex(int reste)
+{
+	if (reste < 10)
+		return (reste + '0');
+	else
+		return (reste - 10 + 'A');
+}
+
 void		ft_puthex(unsigned long nb)
 {
 	char	buf[25];
 	char	tmp[25];
-	int	i;
-	int	j;
-	int	reste;
+	int		i;
+	int		j;
+	int		reste;
 
 	reste = 0;
 	i = 0;
@@ -27,10 +35,7 @@ void		ft_puthex(unsigned long nb)
 	{
 		reste = nb % 16;
 		nb = nb / 16;
-		if (reste < 10)
-			buf[i] = reste + '0';
-		else
-			buf[i] = reste - 10 + 'A';
+		buf[i] = cal_hex(reste);
 		i++;
 	}
 	buf[i] = '\0';
@@ -112,6 +117,7 @@ int			print_small(void)
 	uint16_t	size;
 	uint64_t	tmp;
 	int			total;
+
 	addr = g_all_malloc.small;
 	tmp = read_size(addr + 4);
 	size = read16in8_block(addr + SIZE_HEADER_SMALL);
@@ -133,6 +139,17 @@ int			print_small(void)
 	return (total);
 }
 
+static void	put_large(uint8_t *addr, uint8_t *end, uint64_t size)
+{
+	ft_putstr("0x");
+	ft_puthex((unsigned long)(addr + 1));
+	ft_putstr(" - 0X");
+	ft_puthex((unsigned long)(end + 1));
+	ft_putstr(" : ");
+	ft_putnbr(size);
+	ft_putstr(" octets\n");
+}
+
 int			print_large(void)
 {
 	uint8_t		*end;
@@ -152,13 +169,7 @@ int			print_large(void)
 		size = read_u64inu8(addr);
 		total += size;
 		end = addr + size;
-		ft_putstr("0x");
-		ft_puthex((unsigned long)(addr + 1));
-		ft_putstr(" - 0X");
-		ft_puthex((unsigned long)(end + 1));
-		ft_putstr(" : ");
-		ft_putnbr(size);
-		ft_putstr(" octets\n");
+		put_large(addr, end, size);
 		addr = (uint8_t *)tmp;
 		size = 0;
 		if (tmp != 0)
