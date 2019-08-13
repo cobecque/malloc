@@ -6,7 +6,7 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 19:33:21 by rostroh           #+#    #+#             */
-/*   Updated: 2019/08/12 04:24:06 by cobecque         ###   ########.fr       */
+/*   Updated: 2019/08/13 03:18:35 by cobecque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,6 @@ int				check_small_size(size_t size)
 
 	tmp = go_to_last_header_small((uint8_t *)g_all_malloc.small);
 	size_in_page = read32in8(tmp);
-	ft_putstr("tmp addr\t");
-	ft_puthex((unsigned long)tmp);
-	ft_putchar('\n');
-	ft_putstr("size ");
-	ft_putnbr(size_in_page);
-	ft_putstr(" fuck size ");
-	ft_putnbr(size + 2);
-	ft_putstr(" addr ");
-	ft_putnbr(g_all_malloc.size_page * NBPAGE_SMALL);
-	ft_putchar('\n');
 	if (size_in_page + size + 2 < g_all_malloc.size_page * NBPAGE_SMALL)
 		return (1);
 	return (-1);
@@ -105,9 +95,7 @@ void			*creat_small(uint16_t size)
 		area += SIZE_HEADER_SMALL + 2;
 	}
 	else if (check_small_size(size) == -1)
-	{
 		area = creat_new_area_small(size);
-	}
 	else
 	{
 		g_index++;
