@@ -6,7 +6,7 @@
 /*   By: cobecque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 14:40:21 by cobecque          #+#    #+#             */
-/*   Updated: 2019/08/13 03:36:38 by cobecque         ###   ########.fr       */
+/*   Updated: 2019/08/13 05:07:50 by rostroh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static void			*add_new_malloc(uint8_t *addr, size_t size)
 	return (ret);
 }
 
-static void			auitrunai(uint8_t **t, uint64_t *tmp, uint64_t val)
+static void			help_realloc(uint8_t **t, uint64_t *tmp, uint64_t val)
 {
 	*tmp = (uint64_t)(*t + val);
 	*t = (uint8_t *)tmp;
@@ -82,7 +82,7 @@ void				*realloc(void *ptr, size_t size)
 	if (check_type_size(size, s) == -1)
 		return (add_new_malloc((uint8_t *)ptr, size));
 	val = val_for_addr(t - s, s);
-	auitrunai(&t, &tmp, val);
+	help_realloc(&t, &tmp, val);
 	if (s == 8)
 		return (add_new_malloc((uint8_t *)ptr, size));
 	if (val_for_addr((uint8_t *)t, s) == 0 && (uint64_t)(ptr - s + size) < \

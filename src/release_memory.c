@@ -6,13 +6,13 @@
 /*   By: cobecque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 09:04:19 by cobecque          #+#    #+#             */
-/*   Updated: 2019/08/13 03:45:47 by cobecque         ###   ########.fr       */
+/*   Updated: 2019/08/13 05:04:46 by rostroh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
 
-static int		pasdinspi(uint8_t *tmp, uint64_t next)
+static int		if_small(uint8_t *tmp, uint64_t next)
 {
 	if (tmp - 4 == g_all_malloc.small)
 	{
@@ -52,7 +52,7 @@ void			free_area_small(uint8_t *addr)
 		if (read32in8(tmp - 4) - 12 == 0)
 		{
 			free_this = tmp;
-			if (pasdinspi(tmp, next) == -1)
+			if (if_small(tmp, next) == -1)
 				break ;
 			tmp = (uint8_t *)before;
 			put_u64inu8(tmp, read_u64inu8(free_this));
