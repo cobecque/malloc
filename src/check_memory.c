@@ -6,7 +6,7 @@
 /*   By: cobecque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 09:38:44 by cobecque          #+#    #+#             */
-/*   Updated: 2019/08/13 03:30:52 by cobecque         ###   ########.fr       */
+/*   Updated: 2019/08/24 23:03:04 by cobecque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ uint16_t		val_for_addr(uint8_t *look_up, int jump_next)
 {
 	uint16_t	val;
 
-	val = (*look_up) & 0x7f;
+	val = read16in8_block(look_up);
 	if (jump_next == 2)
-		val = read16in8_block(look_up);
+		val = read32in8_block(look_up);
 	else if (jump_next == 8)
 		val = read_u64inu8(look_up);
 	return (val);

@@ -12,7 +12,7 @@
 
 #include "malloc.h"
 
-static uint8_t			*get_next(uint8_t *tmp, uint8_t *addr, int type)
+uint8_t			*get_next(uint8_t *tmp, uint8_t *addr, int type)
 {
 	uint64_t	next;
 

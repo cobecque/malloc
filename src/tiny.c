@@ -6,13 +6,13 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 19:33:21 by rostroh           #+#    #+#             */
-/*   Updated: 2019/08/13 03:41:50 by cobecque         ###   ########.fr       */
+/*   Updated: 2019/08/24 22:40:45 by cobecque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
 
-static uint8_t	*creat_block(uint8_t *ptr, uint8_t size)
+static uint8_t	*creat_block(uint8_t *ptr, uint16_t size)
 {
 	uint32_t	val;
 	uint8_t		*tmp;
@@ -46,7 +46,7 @@ static int		check_tiny_size(size_t size)
 	return (-1);
 }
 
-static uint8_t	*creat_new_area_tiny(uint8_t size)
+static uint8_t	*creat_new_area_tiny(uint16_t size)
 {
 	uint8_t	*area;
 
@@ -61,10 +61,11 @@ static uint8_t	*creat_new_area_tiny(uint8_t size)
 	return (area);
 }
 
-void			*creat_tiny(uint8_t size)
+void			*creat_tiny(uint16_t size)
 {
 	uint8_t			*area;
 
+	ft_putstr("salut tiny\n");
 	if (g_all_malloc.tiny == NULL)
 	{
 		g_all_malloc.tiny = mmap(0, g_all_malloc.size_page * NBPAGE_TINY, \
@@ -74,9 +75,9 @@ void			*creat_tiny(uint8_t size)
 			return (NULL);
 		creat_header((uint16_t*)area, 1);
 		put_u16inu8(area, size + SIZE_HEADER + 2);
-		area += SIZE_HEADER;
-		put_size_tiny(area, size);
-		area += 2;
+		put_u64inu8(area + 2, 0);
+		put_u16inu8(area + SIZE_HEADER, size);
+		area += SIZE_HEADER + 2;
 	}
 	else if (check_tiny_size(size) == -1)
 		area = creat_new_area_tiny(size);

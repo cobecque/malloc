@@ -6,7 +6,7 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 22:49:17 by rostroh           #+#    #+#             */
-/*   Updated: 2019/08/13 03:44:53 by cobecque         ###   ########.fr       */
+/*   Updated: 2019/08/25 00:49:57 by cobecque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int					is_allocated(uint8_t *addr);
 ** clear_area.c
 */
 
+uint8_t				*get_next(uint8_t *tmp, uint8_t *addr, int type);
 void				clear_area(uint8_t *addr);
 
 /*
@@ -137,7 +138,7 @@ void				*creat_small(uint16_t size);
 ** tiny.c
 */
 
-void				*creat_tiny(uint8_t size);
+void				*creat_tiny(uint16_t size);
 
 /*
 ** type.c

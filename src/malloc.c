@@ -6,7 +6,7 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/13 22:32:09 by rostroh           #+#    #+#             */
-/*   Updated: 2019/08/13 03:35:26 by cobecque         ###   ########.fr       */
+/*   Updated: 2019/08/24 22:54:56 by cobecque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void				*malloc(size_t size)
 	if (g_all_malloc.small_size == 0 || g_all_malloc.tiny_size == 0)
 		init_global();
 	if (size <= g_all_malloc.tiny_size)
-		ptr = creat_tiny((uint8_t)size);
+		ptr = creat_tiny((uint16_t)size);
 	else if (size <= g_all_malloc.small_size)
 		ptr = creat_small((uint16_t)size);
 	else
