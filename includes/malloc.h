@@ -6,7 +6,7 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 22:49:17 by rostroh           #+#    #+#             */
-/*   Updated: 2019/08/25 00:49:57 by cobecque         ###   ########.fr       */
+/*   Updated: 2019/09/05 12:57:48 by rostroh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,13 @@ void				clear_area(uint8_t *addr);
 
 void				creat_header_large(uint8_t *ptr);
 void				creat_header(uint16_t *ptr, int off);
+
+/*
+** get_size.c
+*/
+
+uint64_t			val_for_addr_new(uint8_t *look_up, int jump_next);
+uint16_t			get_size_type(void *ptr, uint8_t **header);
 
 /*
 ** header.c

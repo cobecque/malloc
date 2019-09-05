@@ -6,7 +6,7 @@
 /*   By: cobecque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 02:49:46 by cobecque          #+#    #+#             */
-/*   Updated: 2019/08/24 22:55:00 by cobecque         ###   ########.fr       */
+/*   Updated: 2019/09/05 11:40:27 by rostroh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ void			*map_large(uint64_t size)
 	return (mmap(0, nb_page * g_all_malloc.size_page, PROT_READ | PROT_WRITE, \
 				MAP_ANON | MAP_PRIVATE, -1, 0));
 }
-
 
 /*
  ** Create large malloc

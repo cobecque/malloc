@@ -6,7 +6,7 @@
 #    By: mverdier <mverdier@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/01/14 14:55:01 by mverdier          #+#    #+#              #
-#    Updated: 2019/08/13 03:43:00 by cobecque         ###   ########.fr        #
+#    Updated: 2019/09/05 12:55:56 by rostroh          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ INCDIR =	./includes
 
 SRC =		malloc.c realloc.c header.c write.c release_memory.c	\
 			check_memory.c tiny.c show.c small.c large.c clear_area.c		\
-			type.c creation.c read.c block.c
+			type.c creation.c read.c block.c get_size.c
 
 INC =		malloc.h
 
