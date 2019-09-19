@@ -6,13 +6,13 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 11:33:07 by rostroh           #+#    #+#             */
-/*   Updated: 2019/08/13 03:31:48 by cobecque         ###   ########.fr       */
+/*   Updated: 2019/09/05 11:40:54 by rostroh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
 
-uint8_t			*get_next(uint8_t *tmp, uint8_t *addr, int type)
+uint8_t					*get_next(uint8_t *tmp, uint8_t *addr, int type)
 {
 	uint64_t	next;
 

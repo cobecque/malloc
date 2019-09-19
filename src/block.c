@@ -6,7 +6,7 @@
 /*   By: cobecque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/13 03:22:59 by cobecque          #+#    #+#             */
-/*   Updated: 2019/08/13 03:25:46 by cobecque         ###   ########.fr       */
+/*   Updated: 2019/09/19 18:07:06 by rostroh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void		ft_puthex(unsigned long nb)
 	tmp[j] = '\0';
 }
 
-int			print_block_tiny(uint8_t *addr, uint8_t size)
+int			print_block_tiny(uint8_t *addr, uint16_t size)
 {
 	uint8_t		*end;
 
@@ -57,9 +57,9 @@ int			print_block_tiny(uint8_t *addr, uint8_t size)
 		return (0);
 	end = addr + size;
 	ft_putstr("0x");
-	ft_puthex((unsigned long)(addr + 1));
+	ft_puthex((unsigned long)(addr + 2));
 	ft_putstr(" - 0X");
-	ft_puthex((unsigned long)(end + 1));
+	ft_puthex((unsigned long)(end + 2));
 	ft_putstr(" : ");
 	ft_putnbr(size);
 	ft_putstr(" octets\n");

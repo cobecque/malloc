@@ -6,7 +6,7 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 22:40:28 by rostroh           #+#    #+#             */
-/*   Updated: 2019/08/13 03:38:36 by cobecque         ###   ########.fr       */
+/*   Updated: 2019/09/19 18:21:05 by rostroh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ static void	put_large(uint8_t *addr, uint8_t *end, uint64_t size)
 int			print_tiny(void)
 {
 	uint8_t		*addr;
-	uint8_t		size;
+	uint16_t	size;
 	uint64_t	tmp;
 	int			total;
 
 	addr = g_all_malloc.tiny;
 	tmp = read_size(addr + 2);
-	size = *(addr + 10) & 0x7f;
+	size = read16in8_block(addr + SIZE_HEADER);
 	total = 0;
 	while (tmp != 0 || size != 0)
 	{
@@ -41,12 +41,12 @@ int			print_tiny(void)
 		while (size != 0)
 		{
 			total += print_block_tiny(addr, size);
-			addr += size + 1;
-			size = *(addr) & 0x7f;
+			addr += size + 2;
+			size = read16in8_block(addr);
 		}
 		addr = (uint8_t *)tmp;
 		if (tmp != 0)
-			size = *(addr + 10) & 0x7f;
+			size = read16in8_block(addr + SIZE_HEADER);
 	}
 	return (total);
 }

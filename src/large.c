@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: cobecque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/08 02:49:46 by cobecque          #+#    #+#             */
-/*   Updated: 2019/08/24 22:55:00 by cobecque         ###   ########.fr       */
+/*   Created: 2019/02/08 02:49:46 by rostroh           #+#    #+#             */
+/*   Updated: 2019/09/19 12:17:51 by rostroh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ void			*map_large(uint64_t size)
 				MAP_ANON | MAP_PRIVATE, -1, 0));
 }
 
-
 /*
  ** Create large malloc
 */
@@ -91,7 +90,6 @@ void			*creat_large(uint64_t size)
 {
 	uint8_t		*area;
 
-	ft_putstr("create large\n");
 	if (g_all_malloc.large == NULL)
 	{
 		g_all_malloc.large = map_large(size);

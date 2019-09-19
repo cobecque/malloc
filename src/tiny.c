@@ -6,7 +6,7 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 19:33:21 by rostroh           #+#    #+#             */
-/*   Updated: 2019/08/24 22:40:45 by cobecque         ###   ########.fr       */
+/*   Updated: 2019/09/19 18:20:33 by rostroh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ void			*creat_tiny(uint16_t size)
 {
 	uint8_t			*area;
 
-	ft_putstr("salut tiny\n");
 	if (g_all_malloc.tiny == NULL)
 	{
 		g_all_malloc.tiny = mmap(0, g_all_malloc.size_page * NBPAGE_TINY, \

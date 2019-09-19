@@ -6,7 +6,7 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/13 22:32:09 by rostroh           #+#    #+#             */
-/*   Updated: 2019/08/24 22:54:56 by cobecque         ###   ########.fr       */
+/*   Updated: 2019/09/19 18:22:19 by rostroh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,21 +27,21 @@ void				show_alloc_mem(void)
 	if (g_all_malloc.tiny != NULL)
 	{
 		ft_putstr("TINY: 0x");
-		ft_puthex((unsigned long)(g_all_malloc.tiny + 11));
+		ft_puthex((unsigned long)(g_all_malloc.tiny));
 		ft_putchar('\n');
 		total += print_tiny();
 	}
 	if (g_all_malloc.small != NULL)
 	{
 		ft_putstr("SMALL: 0x");
-		ft_puthex((unsigned long)(g_all_malloc.small + 12));
+		ft_puthex((unsigned long)(g_all_malloc.small));
 		ft_putchar('\n');
 		total += print_small();
 	}
 	if (g_all_malloc.large != NULL)
 	{
 		ft_putstr("LARGE: 0x");
-		ft_puthex((unsigned long)(g_all_malloc.large + 24));
+		ft_puthex((unsigned long)(g_all_malloc.large));
 		ft_putchar('\n');
 		total += print_large();
 	}
