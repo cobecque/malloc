@@ -6,7 +6,7 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 12:48:10 by rostroh           #+#    #+#             */
-/*   Updated: 2019/09/05 13:36:36 by rostroh          ###   ########.fr       */
+/*   Updated: 2019/12/05 17:09:28 by cobecque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ uint16_t			get_size_type(void *ptr, uint8_t **header)
 	if (*header == NULL)
 		return (0);
 	s = 2;
+	if (*header == g_all_malloc.small)
+		s = 3;
 	if (*header == g_all_malloc.large)
 	{
 		*header += 8;

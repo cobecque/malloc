@@ -6,7 +6,7 @@
 /*   By: cobecque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 14:40:21 by rostroh           #+#    #+#             */
-/*   Updated: 2019/09/19 18:33:28 by rostroh          ###   ########.fr       */
+/*   Updated: 2019/12/05 18:05:51 by cobecque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,14 +63,17 @@ static void			help_realloc(uint8_t **t, uint64_t val)
 	*t = (uint8_t *)tmp;
 }
 
-int					check_type_size_rea(size_t size, uint16_t s)
+int					check_type_size_rea(size_t size, uint16_t *s)
 {
-	if (s == 2 && size < g_all_malloc.tiny_size)
+	if (*s == 2 && size < g_all_malloc.tiny_size)
 		return (1);
-	else if (s == 2 && size < g_all_malloc.small_size && size >= \
+	else if (*s == 3 && size < g_all_malloc.small_size && size >= \
 			g_all_malloc.tiny_size)
+	{
+		*s = 2;
 		return (1);
-	else if (s == 8 && size >= g_all_malloc.small_size)
+	}
+	else if (*s == 8 && size >= g_all_malloc.small_size)
 		return (1);
 	else
 		return (-1);
@@ -84,13 +87,18 @@ void				*realloc(void *ptr, size_t size)
 	uint64_t	val;
 
 	header = NULL;
+	/*ft_putstr("du coup realloc: ");
+	ft_puthex((unsigned long)ptr);
+	ft_putstr(" sur une size: ");
+	ft_putnbr(size);
+	ft_putchar('\n');*/
 	if (ptr == NULL)
 		return (malloc(size));
 	t = (uint8_t *)ptr;
 	s = get_size_type(ptr, &header);
 	if (s == 0)
 		return (NULL);
-	if (check_type_size_rea(size, s) == -1)
+	if (check_type_size_rea(size, &s) == -1)
 		return (add_new_malloc((uint8_t *)ptr, size));
 	val = val_for_addr_new(t - s, s);
 	help_realloc(&t, val);

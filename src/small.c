@@ -6,7 +6,7 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 19:33:21 by rostroh           #+#    #+#             */
-/*   Updated: 2019/09/05 13:39:41 by rostroh          ###   ########.fr       */
+/*   Updated: 2019/12/05 18:05:05 by cobecque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,5 +98,10 @@ void			*creat_small(uint16_t size)
 		area = go_to_last_header_small((uint8_t *)g_all_malloc.small);
 		area = creat_block_small(area, size);
 	}
+/*	ft_putstr("salop de small je sais ou tu te caches: ");
+	ft_puthex((unsigned long)area);
+	ft_putstr(" avec ta size a la con: ");
+	ft_putnbr(size);
+	ft_putchar('\n');*/
 	return (area);
 }

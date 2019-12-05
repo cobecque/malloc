@@ -6,7 +6,7 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/13 22:32:09 by rostroh           #+#    #+#             */
-/*   Updated: 2019/09/19 18:22:19 by rostroh          ###   ########.fr       */
+/*   Updated: 2019/12/05 18:05:24 by cobecque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,9 @@ void				free(void *ptr)
 {
 	uint8_t		*addr;
 
+	/*ft_putstr("ici pour un free: ");
+	ft_puthex((unsigned long)ptr);
+	ft_putchar('\n');*/
 	if (!ptr)
 		;
 	else
@@ -75,6 +78,9 @@ void				*malloc(size_t size)
 {
 	void	*ptr;
 
+	/*ft_putstr("malloc size :");
+	ft_putnbr(size);
+	ft_putchar('\n');*/
 	if (size % 8 != 0)
 		size += 8 - (size % 8);
 	if (g_all_malloc.small_size == 0 || g_all_malloc.tiny_size == 0)
