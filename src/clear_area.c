@@ -6,7 +6,7 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 11:33:07 by rostroh           #+#    #+#             */
-/*   Updated: 2019/09/05 11:40:54 by rostroh          ###   ########.fr       */
+/*   Updated: 2019/12/10 17:21:02 by rostroh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,9 @@ static void				clear_area_tiny(uint8_t *addr, uint16_t size)
 	tmp = get_next(tmp + 2, addr, 2);
 	put_u16inu8(tmp, read16in8(tmp) - size - 2);
 	*(addr - 2) |= 0x80;
+	ft_putstr("Clear addr : ");
+	ft_puthex((uint64_t)addr);
+	ft_putchar('\n');
 	while (i < size)
 	{
 		addr[i] = 0;
@@ -61,6 +64,9 @@ static void				clear_area_small(uint8_t *addr, uint16_t size)
 	tmp = get_next(tmp + 4, addr, 4);
 	put_u32inu8(tmp, read32in8(tmp) - size - 2);
 	*(addr - 2) |= 0x80;
+	/*ft_putstr("Clear addr : ");
+	ft_puthex((uint64_t)addr);
+	ft_putchar('\n');*/
 	while (i < size)
 	{
 		addr[i] = 0;

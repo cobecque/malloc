@@ -6,7 +6,7 @@
 /*   By: cobecque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/13 03:22:59 by cobecque          #+#    #+#             */
-/*   Updated: 2019/09/19 18:07:06 by rostroh          ###   ########.fr       */
+/*   Updated: 2019/12/09 18:34:53 by rostroh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static char	cal_hex(int reste)
 		return (reste - 10 + 'A');
 }
 
-void		ft_puthex(unsigned long nb)
+void		ft_puthex(uint64_t nb)
 {
 	char	buf[25];
 	char	tmp[25];
@@ -31,6 +31,8 @@ void		ft_puthex(unsigned long nb)
 	reste = 0;
 	i = 0;
 	j = 0;
+	if (nb == 0)
+		ft_putchar('0');
 	while (nb > 0)
 	{
 		reste = nb % 16;
@@ -38,7 +40,7 @@ void		ft_puthex(unsigned long nb)
 		buf[i] = cal_hex(reste);
 		i++;
 	}
-	buf[i] = '\0';
+	i--;
 	while (i >= 0)
 	{
 		tmp[j] = buf[i];

@@ -6,7 +6,7 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 22:49:17 by rostroh           #+#    #+#             */
-/*   Updated: 2019/12/05 17:59:59 by cobecque         ###   ########.fr       */
+/*   Updated: 2019/12/09 18:01:21 by rostroh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_malloc			g_all_malloc;
 ** block.c
 */
 
-void				ft_puthex(unsigned long nb);
+void				ft_puthex(uint64_t nb);
 int					print_block_small(uint8_t *addr, uint16_t size);
 int					print_block_tiny(uint8_t *addr, uint16_t size);
 int					check_type_size(size_t size, uint16_t s);

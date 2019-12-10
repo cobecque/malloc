@@ -1,0 +1,886 @@
+malloc size :736  -->  736
+Addr return : 10DA3F00E
+
+malloc size :32  -->  32
+Addr return : 10DA8000C
+
+ici pour un free: 7F9879400090
+Small entry
+0
+h = 10DA3F000    -> max = 10DA72000
+Small exit without sucess
+a+  Pas trouve
+Fin free
+
+ici pour un free: 7F9879400080
+Small entry
+0
+h = 10DA3F000    -> max = 10DA72000
+Small exit without sucess
+a+  Pas trouve
+Fin free
+
+ici pour un free: 7F98794000B0
+Small entry
+0
+h = 10DA3F000    -> max = 10DA72000
+Small exit without sucess
+a+  Pas trouve
+Fin free
+
+malloc size :32  -->  32
+Addr return : 10DA8002E
+
+malloc size :32  -->  32
+Addr return : 10DA80050
+
+ici pour un free: 7F9879500050
+Small entry
+0
+h = 10DA3F000    -> max = 10DA72000
+Small exit without sucess
+a+  Pas trouve
+Fin free
+
+ici pour un free: 7F9879800000
+Small entry
+0
+h = 10DA3F000    -> max = 10DA72000
+Small exit without sucess
+a+  Pas trouve
+Fin free
+
+malloc size :32  -->  32
+Addr return : 10DA80072
+
+ici pour un free: 7F98795003C0
+Small entry
+0
+h = 10DA3F000    -> max = 10DA72000
+Small exit without sucess
+a+  Pas trouve
+Fin free
+
+ici pour un free: 7F9879400100
+Small entry
+0
+h = 10DA3F000    -> max = 10DA72000
+Small exit without sucess
+a+  Pas trouve
+Fin free
+
+ici pour un free: 7F98795003E0
+Small entry
+0
+h = 10DA3F000    -> max = 10DA72000
+Small exit without sucess
+a+  Pas trouve
+Fin free
+
+realloc: 0 sur une size: 256
+
+malloc size :256  -->  256
+Addr return : 10DA80094
+
+realloc: 10DA80094 sur une size: 768
+
+Ping
+Pong
+1
+malloc size :768  -->  768
+Addr return : 10DA3F2F0
+
+ici pour un free: 10DA80094
+Clear addr : 10DA80094
+Fin free
+
+ici pour un free: 10DA3F2F0
+Small entry
+0
+h = 10DA3F000    -> max = 10DA72000
+Small entry
+0
+h = 10DA3F000    -> max = 10DA72000
+Fin free
+
+realloc: 0 sur une size: 256
+
+malloc size :256  -->  256
+refac 10DA80194
+Addr return : 10DA80094
+
+ici pour un free: 10DA80094
+Clear addr : 10DA80094
+Fin free
+
+realloc: 0 sur une size: 256
+
+malloc size :256  -->  256
+refac 10DA80194
+Addr return : 10DA80094
+
+realloc: 10DA80094 sur une size: 768
+
+Ping
+Pong
+1
+malloc size :768  -->  768
+refac 10DA3F5F0
+Addr return : 10DA3F2F0
+
+ici pour un free: 10DA80094
+Clear addr : 10DA80094
+Fin free
+
+ici pour un free: 10DA3F2F0
+Small entry
+0
+h = 10DA3F000    -> max = 10DA72000
+Small entry
+0
+h = 10DA3F000    -> max = 10DA72000
+Fin free
+
+malloc size :15  -->  16
+Addr return : 10DA80094
+
+malloc size :45  -->  48
+Addr return : 10DA80196
+
+malloc size :144  -->  144
+Addr return : 10DA801C8
+
+malloc size :45  -->  48
+Addr return : 10DA8025A
+
+malloc size :50  -->  56
+Addr return : 10DA8028C
+
+malloc size :47  -->  48
+Addr return : 10DA802C6
+
+malloc size :11  -->  16
+Addr return : 10DA802F8
+
+malloc size :64  -->  64
+Addr return : 10DA8030A
+
+malloc size :49  -->  56
+Addr return : 10DA8034C
+
+malloc size :67  -->  72
+Addr return : 10DA80386
+
+malloc size :52  -->  56
+Addr return : 10DA803D0
+
+malloc size :54  -->  56
+Addr return : 10DA8040A
+
+malloc size :56  -->  56
+Addr return : 10DA80444
+
+malloc size :16  -->  16
+Addr return : 10DA8047E
+
+malloc size :64  -->  64
+Addr return : 10DA80490
+
+malloc size :14  -->  16
+Addr return : 10DA804D2
+
+realloc: 0 sur une size: 256
+
+malloc size :256  -->  256
+Addr return : 10DA804E4
+
+ici pour un free: 10DA804E4
+Clear addr : 10DA804E4
+Fin free
+
+malloc size :3312  -->  3312
+Addr return : 10DA8D018
+
+malloc size :4096  -->  4096
+Addr return : 10DA8E018
+
+realloc: 10DA8D018 sur une size: 103292
+
+Ping
+Small entry
+0
+h = 10DA3F000    -> max = 10DA72000
+Small exit without sucess
+Large entry
+Pong
+old size = 3312
+4
+malloc size :103292  -->  103296
+Addr return : 10DA90018
+
+Small entry
+0
+h = 10DA3F000    -> max = 10DA72000
+Small exit without sucess
+Large entry
+ici pour un free: 10DA8D018
+Small entry
+0
+h = 10DA3F000    -> max = 10DA72000
+Small exit without sucess
+Large entry
+Small entry
+0
+h = 10DA3F000    -> max = 10DA72000
+Small exit without sucess
+Large entry
+Fin free
+
+ici pour un free: 10DA8E018
+Small entry
+0
+h = 10DA3F000    -> max = 10DA72000
+Small exit without sucess
+Large entry
+Small entry
+0
+h = 10DA3F000    -> max = 10DA72000
+Small exit without sucess
+Large entry
+Fin free
+
+malloc size :231  -->  232
+Addr return : 10DA804E4
+
+realloc: 0 sur une size: 1280
+
+malloc size :1280  -->  1280
+Addr return : 10DAAA018
+
+ici pour un free: 7F9879400740
+Small entry
+0
+h = 10DA3F000    -> max = 10DA72000
+Small exit without sucess
+Large entry
+Large exit without sucess
+Large entry
+Large exit without sucess
+a+  Pas trouve
+Fin free
+
+malloc size :32768  -->  32768
+Addr return : 10DAAB018
+
+ici pour un free: 10DAAB018
+Small entry
+0
+h = 10DA3F000    -> max = 10DA72000
+Small exit without sucess
+Large entry
+Large entry
+a+  Pas trouve
+Fin free
+
+realloc: 0 sur une size: 440
+
+malloc size :440  -->  440
+Addr return : 10DA805E6
+
+malloc size :7  -->  8
+Addr return : 10DA807A0
+
+malloc size :6  -->  8
+Addr return : 10DA807AA
+
+malloc size :3  -->  8
+Addr return : 10DA807B4
+
+malloc size :16  -->  16
+Addr return : 10DA807BE
+
+malloc size :16  -->  16
+Addr return : 10DA807D0
+
+malloc size :45  -->  48
+Addr return : 10DA807E2
+
+malloc size :47  -->  48
+Addr return : 10DA80814
+
+malloc size :52  -->  56
+Addr return : 10DA80846
+
+malloc size :37  -->  40
+Addr return : 10DA80880
+
+malloc size :45  -->  48
+Addr return : 10DA808AA
+
+malloc size :50  -->  56
+Addr return : 10DA808DC
+
+malloc size :49  -->  56
+Addr return : 10DA80916
+
+malloc size :46  -->  48
+Addr return : 10DA80950
+
+malloc size :50  -->  56
+Addr return : 10DA80982
+
+malloc size :48  -->  48
+Addr return : 10DA809BC
+
+ici pour un free: 7F9879401E00
+Small entry
+0
+h = 10DA3F000    -> max = 10DA72000
+Small exit without sucess
+Large entry
+Large exit without sucess
+Large entry
+Large exit without sucess
+a+  Pas trouve
+Fin free
+
+ici pour un free: 7F9879401E10
+Small entry
+0
+h = 10DA3F000    -> max = 10DA72000
+Small exit without sucess
+Large entry
+Large exit without sucess
+Large entry
+Large exit without sucess
+a+  Pas trouve
+Fin free
+
+malloc size :40  -->  40
+Addr return : 10DA809EE
+
+ici pour un free: 7F9879401BD0
+Small entry
+0
+h = 10DA3F000    -> max = 10DA72000
+Small exit without sucess
+Large entry
+Large exit without sucess
+Large entry
+Large exit without sucess
+a+  Pas trouve
+Fin free
+
+malloc size :52  -->  56
+Addr return : 10DA80A18
+
+malloc size :48  -->  48
+Addr return : 10DA80A52
+
+malloc size :45  -->  48
+Addr return : 10DA80A84
+
+ici pour un free: 7F98796001E0
+Small entry
+0
+h = 10DA3F000    -> max = 10DA72000
+Small exit without sucess
+Large entry
+Large exit without sucess
+Large entry
+Large exit without sucess
+a+  Pas trouve
+Fin free
+
+ici pour un free: 7F98796001F0
+Small entry
+0
+h = 10DA3F000    -> max = 10DA72000
+Small exit without sucess
+Large entry
+Large exit without sucess
+Large entry
+Large exit without sucess
+a+  Pas trouve
+Fin free
+
+ici pour un free: 7F9879401C80
+Small entry
+0
+h = 10DA3F000    -> max = 10DA72000
+Small exit without sucess
+Large entry
+Large exit without sucess
+Large entry
+Large exit without sucess
+a+  Pas trouve
+Fin free
+
+ici pour un free: 7F9879600060
+Small entry
+0
+h = 10DA3F000    -> max = 10DA72000
+Small exit without sucess
+Large entry
+Large exit without sucess
+Large entry
+Large exit without sucess
+a+  Pas trouve
+Fin free
+
+ici pour un free: 10DA80A18
+Clear addr : 10DA80A18
+Fin free
+
+ici pour un free: 10DA80A52
+Clear addr : 10DA80A52
+Fin free
+
+ici pour un free: 7F98796002C0
+Small entry
+0
+h = 10DA3F000    -> max = 10DA72000
+Small exit without sucess
+Large entry
+Large exit without sucess
+Large entry
+Large exit without sucess
+a+  Pas trouve
+Fin free
+
+ici pour un free: 10DA80A84
+Clear addr : 10DA80A84
+Fin free
+
+ici pour un free: 7F9879600200
+Small entry
+0
+h = 10DA3F000    -> max = 10DA72000
+Small exit without sucess
+Large entry
+Large exit without sucess
+Large entry
+Large exit without sucess
+a+  Pas trouve
+Fin free
+
+ici pour un free: 10DA80982
+Clear addr : 10DA80982
+Fin free
+
+ici pour un free: 10DA80814
+Clear addr : 10DA80814
+Fin free
+
+ici pour un free: 7F9879401BA0
+Small entry
+0
+h = 10DA3F000    -> max = 10DA72000
+Small exit without sucess
+Large entry
+Large exit without sucess
+Large entry
+Large exit without sucess
+a+  Pas trouve
+Fin free
+
+ici pour un free: 10DA80916
+Clear addr : 10DA80916
+Fin free
+
+ici pour un free: 10DA809BC
+Clear addr : 10DA809BC
+Fin free
+
+ici pour un free: 10DA80950
+Clear addr : 10DA80950
+Fin free
+
+ici pour un free: 10DA80880
+Clear addr : 10DA80880
+Fin free
+
+ici pour un free: 7F9879401B50
+Small entry
+0
+h = 10DA3F000    -> max = 10DA72000
+Small exit without sucess
+Large entry
+Large exit without sucess
+Large entry
+Large exit without sucess
+a+  Pas trouve
+Fin free
+
+ici pour un free: 10DA808AA
+Clear addr : 10DA808AA
+Fin free
+
+ici pour un free: 10DA807E2
+Clear addr : 10DA807E2
+Fin free
+
+ici pour un free: 7F9879401B80
+Small entry
+0
+h = 10DA3F000    -> max = 10DA72000
+Small exit without sucess
+Large entry
+Large exit without sucess
+Large entry
+Large exit without sucess
+a+  Pas trouve
+Fin free
+
+ici pour un free: 10DA808DC
+Clear addr : 10DA808DC
+Fin free
+
+ici pour un free: 7F9879401B30
+Small entry
+0
+h = 10DA3F000    -> max = 10DA72000
+Small exit without sucess
+Large entry
+Large exit without sucess
+Large entry
+Large exit without sucess
+a+  Pas trouve
+Fin free
+
+ici pour un free: 10DA80846
+Clear addr : 10DA80846
+Fin free
+
+ici pour un free: 7F9879401A70
+Small entry
+0
+h = 10DA3F000    -> max = 10DA72000
+Small exit without sucess
+Large entry
+Large exit without sucess
+Large entry
+Large exit without sucess
+a+  Pas trouve
+Fin free
+
+malloc size :24  -->  24
+Addr return : 10DA807E2
+
+malloc size :24  -->  24
+Addr return : 10DA80846
+
+malloc size :24  -->  24
+Addr return : 10DA808AA
+
+malloc size :24  -->  24
+Addr return : 10DA808DC
+
+malloc size :24  -->  24
+Addr return : 10DA80950
+
+malloc size :24  -->  24
+Addr return : 10DA809BC
+
+malloc size :24  -->  24
+Addr return : 10DA80A18
+
+malloc size :24  -->  24
+Addr return : 10DA80A52
+
+malloc size :5  -->  8
+Addr return : 10DA80A84
+
+malloc size :5  -->  8
+Addr return : 10DA80AB6
+
+malloc size :45  -->  48
+Addr return : 10DA80AC0
+
+malloc size :47  -->  48
+Addr return : 10DA80AF2
+
+malloc size :52  -->  56
+Addr return : 10DA80B24
+
+malloc size :40  -->  40
+Addr return : 10DA80B5E
+
+malloc size :45  -->  48
+Addr return : 10DA80B88
+
+malloc size :50  -->  56
+Addr return : 10DA80BBA
+
+malloc size :49  -->  56
+Addr return : 10DA80BF4
+
+malloc size :46  -->  48
+Addr return : 10DA80C2E
+
+malloc size :50  -->  56
+Addr return : 10DA80C60
+
+malloc size :48  -->  48
+Addr return : 10DA80C9A
+
+ici pour un free: 7F98795026A0
+Small entry
+0
+h = 10DA3F000    -> max = 10DA72000
+Small exit without sucess
+Large entry
+Large exit without sucess
+Large entry
+Large exit without sucess
+a+  Pas trouve
+Fin free
+
+ici pour un free: 7F98795026B0
+Small entry
+0
+h = 10DA3F000    -> max = 10DA72000
+Small exit without sucess
+Large entry
+Large exit without sucess
+Large entry
+Large exit without sucess
+a+  Pas trouve
+Fin free
+
+ici pour un free: 7F9879502470
+Small entry
+0
+h = 10DA3F000    -> max = 10DA72000
+Small exit without sucess
+Large entry
+Large exit without sucess
+Large entry
+Large exit without sucess
+a+  Pas trouve
+Fin free
+
+malloc size :52  -->  56
+Addr return : 10DA80CCC
+
+malloc size :48  -->  48
+Addr return : 10DA80D06
+
+malloc size :45  -->  48
+Addr return : 10DA80D38
+
+ici pour un free: 7F9879600480
+Small entry
+0
+h = 10DA3F000    -> max = 10DA72000
+Small exit without sucess
+Large entry
+Large exit without sucess
+Large entry
+Large exit without sucess
+a+  Pas trouve
+Fin free
+
+ici pour un free: 7F9879600490
+Small entry
+0
+h = 10DA3F000    -> max = 10DA72000
+Small exit without sucess
+Large entry
+Large exit without sucess
+Large entry
+Large exit without sucess
+a+  Pas trouve
+Fin free
+
+ici pour un free: 7F9879502520
+Small entry
+0
+h = 10DA3F000    -> max = 10DA72000
+Small exit without sucess
+Large entry
+Large exit without sucess
+Large entry
+Large exit without sucess
+a+  Pas trouve
+Fin free
+
+ici pour un free: 7F98796003D0
+Small entry
+0
+h = 10DA3F000    -> max = 10DA72000
+Small exit without sucess
+Large entry
+Large exit without sucess
+Large entry
+Large exit without sucess
+a+  Pas trouve
+Fin free
+
+ici pour un free: 10DA80CCC
+Clear addr : 10DA80CCC
+Fin free
+
+ici pour un free: 10DA80D06
+Clear addr : 10DA80D06
+Fin free
+
+ici pour un free: 7F9879600560
+Small entry
+0
+h = 10DA3F000    -> max = 10DA72000
+Small exit without sucess
+Large entry
+Large exit without sucess
+Large entry
+Large exit without sucess
+a+  Pas trouve
+Fin free
+
+ici pour un free: 10DA80D38
+Clear addr : 10DA80D38
+Fin free
+
+ici pour un free: 7F98796004A0
+Small entry
+0
+h = 10DA3F000    -> max = 10DA72000
+Small exit without sucess
+Large entry
+Large exit without sucess
+Large entry
+Large exit without sucess
+a+  Pas trouve
+Fin free
+
+ici pour un free: 10DA80C60
+Clear addr : 10DA80C60
+Fin free
+
+ici pour un free: 10DA80AF2
+Clear addr : 10DA80AF2
+Fin free
+
+ici pour un free: 7F9879502440
+Small entry
+0
+h = 10DA3F000    -> max = 10DA72000
+Small exit without sucess
+Large entry
+Large exit without sucess
+Large entry
+Large exit without sucess
+a+  Pas trouve
+Fin free
+
+ici pour un free: 10DA80BF4
+Clear addr : 10DA80BF4
+Fin free
+
+ici pour un free: 10DA80C9A
+Clear addr : 10DA80C9A
+Fin free
+
+ici pour un free: 10DA80C2E
+Clear addr : 10DA80C2E
+Fin free
+
+ici pour un free: 10DA80B5E
+Clear addr : 10DA80B5E
+Fin free
+
+ici pour un free: 7F98795023F0
+Small entry
+0
+h = 10DA3F000    -> max = 10DA72000
+Small exit without sucess
+Large entry
+Large exit without sucess
+Large entry
+Large exit without sucess
+a+  Pas trouve
+Fin free
+
+ici pour un free: 10DA80B88
+Clear addr : 10DA80B88
+Fin free
+
+ici pour un free: 10DA80AC0
+Clear addr : 10DA80AC0
+Fin free
+
+ici pour un free: 7F9879502420
+Small entry
+0
+h = 10DA3F000    -> max = 10DA72000
+Small exit without sucess
+Large entry
+Large exit without sucess
+Large entry
+Large exit without sucess
+a+  Pas trouve
+Fin free
+
+ici pour un free: 10DA80BBA
+Clear addr : 10DA80BBA
+Fin free
+
+ici pour un free: 7F98795023D0
+Small entry
+0
+h = 10DA3F000    -> max = 10DA72000
+Small exit without sucess
+Large entry
+Large exit without sucess
+Large entry
+Large exit without sucess
+a+  Pas trouve
+Fin free
+
+ici pour un free: 10DA80B24
+Clear addr : 10DA80B24
+Fin free
+
+ici pour un free: 7F9879502310
+Small entry
+0
+h = 10DA3F000    -> max = 10DA72000
+Small exit without sucess
+Large entry
+Large exit without sucess
+Large entry
+Large exit without sucess
+a+  Pas trouve
+Fin free
+
+malloc size :45  -->  48
+Addr return : 10DA80AC0
+
+malloc size :47  -->  48
+Addr return : 10DA80B24
+
+malloc size :52  -->  56
+Addr return : 10DA80BBA
+
+malloc size :15  -->  16
+Addr return : 10DA80B88
+
+malloc size :45  -->  48
+Addr return : 10DA80C2E
+
+malloc size :50  -->  56
+Addr return : 10DA80C9A
+
+malloc size :49  -->  56
+Addr return : 10DA80D6A
+
+malloc size :46  -->  48
+refac 10DA80D36
+Addr return : 10DA80D06
+
+malloc size :50  -->  56
+Addr return : 10DA80D38
+
+malloc size :48  -->  48
+Addr return : 10DA88D38
+

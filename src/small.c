@@ -6,7 +6,7 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 19:33:21 by rostroh           #+#    #+#             */
-/*   Updated: 2019/12/05 18:05:05 by cobecque         ###   ########.fr       */
+/*   Updated: 2019/12/10 17:29:11 by rostroh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,13 @@ uint8_t			*refactorisation(uint8_t *ptr, uint16_t size)
 	old_size = read16in8_block(ptr);
 	put_u16inu8(ptr, size);
 	put_u16inu8(ptr + size + 2, (old_size - size - 2));
-	*(ptr + size + 2) |= 0x80;
+	if ((*(ptr + size + 2) & 0x80) == 0x80)
+	{
+		*(ptr + size + 2) |= 0x80;
+		ft_putstr("refac ");
+		ft_puthex((uint64_t)ptr + size + 2);
+		ft_putchar('\n');
+	}
 	return (ptr + 2);
 }
 
