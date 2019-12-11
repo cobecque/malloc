@@ -6,7 +6,7 @@
 /*   By: cobecque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 09:38:44 by rostroh           #+#    #+#             */
-/*   Updated: 2019/12/10 16:28:41 by rostroh          ###   ########.fr       */
+/*   Updated: 2019/12/11 16:42:15 by rostroh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,7 @@ int				look_addr(uint8_t *look_up, uint8_t *to_find, uint16_t size, uint16_t typ
 	if (look_up + size == to_find)
 	{
 		if ((*look_up & 0x80) == 0x80)
-		{
-			ft_putstr("b+  ");
 			return (0);
-		}
 		return (1);
 	}
 	val = val_for_addr(look_up, type);
@@ -52,15 +49,11 @@ int				look_addr(uint8_t *look_up, uint8_t *to_find, uint16_t size, uint16_t typ
 		if (look_up + size == to_find)
 		{
 			if ((*look_up & 0x80) == 0x80)
-			{
-				ft_putstr("d+   ");
 				return (0);
-			}
 			return (1);
 		}
 		val = val_for_addr(look_up, type);
 	}
-	ft_putstr("c+   ");
 	return (0);
 }
 
@@ -86,10 +79,7 @@ int				is_allocated(uint8_t *addr)
 
 	current = check_type_of_malloc(addr);
 	if (current == 0)
-	{
-		ft_putstr("a+  ");
 		return (0);
-	}
 	get_size_jump(&size, &jump, current);
 	current += size;
 	tmp = read_size(current);

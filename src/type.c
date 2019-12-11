@@ -6,7 +6,7 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 00:44:09 by rostroh           #+#    #+#             */
-/*   Updated: 2019/12/10 19:42:16 by rostroh          ###   ########.fr       */
+/*   Updated: 2019/12/11 16:47:40 by rostroh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,6 @@ int				is_small_malloc(uint8_t *addr)
 		return (-1);
 	size = read16in8(h);
 	tmp = read_size(h + 4);
-	ft_putnbr(tmp);
-	ft_putchar('\n');
 	while (tmp != 0)
 	{
 		if (addr >= h && addr <= h + g_all_malloc.size_page * NBPAGE_SMALL)

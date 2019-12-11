@@ -6,7 +6,7 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 19:33:21 by rostroh           #+#    #+#             */
-/*   Updated: 2019/12/05 18:04:49 by cobecque         ###   ########.fr       */
+/*   Updated: 2019/12/11 16:56:09 by rostroh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,27 @@ static uint8_t	*creat_block(uint8_t *ptr, uint16_t size)
 {
 	uint32_t	val;
 	uint8_t		*tmp;
+	uint8_t		*refac;
 
 	put_u16inu8(ptr, size + read16in8(ptr) + 2);
 	tmp = ptr + 10;
 	val = read16in8_block(tmp);
 	while (val != 0)
-	{
-		if (((*tmp & 0x80) == 0x80) && (read16in8_block(tmp)) >= size)
+	{/*
+		if (((*tmp & 0x80) == 0x80))
 		{
 			*tmp = *tmp & 0x7f;
+			refac = refactorisation(tmp, size);
+			if (refac != NULL)
+				return (
 			return (refactorisation(tmp, size));
-		}
+		}*/
 		tmp += val + 2;
 		val = read16in8_block(tmp);
-	}
+	}/*
+	ft_putstr("??? : ");
+	ft_puthex((uint64_t)tmp);
+	ft_putchar('\n');*/
 	put_u16inu8(tmp, size);
 	return ((uint8_t*)(tmp + 2));
 }
@@ -82,6 +89,7 @@ void			*creat_tiny(uint16_t size)
 		area = creat_new_area_tiny(size);
 	else
 	{
+		//ft_putstr("flemme\n");
 		area = go_to_last_header((uint8_t *)g_all_malloc.tiny);
 		area = creat_block(area, size);
 	}

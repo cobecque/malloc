@@ -6,7 +6,7 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 19:33:21 by rostroh           #+#    #+#             */
-/*   Updated: 2019/12/10 17:29:11 by rostroh          ###   ########.fr       */
+/*   Updated: 2019/12/11 16:42:49 by rostroh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,20 +65,62 @@ static uint8_t	*creat_new_area_small(size_t size)
 
 uint8_t			*refactorisation(uint8_t *ptr, uint16_t size)
 {
+	uint64_t	new_size;
 	uint16_t	old_size;
 
+	/*
+	ft_putstr("refact addr : ");
+	ft_puthex((uint64_t)ptr);
+	ft_putchar('\n');*/
 	old_size = read16in8_block(ptr);
-	put_u16inu8(ptr, size);
-	put_u16inu8(ptr + size + 2, (old_size - size - 2));
-	if ((*(ptr + size + 2) & 0x80) == 0x80)
+	new_size = old_size;
+	while ((*(ptr + old_size + 2) & 0x80) == 0x80)
 	{
-		*(ptr + size + 2) |= 0x80;
-		ft_putstr("refac ");
-		ft_puthex((uint64_t)ptr + size + 2);
-		ft_putchar('\n');
+		new_size = read16in8_block(ptr + old_size + 2);
+		/*ft_putstr("new size = ");
+		ft_putnbr(new_size);
+		ft_putchar('\n');*/
+		if (size < SIZE_TINY && new_size + old_size > SIZE_TINY)
+			break;
+		if (size < SIZE_SMALL && new_size + old_size > SIZE_SMALL)
+			break;
+		old_size += new_size;
+		put_u16inu8(ptr, old_size);
+		put_u16inu8(ptr + old_size, 0);
 	}
 	return (ptr + 2);
 }
+/*
+uint8_t			*refactorisation(uint8_t *ptr, uint16_t size)
+{
+	uint16_t	old_size;
+
+	ft_putstr("refac ");
+	ft_puthex((uint64_t)ptr);
+	ft_putchar('\n');
+	old_size = read16in8_block(ptr);
+	ft_putstr("old size = ");
+	ft_putnbr(old_size);
+	ft_putstr("   size = ");
+	ft_putnbr(size);
+	ft_putchar('\n');
+	put_u16inu8(ptr, size);
+	if (old_size - size - 2 < 0)
+		put_u16inu8(ptr + size + 2, 0);
+	else
+		put_u16inu8(ptr + size + 2, (old_size - size - 2));
+	ft_putstr("Write : ");
+	ft_putnbr(old_size - size - 2);
+	ft_putstr(" a ");
+	ft_puthex((uint64_t)(ptr + size + 2));
+	ft_putchar('\n');
+	if ((*(ptr + size + 2) & 0x80) == 0x80)
+	{
+		ft_putstr("alright\n");
+		*(ptr + size + 2) |= 0x80;
+	}
+	return (ptr + 2);
+}*/
 
 void			*creat_small(uint16_t size)
 {

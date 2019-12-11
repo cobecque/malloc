@@ -6,7 +6,7 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/13 22:32:09 by rostroh           #+#    #+#             */
-/*   Updated: 2019/12/10 17:14:06 by rostroh          ###   ########.fr       */
+/*   Updated: 2019/12/11 16:40:34 by rostroh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,16 +62,16 @@ void				free(void *ptr)
 	if (!ptr || ptr == 0)
 		;
 	else
-	{
+	{/*
 		ft_putstr("ici pour un free: ");
 		ft_puthex((unsigned long)ptr);
-		ft_putchar('\n');
+		ft_putchar('\n');*/
 		addr = (uint8_t*)ptr;
 		if (is_allocated(addr) == 0)
-			ft_putstr("Pas trouve\n");
+			;//ft_putstr("Pas trouve\n");
 		else
 			clear_area(addr);
-		ft_putstr("Fin free\n\n");
+		//ft_putstr("Fin free\n\n");
 	}
 }
 
@@ -87,27 +87,34 @@ void				*test_nul(unsigned char *ptr, int size)
 void				*malloc(size_t size)
 {
 	void	*ptr;
-
+/*
 	ft_putstr("malloc size :");
 	ft_putnbr(size);
-	ft_putstr("  -->  ");
+	ft_putstr("  -->  ");*/
 	if (size == 0)
+	{
+		//ft_putstr("RIEN, NUL\n");
 		return (NULL);
+	}
 	if (size % 8 != 0)
 		size += 8 - (size % 8);
-	ft_putnbr(size);
-	ft_putchar('\n');
+	//ft_putnbr(size);
+	//ft_putchar('\n');
 	if (g_all_malloc.small_size == 0 || g_all_malloc.tiny_size == 0)
 		init_global();
 	if (size <= g_all_malloc.tiny_size)
+	{
+	//	ft_putstr("normal\n");
 		ptr = creat_tiny((uint16_t)size);
+	}
 	else if (size <= g_all_malloc.small_size)
 		ptr = creat_small((uint16_t)size);
 	else
 		ptr = creat_large((uint64_t)size);
 	ptr = test_nul((unsigned char *)ptr, size);
-	ft_putstr("Addr return : ");
+	/*ft_putstr("Addr return : ");
 	ft_puthex((unsigned long)ptr);
 	ft_putstr("\n\n");
+	show_alloc_mem();*/
 	return (ptr);
 }
