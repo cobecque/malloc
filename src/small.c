@@ -6,7 +6,7 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 19:33:21 by rostroh           #+#    #+#             */
-/*   Updated: 2019/12/11 16:42:49 by rostroh          ###   ########.fr       */
+/*   Updated: 2019/12/12 19:14:54 by cobecque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,23 @@ static uint8_t	*creat_block_small(uint8_t *ptr, uint32_t size)
 	val = read16in8_block(tmp);
 	while (val != 0)
 	{
-		if (((*tmp & 0x80) == 0x80) && (read16in8_block(tmp)) >= size)
+		/*if (((*tmp & 0x80) == 0x80))
 		{
-			*tmp = *tmp & 0x7f;
-			return (refactorisation(tmp, size));
+			tmp = refactorisation(tmp, size);
+			if (read16in8_block(tmp) == 0)
+				break ;
+			val = read16in8_block(tmp);
+			tmp += val + 2;
+			val = read16in8_block(tmp);
 		}
-		tmp += val + 2;
-		val = read16in8_block(tmp);
+		else
+		{*/
+			/*ft_putstr("val dans creat small: ");
+			ft_puthex((unsigned long)tmp);
+			ft_putchar('\n');*/
+			tmp += val + 2;
+			val = read16in8_block(tmp);
+		//}
 	}
 	put_u16inu8(tmp, size);
 	return ((uint8_t*)(tmp + 2));
@@ -65,7 +75,7 @@ static uint8_t	*creat_new_area_small(size_t size)
 
 uint8_t			*refactorisation(uint8_t *ptr, uint16_t size)
 {
-	uint64_t	new_size;
+	uint16_t	new_size;
 	uint16_t	old_size;
 
 	/*
@@ -74,21 +84,31 @@ uint8_t			*refactorisation(uint8_t *ptr, uint16_t size)
 	ft_putchar('\n');*/
 	old_size = read16in8_block(ptr);
 	new_size = old_size;
+	ft_putstr("\n\n\n\nnew size = ");
+	ft_putnbr(new_size);
+	ft_putchar('\n');
 	while ((*(ptr + old_size + 2) & 0x80) == 0x80)
 	{
 		new_size = read16in8_block(ptr + old_size + 2);
-		/*ft_putstr("new size = ");
-		ft_putnbr(new_size);
-		ft_putchar('\n');*/
-		if (size < SIZE_TINY && new_size + old_size > SIZE_TINY)
-			break;
-		if (size < SIZE_SMALL && new_size + old_size > SIZE_SMALL)
+		if (old_size + new_size > SIZE_MAX_UINT16)
 			break;
 		old_size += new_size;
+		ft_putstr("\nsize while = ");
+		ft_putnbr(old_size);
+		ft_putchar('\n');
 		put_u16inu8(ptr, old_size);
 		put_u16inu8(ptr + old_size, 0);
 	}
-	return (ptr + 2);
+	new_size = read16in8_block(ptr);
+	if (size < new_size)
+	{
+		put_u16inu8(ptr + size + 2, new_size - size - 2);
+		put_u16inu8(ptr, 0);
+		ft_putstr("\nsize reussit malloc = ");
+		ft_putnbr(new_size - size - 2);
+		ft_putchar('\n');
+	}
+	return (ptr);
 }
 /*
 uint8_t			*refactorisation(uint8_t *ptr, uint16_t size)
@@ -126,6 +146,9 @@ void			*creat_small(uint16_t size)
 {
 	uint8_t		*area;
 
+//	ft_putstr("size dans small: ");
+//	ft_putnbr(size);
+//	ft_putchar('\n');
 	if (g_all_malloc.small == NULL)
 	{
 		g_all_malloc.small = mmap(0, g_all_malloc.size_page * NBPAGE_SMALL,\
@@ -148,8 +171,8 @@ void			*creat_small(uint16_t size)
 	}
 /*	ft_putstr("salop de small je sais ou tu te caches: ");
 	ft_puthex((unsigned long)area);
-	ft_putstr(" avec ta size a la con: ");
-	ft_putnbr(size);
+	//ft_putstr(" avec ta size a la con: ");
+	//ft_putnbr(size);
 	ft_putchar('\n');*/
 	return (area);
 }

@@ -6,7 +6,7 @@
 /*   By: cobecque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 09:04:19 by rostroh           #+#    #+#             */
-/*   Updated: 2019/09/05 13:40:07 by rostroh          ###   ########.fr       */
+/*   Updated: 2019/12/12 18:55:01 by cobecque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,36 @@ static uint8_t	*help_free_area_large(uint8_t *tmp, uint64_t before, uint64_t s)
 	return (tmp);
 }
 
+int				is_full_free(uint8_t *addr, int type)
+{
+	uint8_t		*tmp;
+	uint16_t	size;
+
+	if (type == 2)
+	{
+		tmp = addr + SIZE_HEADER_SMALL;
+		while (tmp < addr + read32in8(addr))
+		{
+			if ((*tmp & 0x80) != 0x80)
+				return (-1);
+			size = read16in8_block(tmp);
+			tmp += size + 2;
+		}
+	}
+	if (type == 1)
+	{
+		tmp = addr + SIZE_HEADER;
+		while (tmp < addr + read16in8(addr))
+		{
+			if ((*tmp & 0x80) != 0x80)
+				return (-1);
+			size = read16in8_block(tmp);
+			tmp += size + 2;
+		}
+	}
+	return (1);
+}
+
 void			free_area_small(uint8_t *addr)
 {
 	uint8_t		*tmp;
@@ -49,7 +79,7 @@ void			free_area_small(uint8_t *addr)
 	before = (uint64_t)tmp;
 	while (1)
 	{
-		if (read32in8(tmp - 4) - 12 == 0)
+		if (is_full_free(addr, 2) == 1)
 		{
 			free_this = tmp;
 			if (if_small(tmp, next) == -1)
@@ -78,7 +108,7 @@ void			free_area_tiny(uint8_t *addr)
 	before = (uint64_t)tmp;
 	while (1)
 	{
-		if (read16in8(tmp - 2) - 10 == 0)
+		if (is_full_free(addr, 1) == 1)
 		{
 			free_this = tmp;
 			if ((uint64_t)tmp == before)

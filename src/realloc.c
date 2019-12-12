@@ -6,7 +6,7 @@
 /*   By: cobecque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 14:40:21 by rostroh           #+#    #+#             */
-/*   Updated: 2019/12/11 16:41:02 by rostroh          ###   ########.fr       */
+/*   Updated: 2019/12/12 19:50:05 by cobecque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ static void			*add_new_malloc(uint8_t *addr, size_t size)
 	header = NULL;
 	ret = malloc(size);
 	s = get_size_type(addr, &header);
-	if (s == 1)
-		s = *(addr - 1);
-	else if (s == 2)
+	if (s == 2)
+		s = read16in8_block(addr - 2);
+	else if (s == 3)
 		s = read16in8_block(addr - 2);
 	else
 		s = read_u64inu8(addr - 8);
@@ -86,12 +86,12 @@ void				*realloc(void *ptr, size_t size)
 	uint16_t	s;
 	uint64_t	val;
 
-	header = NULL;/*
+	header = NULL;
 	ft_putstr("realloc: ");
 	ft_puthex((unsigned long)ptr);
 	ft_putstr(" sur une size: ");
 	ft_putnbr(size);
-	ft_putstr("\n\n");*/
+	ft_putstr("\n\n");
 	if (ptr == NULL)
 		return (malloc(size));
 	t = (uint8_t *)ptr;
@@ -121,6 +121,6 @@ void				*realloc(void *ptr, size_t size)
 	}*/
 	else
 		return (add_new_malloc((uint8_t *)ptr, size));
-	//ft_putstr("Beuh?\n");
+	ft_putstr("Beuh?\n");
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 22:49:17 by rostroh           #+#    #+#             */
-/*   Updated: 2019/12/09 18:01:21 by rostroh          ###   ########.fr       */
+/*   Updated: 2019/12/11 19:35:57 by cobecque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 
 # define NBPAGE_TINY 13
 # define NBPAGE_SMALL 51
+
+# define SIZE_MAX_UINT16 0x7FFF
 
 typedef struct		s_malloc
 {

@@ -6,7 +6,7 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 11:33:07 by rostroh           #+#    #+#             */
-/*   Updated: 2019/12/11 16:41:27 by rostroh          ###   ########.fr       */
+/*   Updated: 2019/12/12 19:46:19 by cobecque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,56 +29,63 @@ uint8_t					*get_next(uint8_t *tmp, uint8_t *addr, int type)
 
 static void				clear_area_tiny(uint8_t *addr, uint16_t size)
 {
-	uint8_t		*tmp;
+//	uint8_t		*tmp;
 	int			i;
 
 	i = 0;
-	tmp = (uint8_t *)g_all_malloc.tiny;
-	tmp = get_next(tmp + 2, addr, 2);
-	put_u16inu8(tmp, read16in8(tmp) - size - 2);
+//	tmp = (uint8_t *)g_all_malloc.tiny;
+//	tmp = get_next(tmp + 2, addr, 2);
+//	put_u16inu8(tmp, read16in8(tmp) - size - 2);
 	*(addr - 2) |= 0x80;
-	/*ft_putstr("Clear addr : ");
+/*	ft_putstr("g_all_malloc.tiny: ");
+	ft_puthex((unsigned long)g_all_malloc.tiny);
+	ft_putstr(" Clear addr : ");
+	ft_puthex((unsigned long)addr);
+	ft_putstr(" size: ");
+	ft_puthex((unsigned long)size);
+	ft_putchar('\n');
+	ft_putstr("Clear addr : ");
 	ft_puthex((uint64_t)addr);
 	ft_putchar('\n');*/
 	while (i < size)
 	{
+//		ft_putnbr(i);
+//		ft_putchar(' ');
 		addr[i] = 0;
 		i++;
 	}
-	if ((*(addr + i) & 0x80) == 0x80)
+//	ft_putchar('\n');
+	/*if ((*(addr + i) & 0x80) == 0x80)
 	{
 		put_u16inu8(addr - 2, read16in8_block(addr + i) + \
 				read16in8_block(addr - 2) + 2);
 		*(addr - 2) |= 0x80;
 		put_u16inu8(addr + i, 0);
-	}
+	}*/
 }
 
 static void				clear_area_small(uint8_t *addr, uint16_t size)
 {
-	uint8_t		*tmp;
+//	uint8_t		*tmp;
 	int			i;
 
 	i = 0;
-	tmp = (uint8_t *)g_all_malloc.small;
-	tmp = get_next(tmp + 4, addr, 4);
-	put_u32inu8(tmp, read32in8(tmp) - size - 2);
+//	tmp = (uint8_t *)g_all_malloc.small;
+//	tmp = get_next(tmp + 4, addr, 4);
+//	put_u32inu8(tmp, read32in8(tmp) - size - 2);
 	*(addr - 2) |= 0x80;
-	/*ft_putstr("Clear addr : ");
-	ft_puthex((uint64_t)addr);
-	ft_putchar('\n');*/
 	while (i < size)
 	{
 		addr[i] = 0;
 		i++;
 	}
-	if ((*(addr + i) & 0x80) == 0x80)
+	/*if ((*(addr + i) & 0x80) == 0x80)
 	{
 		put_u16inu8(addr - 2, read16in8_block(addr + i) + \
 				read16in8_block(addr - 2) + 2);
 		*(addr - 2) |= 0x80;
 		put_u16inu8(addr + i, 0);
-	}
+	}*/
 }
 
 static void				clear_area_large(uint8_t *addr, uint64_t size)

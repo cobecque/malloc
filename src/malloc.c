@@ -6,7 +6,7 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/13 22:32:09 by rostroh           #+#    #+#             */
-/*   Updated: 2019/12/11 16:40:34 by rostroh          ###   ########.fr       */
+/*   Updated: 2019/12/12 19:49:40 by cobecque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,35 +62,35 @@ void				free(void *ptr)
 	if (!ptr || ptr == 0)
 		;
 	else
-	{/*
+	{
 		ft_putstr("ici pour un free: ");
 		ft_puthex((unsigned long)ptr);
-		ft_putchar('\n');*/
+		ft_putchar('\n');
 		addr = (uint8_t*)ptr;
 		if (is_allocated(addr) == 0)
 			;//ft_putstr("Pas trouve\n");
 		else
 			clear_area(addr);
-		//ft_putstr("Fin free\n\n");
+		ft_putstr("Fin free\n");
 	}
 }
 
-void				*test_nul(unsigned char *ptr, int size)
+/*void				*test_nul(unsigned char *ptr, int size)
 {
 	for (int i = 0; i < size; i++)
 	{
 		ptr[i] = 0;
 	}
 	return (ptr);
-}
+}*/
 
 void				*malloc(size_t size)
 {
 	void	*ptr;
-/*
+
 	ft_putstr("malloc size :");
 	ft_putnbr(size);
-	ft_putstr("  -->  ");*/
+	ft_putstr("\n");
 	if (size == 0)
 	{
 		//ft_putstr("RIEN, NUL\n");
@@ -111,10 +111,11 @@ void				*malloc(size_t size)
 		ptr = creat_small((uint16_t)size);
 	else
 		ptr = creat_large((uint64_t)size);
-	ptr = test_nul((unsigned char *)ptr, size);
+//	ptr = test_nul((unsigned char *)ptr, size);
 	/*ft_putstr("Addr return : ");
 	ft_puthex((unsigned long)ptr);
 	ft_putstr("\n\n");
 	show_alloc_mem();*/
+	ft_putstr("fin malloc\n");
 	return (ptr);
 }
