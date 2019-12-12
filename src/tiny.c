@@ -6,7 +6,7 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 19:33:21 by rostroh           #+#    #+#             */
-/*   Updated: 2019/12/12 19:52:28 by cobecque         ###   ########.fr       */
+/*   Updated: 2019/12/12 21:38:19 by cobecque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,13 +120,13 @@ void			*creat_tiny(uint16_t size)
 	{
 		//ft_putstr("flemme\n");
 		area = go_to_last_header((uint8_t *)g_all_malloc.tiny);
-		ft_putstr("last area: ");
+	/*	ft_putstr("last area: ");
 		ft_puthex((unsigned long)area);
-		ft_putchar('\n');
+		ft_putchar('\n');*/
 		area = creat_block(area, size);
-		ft_putstr("tmp  area: ");
+/*		ft_putstr("tmp  area: ");
 		ft_puthex((unsigned long)area);
-		ft_putchar('\n');
+		ft_putchar('\n');*/
 	}
 	//ft_putstr("tiny base: ");
 	//ft_puthex((unsigned long)g_all_malloc.tiny);

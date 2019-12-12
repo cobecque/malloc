@@ -6,7 +6,7 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 19:33:21 by rostroh           #+#    #+#             */
-/*   Updated: 2019/12/12 19:14:54 by cobecque         ###   ########.fr       */
+/*   Updated: 2019/12/12 22:37:20 by cobecque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,11 @@ static uint8_t	*creat_block_small(uint8_t *ptr, uint32_t size)
 	val = read16in8_block(tmp);
 	while (val != 0)
 	{
+/*		ft_putstr("yolo dans le val: ");
+		ft_puthex((unsigned long)tmp);
+		ft_putstr(" avec bien sur la size: ");
+		ft_puthex((unsigned long)val);
+		ft_putchar('\n');*/
 		/*if (((*tmp & 0x80) == 0x80))
 		{
 			tmp = refactorisation(tmp, size);
@@ -167,7 +172,15 @@ void			*creat_small(uint16_t size)
 	else
 	{
 		area = go_to_last_header_small((uint8_t *)g_all_malloc.small);
+		/*ft_putstr("ici sur le dernier: ");
+		ft_puthex((unsigned long)area);
+		ft_putchar('\n');*/
 		area = creat_block_small(area, size);
+/*		ft_putstr("et l'addr : ");
+		ft_puthex((unsigned long)area);
+		ft_putstr(" la size: ");
+		ft_puthex((unsigned long)read16in8_block(area - 2));
+		ft_putchar('\n');*/
 	}
 /*	ft_putstr("salop de small je sais ou tu te caches: ");
 	ft_puthex((unsigned long)area);

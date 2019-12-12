@@ -9,8 +9,7 @@ int		main(void)
 	while (i < 1024)
 	{
 		addr = (char *)malloc(sizeof(char) * 1024);
-		addr[0] = 'a';
-		addr[1023] = 'b';
+		addr = realloc(0, 416);
 		i++;
 	}
 	free(addr);
