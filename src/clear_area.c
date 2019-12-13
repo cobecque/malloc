@@ -6,7 +6,7 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 11:33:07 by rostroh           #+#    #+#             */
-/*   Updated: 2019/12/13 17:47:49 by cobecque         ###   ########.fr       */
+/*   Updated: 2019/12/13 23:11:03 by rostroh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,6 @@ void					clear_area(uint8_t *addr)
 	uint16_t		size;
 	uint8_t			*tmp;
 
-	ft_putstr("trouver\n");
 	tmp = check_type_of_malloc(addr);
 	if (tmp == g_all_malloc.tiny)
 		size = read16in8_block(addr - 2);

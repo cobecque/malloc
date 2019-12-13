@@ -6,47 +6,78 @@
 /*   By: cobecque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 09:38:44 by rostroh           #+#    #+#             */
-/*   Updated: 2019/12/13 22:41:28 by rostroh          ###   ########.fr       */
+/*   Updated: 2019/12/14 00:17:52 by rostroh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
-
+/*
 uint16_t		val_for_addr(uint8_t *look_up, int jump_next)
 {
 	uint16_t	val;
 
 	val = 0;
 	val = read16in8_block(look_up);
-	/*if (jump_next == 4)
+	if (jump_next == 4)
 		val = read32in8_block(look_up);
-	else*/
+	else
 	if (jump_next == 8)
 	{
 		look_up -= 8;
-		/*ft_putstr("Look for addr : ");
+		ft_putstr("Look for addr : ");
 		ft_puthex((uint64_t)look_up);
-		ft_putchar('\n');*/
+		ft_putchar('\n');
 		val = read_u64inu8(look_up);
 	}
 	return (val);
+}*/
+
+int				look_addr(uint8_t *look_up, uint8_t *to_find, uint16_t size, uint16_t type)
+{
+	int			val;
+
+	type = 0;
+	look_up += 8;
+	if (look_up == to_find)
+	{
+		if ((*look_up & 0x80) == 0x80)
+			return (0);
+		return (1);
+	}
+	val = read16in8_block(look_up);
+	while (val != 0)
+	{
+		ft_puthex((uint64_t)look_up);
+		ft_putstr(" avec une size de ");
+		ft_putnbr(val);
+		ft_putstr(" next -> ");
+		look_up += val + size;
+		if (look_up == to_find)
+		{
+			if ((*look_up & 0x80) == 0x80)
+				return (0);
+			return (1);
+		}
+		val = read16in8_block(look_up);
+	}
+	return (0);
 }
 
+/*
 int				look_addr(uint8_t *look_up, uint8_t *to_find, uint16_t size, uint16_t type)
 {
 	uint8_t			*last;
 	uint16_t		val;
-	int				wtf;
 
-	if (size == 8)
-	{
-		wtf = size;
-		size = type;
-		type = wtf;
-	}
+	ft_putstr("Grosse main : ");
+	ft_puthex((uint64_t)look_up);
+	ft_putstr(" et les pieds : ");
+	ft_puthex((uint64_t)to_find);
+	ft_putchar('\n');
 	look_up += 8;
-	if (look_up + size == to_find)
+	if (look_up == to_find)
 	{
+		ft_putstr("excuse gros\n");
 		if ((*look_up & 0x80) == 0x80)
 		{
 			return (0);
@@ -54,45 +85,42 @@ int				look_addr(uint8_t *look_up, uint8_t *to_find, uint16_t size, uint16_t typ
 		return (1);
 	}
 	look_up += size;
-/*	ft_putstr("Apres size = ");
+	ft_putstr("Apres size = ");
 	ft_putnbr(size);
 	ft_putstr(" et type = ");
 	ft_putnbr(type);
-	ft_putchar('\n');*/
-	val = val_for_addr(look_up, type);
-	/*ft_putstr("val = ");
+	ft_putchar('\n');
+	val = read16in8_block(look_up);
+	ft_putstr("val = ");
 	ft_putnbr(val);
-	ft_putchar('\n');*/
+	ft_putchar('\n');
 	while (val != 0)
 	{
 		last = look_up;
-		look_up += val + size;/*
-		ft_puthex((uint64_t)look_up);
-		ft_putstr(" avec une size de ");
-		ft_putnbr(val);
-		ft_putstr(" next -> ");*/
+		look_up += val + size;
 		if (look_up + size == to_find)
 		{
 			if ((*look_up & 0x80) == 0x80)
 				return (0);
 			return (1);
 		}
-		val = val_for_addr(look_up, type);
+		val = read16in8_block(look_up);
+		//val = val_for_addr(look_up, type);
 	}
 	return (0);
-}
+}*/
 
 static void		get_size_jump(uint16_t *size, uint16_t *jump, uint8_t *current)
 {
 	*size = 2;
 	*jump = 2;
 	if (current == g_all_malloc.small)
-		*size = 4;
+		;/**size = 4;
 	if (current == g_all_malloc.large)
 	{
 		*jump = 8;
 		*size = -8;
-	}
+	}*/
 }
 
 int				free_large(uint8_t *addr, uint8_t *current)
@@ -116,7 +144,7 @@ int				free_large(uint8_t *addr, uint8_t *current)
 			else
 				g_all_malloc.large = NULL;
 		}
-		//ft_putstr("Et de une zone free\n");
+		ft_putstr("Et de une zone free\n");
 		munmap(addr, size);
 		return (0);
 	}
@@ -125,24 +153,24 @@ int				free_large(uint8_t *addr, uint8_t *current)
 		current = (uint8_t *)tmp;
 		tmp = read_u64inu8(current + 8);
 		size = read_u64inu8(current);
-		/*ft_putstr("current = ");
+		ft_putstr("current = ");
 		ft_puthex((uint64_t)current);
 		ft_putstr(", next = ");
 		ft_puthex((uint64_t)tmp);
 		ft_putstr(" et size current = ");
 		ft_putnbr(size);
-		ft_putchar('\n');*/
+		ft_putchar('\n');
 		if (current == addr - 16)
 		{
 			if (old != NULL)
 				put_u64inu8(old + 8, read_u64inu8(current + 8));
-			//ft_putstr("Et de une zone free\n");
+			ft_putstr("Et de une zone free\n");
 			munmap(addr, size);
 			return (0);
 		}
 		old = current;
 	}
-//	ft_putstr("Y A R POTO\n\n");
+	ft_putstr("\t\t\tY A R POTO\n\n");
 	return (0);
 }
 
@@ -163,10 +191,7 @@ int				is_allocated(uint8_t *addr)
 	get_size_jump(&size, &jump, current);
 	if (jump == 8)
 		return (free_large(addr, current));
-	if (jump == 8)
-		current += jump;
-	else
-		current += size;
+	current += size;
 	tmp = read_size(current);/*
 	ft_putstr("tmp: ");
 	ft_puthex(tmp);
@@ -181,12 +206,10 @@ int				is_allocated(uint8_t *addr)
 	while (tmp != 0)
 	{
 		if ((uint64_t)current < (uint64_t)addr && (uint64_t)addr < tmp)
-			return (look_addr(current, addr, jump, size));
-		if (jump == 8)
-			current = (uint8_t *)tmp + jump;
+			return (look_addr(current, addr, size, jump));
 		else
 			current = (uint8_t *)tmp + size;
 		tmp = read_size(current);
 	}
-	return (look_addr(current, addr, jump, size));
+	return (look_addr(current, addr, size, jump));
 }

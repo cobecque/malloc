@@ -6,7 +6,7 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 22:40:28 by rostroh           #+#    #+#             */
-/*   Updated: 2019/12/13 17:16:53 by cobecque         ###   ########.fr       */
+/*   Updated: 2019/12/13 23:31:56 by rostroh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,9 @@ int			print_large(void)
 	{
 		tmp = read_size(addr + 8);
 		size = read_u64inu8(addr);
-		total += (size - 16);
+		total += size;
 		end = addr + size + 16;
-		put_large(addr, end, size - 16);
+		put_large(addr, end, size);
 		addr = (uint8_t *)tmp;
 		size = 0;
 		if (tmp != 0)

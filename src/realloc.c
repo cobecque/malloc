@@ -6,7 +6,7 @@
 /*   By: cobecque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 14:40:21 by rostroh           #+#    #+#             */
-/*   Updated: 2019/12/13 22:43:38 by rostroh          ###   ########.fr       */
+/*   Updated: 2019/12/13 23:12:45 by rostroh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,11 @@ void				*realloc(void *ptr, size_t size)
 	uint64_t	val;
 
 	header = NULL;
-	/*ft_putstr("realloc: ");
+	ft_putstr("realloc: ");
 	ft_puthex((unsigned long)ptr);
 	ft_putstr(" sur une size: ");
 	ft_putnbr(size);
-	ft_putstr("\n\n");*/
+	ft_putstr("\n\n");
 	if (ptr == NULL)
 		return (malloc(size));
 	t = (uint8_t *)ptr;
