@@ -6,7 +6,7 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 11:33:07 by rostroh           #+#    #+#             */
-/*   Updated: 2019/12/12 20:21:47 by cobecque         ###   ########.fr       */
+/*   Updated: 2019/12/13 17:47:49 by cobecque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,6 @@ static void				clear_area_large(uint8_t *addr, uint64_t size)
 	}
 	tmp -= 8;
 	put_u64inu8(tmp, read_u64inu8(tmp) - size - 8);
-	*(addr - 8) |= 0x80;
 	while (i < size)
 	{
 		addr[i] = 0;
@@ -120,6 +119,7 @@ void					clear_area(uint8_t *addr)
 	uint16_t		size;
 	uint8_t			*tmp;
 
+	ft_putstr("trouver\n");
 	tmp = check_type_of_malloc(addr);
 	if (tmp == g_all_malloc.tiny)
 		size = read16in8_block(addr - 2);

@@ -6,7 +6,7 @@
 /*   By: cobecque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 09:38:44 by rostroh           #+#    #+#             */
-/*   Updated: 2019/12/11 16:42:15 by rostroh          ###   ########.fr       */
+/*   Updated: 2019/12/13 18:02:57 by cobecque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int				look_addr(uint8_t *look_up, uint8_t *to_find, uint16_t size, uint16_t typ
 	uint8_t			*last;
 	uint16_t		val;
 
+	ft_putstr("lol\n");
 	look_up += 8;
 	if (look_up + size == to_find)
 	{
@@ -37,6 +38,7 @@ int				look_addr(uint8_t *look_up, uint8_t *to_find, uint16_t size, uint16_t typ
 			return (0);
 		return (1);
 	}
+	look_up += size;
 	val = val_for_addr(look_up, type);
 	while (val != 0)
 	{
@@ -66,7 +68,7 @@ static void		get_size_jump(uint16_t *size, uint16_t *jump, uint8_t *current)
 	if (current == g_all_malloc.large)
 	{
 		*jump = 8;
-		*size = 8;
+		*size = -8;
 	}
 }
 
@@ -77,17 +79,32 @@ int				is_allocated(uint8_t *addr)
 	uint16_t		size;
 	uint16_t		jump;
 
+	ft_putstr("non pas toi is allocated\n");
 	current = check_type_of_malloc(addr);
+	ft_putstr("current: ");
+	ft_puthex((unsigned long)current);
+	ft_putchar('\n');
 	if (current == 0)
 		return (0);
 	get_size_jump(&size, &jump, current);
-	current += size;
+	if (jump == 8)
+		current += jump;
+	else
+		current += size;
 	tmp = read_size(current);
+	ft_putstr("tmp: ");
+	ft_puthex(tmp);
+	ft_putstr(" et current: ");
+	ft_puthex((unsigned long)current);
+	ft_putchar('\n');
 	while (tmp != 0)
 	{
 		if ((uint64_t)current < (uint64_t)addr && (uint64_t)addr < tmp)
 			return (look_addr(current, addr, jump, size));
-		current = (uint8_t *)tmp + size;
+		if (jump == 8)
+			current = (uint8_t *)tmp + jump;
+		else
+			current = (uint8_t *)tmp + size;
 		tmp = read_size(current);
 	}
 	return (look_addr(current, addr, jump, size));

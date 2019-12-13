@@ -6,7 +6,7 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 12:48:10 by rostroh           #+#    #+#             */
-/*   Updated: 2019/12/11 20:34:06 by cobecque         ###   ########.fr       */
+/*   Updated: 2019/12/13 17:55:37 by cobecque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,13 @@ uint16_t			get_size_type(void *ptr, uint8_t **header)
 	uint16_t	s;
 	uint64_t	next;
 
+	ft_putstr("c'est la que ca va pas: ");
+	ft_puthex((unsigned long)ptr);
+	ft_putchar('\n');
 	*header = check_type_of_malloc(ptr);
 	if (*header == NULL)
 		return (0);
+	ft_putstr("ici\n");
 	s = 2;
 	if (*header == g_all_malloc.small)
 		s = 3;
@@ -56,6 +60,7 @@ uint16_t			get_size_type(void *ptr, uint8_t **header)
 		}
 		*header -= 8;
 		s = 8;
+		ft_putstr("ca passe\n");
 	}
 	return (return_good_header(ptr, header, s));
 }

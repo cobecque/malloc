@@ -6,7 +6,7 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 22:40:28 by rostroh           #+#    #+#             */
-/*   Updated: 2019/09/19 18:21:05 by rostroh          ###   ########.fr       */
+/*   Updated: 2019/12/13 17:16:53 by cobecque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 static void	put_large(uint8_t *addr, uint8_t *end, uint64_t size)
 {
 	ft_putstr("0x");
-	ft_puthex((unsigned long)(addr + 1));
+	ft_puthex((unsigned long)(addr + 16));
 	ft_putstr(" - 0X");
-	ft_puthex((unsigned long)(end + 1));
+	ft_puthex((unsigned long)(end));
 	ft_putstr(" : ");
 	ft_putnbr(size);
 	ft_putstr(" octets\n");
@@ -89,20 +89,19 @@ int			print_large(void)
 
 	addr = g_all_malloc.large;
 	tmp = read_size(addr + 8);
-	size = read_u64inu8(addr + 16);
+	size = read_u64inu8(addr);
 	total = 0;
 	while (tmp != 0 || size != 0)
 	{
 		tmp = read_size(addr + 8);
-		addr += 16;
 		size = read_u64inu8(addr);
-		total += size;
-		end = addr + size;
-		put_large(addr, end, size);
+		total += (size - 16);
+		end = addr + size + 16;
+		put_large(addr, end, size - 16);
 		addr = (uint8_t *)tmp;
 		size = 0;
 		if (tmp != 0)
-			size = read_u64inu8(addr + 16);
+			size = read_u64inu8(addr);
 	}
 	return (total);
 }

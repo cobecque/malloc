@@ -6,7 +6,7 @@
 /*   By: cobecque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 09:04:19 by rostroh           #+#    #+#             */
-/*   Updated: 2019/12/12 18:55:01 by cobecque         ###   ########.fr       */
+/*   Updated: 2019/12/13 18:10:07 by cobecque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static uint8_t	*help_free_area_large(uint8_t *tmp, uint64_t before, uint64_t s)
 		g_all_malloc.large = (void *)read_u64inu8(tmp);
 	tmp = (uint8_t *)before;
 	put_u64inu8(tmp, read_u64inu8(free_this));
-	munmap(free_this, s);
+	munmap(free_this - 8, s);
 	return (tmp);
 }
 
@@ -139,7 +139,7 @@ void			free_area_large(uint8_t *header, uint8_t *addr)
 	while (next != 0 || size != 0)
 	{
 		size = read_u64inu8(tmp - 8);
-		if (read_u64inu8(tmp - 8) - 16 == 0 && tmp - 8 == addr - 24)
+		if (read_u64inu8(tmp - 8) - 16 == 0 && tmp - 8 == addr - 16)
 			tmp = help_free_area_large(tmp, before, size);
 		if (next == 0)
 			break ;

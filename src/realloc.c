@@ -6,7 +6,7 @@
 /*   By: cobecque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 14:40:21 by rostroh           #+#    #+#             */
-/*   Updated: 2019/12/12 22:37:38 by cobecque         ###   ########.fr       */
+/*   Updated: 2019/12/13 18:04:23 by cobecque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void			*add_new_malloc(uint8_t *addr, size_t size)
 	else if (s == 3)
 		s = read16in8_block(addr - 2);
 	else
-		s = read_u64inu8(addr - 8);
+		s = read_u64inu8(addr - 16);
 	if (s < size)
 		ret = ft_memcpy(ret, addr, s);
 	else
@@ -96,13 +96,16 @@ void				*realloc(void *ptr, size_t size)
 		return (malloc(size));
 	t = (uint8_t *)ptr;
 	s = get_size_type(ptr, &header);
+	ft_putstr("s: ");
+	ft_putnbr(s);
+	ft_putchar('\n');
 	if (s == 0)
 		return (NULL);
 	if (check_type_size_rea(size, &s) == -1)
 		return (add_new_malloc((uint8_t *)ptr, size));
 	val = val_for_addr_new(t - s, s);
 	help_realloc(&t, val);
-	if (s == 8 && size <= read_u64inu8(ptr - 8))
+	if (s == 8 && size <= read_u64inu8(ptr - 16))
 		return (ptr);
 	/*if (s == 8 && (uint64_t)(ptr - s + size) < \
 			(uint64_t)(g_all_malloc.size_page * nb_page(s, ptr) + header))
