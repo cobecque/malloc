@@ -6,7 +6,7 @@
 /*   By: cobecque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 02:49:46 by rostroh           #+#    #+#             */
-/*   Updated: 2019/12/13 17:08:15 by cobecque         ###   ########.fr       */
+/*   Updated: 2019/12/13 20:22:39 by rostroh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void			*creat_large(uint64_t size)
 		creat_header_large((uint8_t *)area);
 	/*	put_u64inu8(area, size + 16 + 8);
 		put_u64inu8(area + 16, size);*/
-		put_u64inu8(area, size + 16);
+		put_u64inu8(area, size); //+16 ?
 		put_u64inu8(area + 8, 0);
 		area += 16;
 	}
@@ -111,7 +111,7 @@ void			*creat_large(uint64_t size)
 		area = map_large(size);
 		write_next_addr_large((uint64_t)area, (uint8_t *)g_all_malloc.large);
 		creat_header_large((uint8_t *)area);
-		put_u64inu8(area, size + 16);
+		put_u64inu8(area, size); //+16 ?
 		put_u64inu8(area + 8, 0);
 		area += 16;
 	}

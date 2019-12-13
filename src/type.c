@@ -6,7 +6,7 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 00:44:09 by rostroh           #+#    #+#             */
-/*   Updated: 2019/12/13 18:08:01 by cobecque         ###   ########.fr       */
+/*   Updated: 2019/12/13 22:42:35 by rostroh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,13 @@ static int		check_block(uint8_t *header, uint8_t *find, int type)
 	uint8_t		*addr;
 	uint16_t	val;
 
-	ft_putstr("ou\n");
 	addr = header + SIZE_HEADER;
 	if (type == 8)
 		addr += 6;
 	else if (type == 2)
 		addr += 2;
 	if (addr == find)
-	{
-		ft_putstr("return 1\n");
 		return (1);
-	}
 	if (type == 2 || type == 1)
 	{
 		val = read16in8_block(addr);
@@ -98,10 +94,7 @@ int				is_large_malloc(uint8_t *addr)
 
 	header = g_all_malloc.large;
 	if (header == 0)
-	{
-		ft_putstr("coucou header 0\n");
 		return (-1);
-	}
 	size = read_u64inu8(header);
 	tmp = read_u64inu8(header + 8);
 	while (tmp != 0)
