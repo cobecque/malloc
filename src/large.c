@@ -6,7 +6,7 @@
 /*   By: cobecque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 02:49:46 by rostroh           #+#    #+#             */
-/*   Updated: 2019/12/13 20:22:39 by rostroh          ###   ########.fr       */
+/*   Updated: 2019/12/14 18:37:25 by cobecque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,9 @@ void			*creat_large(uint64_t size)
 	uint8_t		*area;
 
 //	ft_putstr("size in large: ");
-//	ft_putnbr(size);
-//	ft_putchar('\n');
+	/*
+	ft_putnbr(size);
+	ft_putchar('\n');*/
 	if (g_all_malloc.large == NULL)
 	{
 		g_all_malloc.large = map_large(size);

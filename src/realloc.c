@@ -6,7 +6,7 @@
 /*   By: cobecque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 14:40:21 by rostroh           #+#    #+#             */
-/*   Updated: 2019/12/13 23:12:45 by rostroh          ###   ########.fr       */
+/*   Updated: 2019/12/14 18:35:32 by cobecque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,23 +87,24 @@ void				*realloc(void *ptr, size_t size)
 	uint64_t	val;
 
 	header = NULL;
-	ft_putstr("realloc: ");
+/*	ft_putstr("realloc: ");
 	ft_puthex((unsigned long)ptr);
 	ft_putstr(" sur une size: ");
-	ft_putnbr(size);
-	ft_putstr("\n\n");
+	ft_puthex((unsigned long)size);
+	ft_putstr("\n\n");*/
 	if (ptr == NULL)
 		return (malloc(size));
 	t = (uint8_t *)ptr;
 	s = get_size_type(ptr, &header);
-/*	ft_putstr("s: ");
-	ft_putnbr(s);
-	ft_putchar('\n');*/
 	if (s == 0)
 		return (NULL);
 	if (check_type_size_rea(size, &s) == -1)
 		return (add_new_malloc((uint8_t *)ptr, size));
-	val = val_for_addr_new(t - s, s);
+	if (s == 8)
+		return (add_new_malloc((uint8_t *)ptr, size));
+		//val = val_for_addr_new(t - 16, s);
+	else
+		val = val_for_addr_new(t - s, s);
 	help_realloc(&t, val);
 	if (s == 8 && size <= read_u64inu8(ptr - 16))
 		return (ptr);
