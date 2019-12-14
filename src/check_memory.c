@@ -6,7 +6,7 @@
 /*   By: cobecque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 09:38:44 by rostroh           #+#    #+#             */
-/*   Updated: 2019/12/14 18:36:30 by cobecque         ###   ########.fr       */
+/*   Updated: 2019/12/14 20:39:21 by cobecque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int				look_addr(uint8_t *look_up, uint8_t *to_find, uint16_t size, uint16_t typ
 	look_up += 10;
 	if (look_up == to_find)
 	{
-		if ((*look_up & 0x80) == 0x80)
+		if ((*(look_up - 2) & 0x80) == 0x80)
 			return (0);
 		return (1);
 	}
@@ -51,12 +51,13 @@ int				look_addr(uint8_t *look_up, uint8_t *to_find, uint16_t size, uint16_t typ
 	{
 		/*ft_puthex((uint64_t)look_up);
 		ft_putstr(" avec une size de ");
-		ft_putnbr(val);
-		ft_putstr(" next -> ");*/
+		ft_puthex((unsigned long)val);
+		ft_putstr(" next -> ");
+		*/
 		look_up += val + 4;
 		if (look_up == to_find)
 		{
-			if ((*look_up & 0x80) == 0x80)
+			if ((*(look_up - 2) & 0x80) == 0x80)
 				return (0);
 			return (1);
 		}

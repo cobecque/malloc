@@ -6,7 +6,7 @@
 /*   By: cobecque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 09:04:19 by rostroh           #+#    #+#             */
-/*   Updated: 2019/12/13 18:10:07 by cobecque         ###   ########.fr       */
+/*   Updated: 2019/12/14 20:39:34 by cobecque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,14 @@ int				is_full_free(uint8_t *addr, int type)
 	}
 	if (type == 1)
 	{
-		tmp = addr + SIZE_HEADER;
+		tmp = addr + SIZE_HEADER + 2;
 		while (tmp < addr + read16in8(addr))
 		{
 			if ((*tmp & 0x80) != 0x80)
 				return (-1);
+			tmp -= 2;
 			size = read16in8_block(tmp);
-			tmp += size + 2;
+			tmp += size + 4;
 		}
 	}
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/13 22:32:09 by rostroh           #+#    #+#             */
-/*   Updated: 2019/12/14 18:38:02 by cobecque         ###   ########.fr       */
+/*   Updated: 2019/12/14 20:39:59 by cobecque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void				free(void *ptr)
 		;
 	else
 	{
-	/*	ft_putstr("\nici pour un free: ");
+/*		ft_putstr("\nici pour un free: ");
 		ft_puthex((unsigned long)ptr);
 		ft_putchar('\n');*/
 		addr = (uint8_t*)ptr;
@@ -71,7 +71,7 @@ void				free(void *ptr)
 			;//ft_putstr("		Pas trouve\n");
 		else
 			clear_area(addr);
-		//ft_putstr("Fin free\n");
+	//	ft_putstr("Fin free\n");
 	}
 }
 
