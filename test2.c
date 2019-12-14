@@ -6,7 +6,7 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 18:55:43 by rostroh           #+#    #+#             */
-/*   Updated: 2019/12/14 20:42:24 by cobecque         ###   ########.fr       */
+/*   Updated: 2019/12/14 21:53:01 by cobecque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,10 @@ int			main()
 	i = 0;
 	while (i < 1024)
 	{
-		adr = (char *)malloc(1024);
+		adr = (char *)malloc(500);
 		adr[0] = 42;
 		free(adr);
 		i++;
 	}
-	show_alloc_mem();
 	return (0);
 }

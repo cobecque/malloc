@@ -6,7 +6,7 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 19:33:21 by rostroh           #+#    #+#             */
-/*   Updated: 2019/12/12 21:38:19 by cobecque         ###   ########.fr       */
+/*   Updated: 2019/12/14 22:26:11 by cobecque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,13 @@ static uint8_t	*creat_new_area_tiny(uint16_t size)
 {
 	uint8_t	*area;
 
-	area = mmap(0, getpagesize() * NBPAGE_TINY, PROT_READ | PROT_WRITE, \
+	area = mmap(0, g_all_malloc.size_page * NBPAGE_TINY, PROT_READ | PROT_WRITE, \
 			MAP_ANON | MAP_PRIVATE, -1, 0);
 	write_next_area_addr((uint64_t)area, (uint8_t *)g_all_malloc.tiny);
-	creat_header((uint16_t *)area, 1);
+	ft_putstr("testing new header: ");
+	ft_puthex(read_size(g_all_malloc.tiny + 2));
+	ft_putchar('\n');
+	//creat_header((uint16_t *)area, 1);
 	/*ft_putstr("new area: ");
 	ft_puthex((unsigned long)area);
 	ft_putchar('\n');*/

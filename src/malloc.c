@@ -6,7 +6,7 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/13 22:32:09 by rostroh           #+#    #+#             */
-/*   Updated: 2019/12/14 20:39:59 by cobecque         ###   ########.fr       */
+/*   Updated: 2019/12/14 22:50:05 by cobecque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,15 +63,21 @@ void				free(void *ptr)
 		;
 	else
 	{
-/*		ft_putstr("\nici pour un free: ");
+		ft_putstr("\nici pour un free: ");
 		ft_puthex((unsigned long)ptr);
-		ft_putchar('\n');*/
+		ft_putchar('\n');
 		addr = (uint8_t*)ptr;
 		if (is_allocated(addr) == 0)
-			;//ft_putstr("		Pas trouve\n");
+			ft_putstr("		Pas trouve\n");
 		else
 			clear_area(addr);
-	//	ft_putstr("Fin free\n");
+	//	show_alloc_mem();
+		ft_putstr("g_all_malloc.tiny: ");
+		ft_puthex((uint64_t)g_all_malloc.tiny);
+		ft_putstr(" g_all_malloc.small: ");
+		ft_puthex((uint64_t)g_all_malloc.small);
+		ft_putchar('\n');
+		ft_putstr("Fin free\n");
 	}
 }
 
@@ -89,9 +95,9 @@ void				*malloc(size_t size)
 	void	*ptr;
 //	char	*tmp;
 
-/*	ft_putstr("\nmalloc size :");
+	ft_putstr("\nmalloc size :");
 	ft_putnbr(size);
-	ft_putstr("\n");*/
+	ft_putstr("\n");
 	if (size == 0)
 	{
 		//ft_putstr("RIEN, NUL\n");
@@ -119,8 +125,8 @@ void				*malloc(size_t size)
 	ft_putnbr(tmp[size - 1]);
 	ft_putstr("\n\n");*/
 	//show_alloc_mem();
-/*	ft_putstr("fin malloc : ");
+	ft_putstr("fin malloc : ");
 	ft_puthex((unsigned long)ptr);
-	ft_putchar('\n');*/
+	ft_putchar('\n');
 	return (ptr);
 }

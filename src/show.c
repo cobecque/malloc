@@ -6,7 +6,7 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 22:40:28 by rostroh           #+#    #+#             */
-/*   Updated: 2019/12/13 23:31:56 by rostroh          ###   ########.fr       */
+/*   Updated: 2019/12/14 22:22:18 by cobecque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,21 +32,38 @@ int			print_tiny(void)
 
 	addr = g_all_malloc.tiny;
 	tmp = read_size(addr + 2);
+	ft_putstr("first tmp showw: ");
+	ft_puthex(tmp);
+	ft_putchar('\n');
 	size = read16in8_block(addr + SIZE_HEADER);
 	total = 0;
 	while (tmp != 0 || size != 0)
 	{
 		tmp = read_size(addr + 2);
-		addr += 10;
+		ft_putstr("tmp: ");
+		ft_puthex(tmp);
+		ft_putchar('\n');
+		addr += SIZE_HEADER;
 		while (size != 0)
 		{
 			total += print_block_tiny(addr, size);
 			addr += size + 2;
 			size = read16in8_block(addr);
+		/*	ft_putstr("size show: ");
+			ft_putnbr(size);
+			ft_putchar('\n');*/
 		}
 		addr = (uint8_t *)tmp;
 		if (tmp != 0)
+		{
+			ft_putstr("addr: ");
+			ft_puthex((uint64_t)addr);
+			ft_putchar('\n');
 			size = read16in8_block(addr + SIZE_HEADER);
+			ft_putstr("pute: ");
+			ft_puthex(size);
+			ft_putchar('\n');
+		}
 	}
 	return (total);
 }

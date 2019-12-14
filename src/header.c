@@ -6,7 +6,7 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 00:03:44 by rostroh           #+#    #+#             */
-/*   Updated: 2019/12/14 19:10:13 by cobecque         ###   ########.fr       */
+/*   Updated: 2019/12/14 22:21:13 by cobecque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,12 +81,12 @@ void		write_next_area_addr(uint64_t next_addr, uint8_t *header)
 	i = 0;
 	offset = 56;
 	addr = go_to_last_header(header) + 2;
-	while (i < 8)
-	{
-		addr[i] = (uint8_t)(next_addr >> offset);
-		i++;
-		offset -= 8;
-	}
+	put_u64inu8(addr, next_addr);
+	ft_putstr("addr next: ");
+	ft_puthex(read_size(addr));
+	ft_putstr(" nique: ");
+	ft_puthex(next_addr);
+	ft_putchar('\n');
 }
 
 void		write_next_area_addr_small(uint64_t next_addr, uint8_t *header)

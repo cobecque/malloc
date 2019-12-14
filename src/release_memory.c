@@ -6,7 +6,7 @@
 /*   By: cobecque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 09:04:19 by rostroh           #+#    #+#             */
-/*   Updated: 2019/12/14 20:39:34 by cobecque         ###   ########.fr       */
+/*   Updated: 2019/12/14 22:44:21 by cobecque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,38 @@
 
 static int		if_small(uint8_t *tmp, uint64_t next)
 {
-	if (tmp - 4 == g_all_malloc.small)
+	if (tmp == g_all_malloc.small)
 	{
 		if (next != 0)
-			g_all_malloc.small = (void *)(next - 4);
+			g_all_malloc.small = (void *)(next);
 		else
+		{
+			ft_bzero(g_all_malloc.small, g_all_malloc.size_page * NBPAGE_SMALL);
+			put_u32inu8(g_all_malloc.small, SIZE_HEADER_SMALL);
+		//	munmap(g_all_malloc.small, g_all_malloc.size_page * NBPAGE_SMALL);
+		//	g_all_malloc.small = NULL;
+		//	ft_putstr("on free small et on le met a null\n");
 			return (-1);
+		}
+	}
+	return (1);
+}
+
+static int		if_tiny(uint8_t *tmp, uint64_t next)
+{
+	if (tmp == g_all_malloc.tiny)
+	{
+		if (next != 0)
+			g_all_malloc.tiny = (void *)(next);
+		else
+		{
+			ft_bzero(g_all_malloc.tiny, g_all_malloc.size_page * NBPAGE_TINY);
+			put_u16inu8(g_all_malloc.tiny, SIZE_HEADER);
+		//	munmap(g_all_malloc.tiny, g_all_malloc.size_page * NBPAGE_TINY);
+		//	g_all_malloc.tiny = NULL;
+		//	ft_putstr("on free tiny et on le met a null\n");
+			return (-1);
+		}
 	}
 	return (1);
 }
@@ -42,6 +68,8 @@ int				is_full_free(uint8_t *addr, int type)
 	uint8_t		*tmp;
 	uint16_t	size;
 
+	if (addr == 0)
+		return (-1);
 	if (type == 2)
 	{
 		tmp = addr + SIZE_HEADER_SMALL;
@@ -55,14 +83,13 @@ int				is_full_free(uint8_t *addr, int type)
 	}
 	if (type == 1)
 	{
-		tmp = addr + SIZE_HEADER + 2;
+		tmp = addr + SIZE_HEADER;
 		while (tmp < addr + read16in8(addr))
 		{
 			if ((*tmp & 0x80) != 0x80)
 				return (-1);
-			tmp -= 2;
 			size = read16in8_block(tmp);
-			tmp += size + 4;
+			tmp += size + 2;
 		}
 	}
 	return (1);
@@ -78,22 +105,24 @@ void			free_area_small(uint8_t *addr)
 	tmp = addr + 4;
 	next = read_size(tmp);
 	before = (uint64_t)tmp;
+	tmp -= 4;
 	while (1)
 	{
-		if (is_full_free(addr, 2) == 1)
+		if (is_full_free(tmp, 2) == 1)
 		{
 			free_this = tmp;
 			if (if_small(tmp, next) == -1)
 				break ;
 			tmp = (uint8_t *)before;
-			put_u64inu8(tmp, read_u64inu8(free_this));
-			munmap(free_this - 4, g_all_malloc.size_page * NBPAGE_SMALL);
+			put_u64inu8(tmp + 4, read_u64inu8(free_this + 4));
+			munmap(free_this, g_all_malloc.size_page * NBPAGE_SMALL);
 		}
 		if (next == 0)
 			break ;
 		before = (uint64_t)tmp;
 		tmp = (uint8_t *)next + 4;
 		next = read_size(tmp);
+		tmp -= 4;
 	}
 }
 
@@ -107,15 +136,16 @@ void			free_area_tiny(uint8_t *addr)
 	tmp = addr + 2;
 	next = read_size(tmp);
 	before = (uint64_t)tmp;
+	tmp -= 2;
 	while (1)
 	{
-		if (is_full_free(addr, 1) == 1)
+		if (is_full_free(tmp, 1) == 1)
 		{
 			free_this = tmp;
-			if ((uint64_t)tmp == before)
-				g_all_malloc.tiny = (void *)read_size(tmp);
+			if (if_tiny(tmp, next) == -1)
+				break ;
 			tmp = (uint8_t *)before;
-			put_u64inu8(tmp, read_u64inu8(free_this));
+			put_u64inu8(tmp + 2, read_size(free_this + 2));
 			munmap(free_this, g_all_malloc.size_page * NBPAGE_TINY);
 		}
 		if (next == 0)
@@ -123,6 +153,7 @@ void			free_area_tiny(uint8_t *addr)
 		before = (uint64_t)tmp;
 		tmp = (uint8_t *)next + 2;
 		next = read_size(tmp);
+		tmp -= 2;
 	}
 }
 
