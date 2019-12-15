@@ -6,7 +6,7 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 19:33:21 by rostroh           #+#    #+#             */
-/*   Updated: 2019/12/15 02:34:13 by rostroh          ###   ########.fr       */
+/*   Updated: 2019/12/15 03:01:56 by rostroh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ void			*creat_tiny(uint16_t size)
 		g_all_malloc.g_count += NBPAGE_TINY;
 		if (area == MAP_FAILED)
 			return (NULL);
-		creat_header((uint16_t*)area, 1);
 		put_u16inu8(area, size + SIZE_HEADER + 2);
 		put_u64inu8(area + 2, 0);
 		put_u16inu8(area + SIZE_HEADER, size);

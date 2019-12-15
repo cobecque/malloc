@@ -6,7 +6,7 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 19:33:21 by rostroh           #+#    #+#             */
-/*   Updated: 2019/12/15 02:35:37 by rostroh          ###   ########.fr       */
+/*   Updated: 2019/12/15 03:03:04 by rostroh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ static uint8_t	*creat_new_area_small(size_t size)
 	if (area == MAP_FAILED)
 		return (NULL);
 	write_next_area_addr_small((uint64_t)area, (uint8_t *)g_all_malloc.small);
-	creat_header((uint16_t *)area, 2);
 	put_u32inu8(area, size + SIZE_HEADER_SMALL + 2);
 	put_u64inu8(area + 4, 0);
 	put_u16inu8(area + SIZE_HEADER_SMALL, size);
