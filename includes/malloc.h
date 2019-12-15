@@ -6,7 +6,7 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 22:49:17 by rostroh           #+#    #+#             */
-/*   Updated: 2019/12/15 03:12:00 by rostroh          ###   ########.fr       */
+/*   Updated: 2019/12/15 03:15:28 by rostroh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "ft_printf.h"
 # include "sys/mman.h"
 
-# define VERBOSE 1
+# define VERBOSE 0
 # define SIZE_HEADER 10
 # define SIZE_HEADER_SMALL 12
 
