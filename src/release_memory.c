@@ -6,12 +6,11 @@
 /*   By: cobecque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 09:04:19 by rostroh           #+#    #+#             */
-/*   Updated: 2019/12/15 02:27:05 by rostroh          ###   ########.fr       */
+/*   Updated: 2019/12/15 02:38:20 by rostroh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
-
 
 static int		if_small(uint8_t *tmp, uint64_t next)
 {
@@ -23,9 +22,6 @@ static int		if_small(uint8_t *tmp, uint64_t next)
 		{
 			ft_bzero(g_all_malloc.small, g_all_malloc.size_page * NBPAGE_SMALL);
 			put_u32inu8(g_all_malloc.small, SIZE_HEADER_SMALL);
-		//	munmap(g_all_malloc.small, g_all_malloc.size_page * NBPAGE_SMALL);
-		//	g_all_malloc.small = NULL;
-		//	ft_putstr("on free small et on le met a null\n");
 			return (-1);
 		}
 	}
@@ -42,9 +38,6 @@ static int		if_tiny(uint8_t *tmp, uint64_t next)
 		{
 			ft_bzero(g_all_malloc.tiny, g_all_malloc.size_page * NBPAGE_TINY);
 			put_u16inu8(g_all_malloc.tiny, SIZE_HEADER);
-		//	munmap(g_all_malloc.tiny, g_all_malloc.size_page * NBPAGE_TINY);
-		//	g_all_malloc.tiny = NULL;
-		//	ft_putstr("on free tiny et on le met a null\n");
 			return (-1);
 		}
 	}

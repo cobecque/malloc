@@ -6,7 +6,7 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 00:44:09 by rostroh           #+#    #+#             */
-/*   Updated: 2019/12/14 18:36:55 by cobecque         ###   ########.fr       */
+/*   Updated: 2019/12/15 02:32:36 by rostroh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,6 @@ static int		check_block(uint8_t *header, uint8_t *find, int type)
 	uint16_t	val;
 
 	addr = header + SIZE_HEADER;
-/*	ft_putstr("header: ");
-	ft_puthex((unsigned long)header);
-	ft_putstr(" addr: ");
-	ft_puthex((unsigned long)addr);
-	ft_putstr(" ta size la pute: ");
-	ft_puthex(read_u64inu8(header));
-	ft_putchar('\n');*/
 	if (type == 8)
 		addr += 6;
 	else if (type == 2)
