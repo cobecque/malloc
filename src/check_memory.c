@@ -6,7 +6,7 @@
 /*   By: cobecque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 09:38:44 by rostroh           #+#    #+#             */
-/*   Updated: 2019/12/15 02:55:48 by cobecque         ###   ########.fr       */
+/*   Updated: 2019/12/15 03:08:25 by cobecque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,16 +70,6 @@ static int		free_first_large(uint8_t *addr, uint64_t tmp, int nb)
 	g_all_malloc.g_count -= nb;
 	munmap(addr - 16, nb * g_all_malloc.size_page);
 	return (0);
-}
-
-int				calc_nb_page_large(uint64_t size)
-{
-	int		nb;
-
-	nb = (size + 16) / g_all_malloc.size_page;
-	if ((size + 16) % g_all_malloc.size_page != 0)
-		nb++;
-	return (nb);
 }
 
 int				free_large(uint8_t *addr, uint8_t *current)

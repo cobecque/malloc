@@ -6,7 +6,7 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 12:48:10 by rostroh           #+#    #+#             */
-/*   Updated: 2019/12/15 02:58:19 by cobecque         ###   ########.fr       */
+/*   Updated: 2019/12/15 03:08:58 by cobecque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,14 @@ uint16_t			get_size_type(void *ptr, uint8_t **header)
 		s = 8;
 	}
 	return (return_good_header(ptr, header, s));
+}
+
+int					calc_nb_page_large(uint64_t size)
+{
+	int		nb;
+
+	nb = (size + 16) / g_all_malloc.size_page;
+	if ((size + 16) % g_all_malloc.size_page != 0)
+		nb++;
+	return (nb);
 }

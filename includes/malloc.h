@@ -6,7 +6,7 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 22:49:17 by rostroh           #+#    #+#             */
-/*   Updated: 2019/12/15 02:21:30 by rostroh          ###   ########.fr       */
+/*   Updated: 2019/12/15 03:07:59 by cobecque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int					check_type_size(size_t size, uint16_t s);
 */
 
 uint16_t			val_for_addr(uint8_t *look_up, int jump_next);
-int					look_addr(uint8_t *look_up, uint8_t *to_find, uint16_t s, uint16_t t);
+int					look_addr(uint8_t *look_up, uint8_t *to_find);
 int					is_allocated(uint8_t *addr);
 
 /*
@@ -80,7 +80,7 @@ void				creat_header(uint16_t *ptr, int off);
 
 uint64_t			val_for_addr_new(uint8_t *look_up, int jump_next);
 uint16_t			get_size_type(void *ptr, uint8_t **header);
-
+int					calc_nb_page_large(uint64_t size);
 /*
 ** header.c
 */

@@ -6,7 +6,7 @@
 /*   By: cobecque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 02:49:46 by rostroh           #+#    #+#             */
-/*   Updated: 2019/12/15 02:59:19 by cobecque         ###   ########.fr       */
+/*   Updated: 2019/12/15 03:08:03 by cobecque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,7 @@ void			*map_large(uint64_t size)
 {
 	int		nb_page;
 
-	nb_page = (size + 16) / g_all_malloc.size_page;
-	if ((size + 16) % g_all_malloc.size_page != 0)
-		nb_page++;
+	nb_page = calc_nb_page_large(size);
 	g_all_malloc.g_count += nb_page;
 	return (mmap(0, nb_page * g_all_malloc.size_page, PROT_READ | PROT_WRITE, \
 				MAP_ANON | MAP_PRIVATE, -1, 0));
