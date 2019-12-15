@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: cobecque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/12 14:40:21 by rostroh           #+#    #+#             */
-/*   Updated: 2019/12/15 03:06:08 by cobecque         ###   ########.fr       */
+/*   Created: 2019/12/15 19:00:04 by cobecque          #+#    #+#             */
+/*   Updated: 2019/12/15 19:07:39 by cobecque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void			help_realloc(uint8_t **t, uint64_t val)
 	*t = (uint8_t *)tmp;
 }
 
-int					check_type_size_rea(size_t size, uint16_t *s)
+static int			check_type_size_rea(size_t size, uint16_t *s)
 {
 	if (*s == 2 && size < g_all_malloc.tiny_size)
 		return (1);

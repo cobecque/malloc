@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: cobecque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/08 09:04:19 by rostroh           #+#    #+#             */
-/*   Updated: 2019/12/15 03:10:14 by rostroh          ###   ########.fr       */
+/*   Created: 2019/12/15 19:00:09 by cobecque          #+#    #+#             */
+/*   Updated: 2019/12/15 19:08:49 by cobecque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int		if_tiny(uint8_t *tmp, uint64_t next)
 	return (1);
 }
 
-int				is_full_free(uint8_t *addr, int type)
+static int		is_full_free(uint8_t *addr, int type)
 {
 	uint8_t		*tmp;
 	uint8_t		*tmp_addr;

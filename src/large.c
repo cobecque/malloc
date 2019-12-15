@@ -5,12 +5,43 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: cobecque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/08 02:49:46 by rostroh           #+#    #+#             */
-/*   Updated: 2019/12/15 03:08:03 by cobecque         ###   ########.fr       */
+/*   Created: 2019/12/15 18:59:38 by cobecque          #+#    #+#             */
+/*   Updated: 2019/12/15 19:06:57 by cobecque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
+
+/*
+ ** Write the new next header addr into the last header create
+*/
+
+static void		write_next_addr_large(uint64_t next_addr, uint8_t *header)
+{
+	int			i;
+	int			offset;
+	uint8_t		*addr;
+
+	i = 0;
+	offset = 56;
+	addr = go_to_last_header_large(header) + 8;
+	while (i < 8)
+	{
+		addr[i] = (uint8_t)(next_addr >> offset);
+		i++;
+		offset -= 8;
+	}
+}
+
+static void		*map_large(uint64_t size)
+{
+	int		nb_page;
+
+	nb_page = calc_nb_page_large(size);
+	g_all_malloc.g_count += nb_page;
+	return (mmap(0, nb_page * g_all_malloc.size_page, PROT_READ | PROT_WRITE, \
+				MAP_ANON | MAP_PRIVATE, -1, 0));
+}
 
 /*
  ** Write in a uint64_t in a uint8_t *
@@ -48,37 +79,6 @@ uint64_t		read_u64inu8(uint8_t *addr)
 		((uint64_t)(addr)[6] << 8) |
 		((uint64_t)(addr)[7]);
 	return (val);
-}
-
-/*
- ** Write the new next header addr into the last header create
-*/
-
-static void		write_next_addr_large(uint64_t next_addr, uint8_t *header)
-{
-	int			i;
-	int			offset;
-	uint8_t		*addr;
-
-	i = 0;
-	offset = 56;
-	addr = go_to_last_header_large(header) + 8;
-	while (i < 8)
-	{
-		addr[i] = (uint8_t)(next_addr >> offset);
-		i++;
-		offset -= 8;
-	}
-}
-
-void			*map_large(uint64_t size)
-{
-	int		nb_page;
-
-	nb_page = calc_nb_page_large(size);
-	g_all_malloc.g_count += nb_page;
-	return (mmap(0, nb_page * g_all_malloc.size_page, PROT_READ | PROT_WRITE, \
-				MAP_ANON | MAP_PRIVATE, -1, 0));
 }
 
 /*

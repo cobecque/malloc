@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   malloc.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: cobecque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/12 22:49:17 by rostroh           #+#    #+#             */
-/*   Updated: 2019/12/15 03:15:28 by rostroh          ###   ########.fr       */
+/*   Created: 2019/12/15 19:01:21 by cobecque          #+#    #+#             */
+/*   Updated: 2019/12/15 19:10:10 by cobecque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int					check_type_size(size_t size, uint16_t s);
 ** check_memory.c
 */
 
-uint16_t			val_for_addr(uint8_t *look_up, int jump_next);
+int					free_large(uint8_t *addr, uint8_t *current);
 int					look_addr(uint8_t *look_up, uint8_t *to_find);
 int					is_allocated(uint8_t *addr);
 
@@ -64,15 +64,14 @@ int					is_allocated(uint8_t *addr);
 ** clear_area.c
 */
 
+uint8_t				*delet_mem(uint8_t *addr, uint64_t bef, int val, int nb);
 uint8_t				*get_next(uint8_t *tmp, uint8_t *addr, int type);
 void				clear_area(uint8_t *addr);
-uint8_t				*delet_mem(uint8_t *addr, uint64_t bef, int val, int nb);
 /*
 ** creation.c
 */
 
 void				creat_header_large(uint8_t *ptr);
-void				creat_header(uint16_t *ptr, int off);
 
 /*
 ** get_size.c
@@ -127,7 +126,6 @@ void				*realloc(void *ptr, size_t size);
 ** release_memory.c
 */
 
-void				free_area_large(uint8_t *header, uint8_t *addr);
 void				free_area_small(uint8_t *addr);
 void				free_area_tiny(uint8_t *addr);
 
@@ -143,7 +141,6 @@ int					print_large(void);
 ** small.c
 */
 
-uint8_t				*refactorisation(uint8_t *ptr, uint16_t size);
 void				*creat_small(uint16_t size);
 
 /*
@@ -166,7 +163,6 @@ int					is_large_malloc(uint8_t *addr);
 */
 
 void				put_u16inu8(uint8_t *addr, uint16_t size);
-void				put_size_tiny(uint8_t *ptr, uint8_t size);
 void				put_u32inu8(uint8_t *addr, uint32_t size);
 
 #endif

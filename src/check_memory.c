@@ -5,40 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: cobecque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/08 09:38:44 by rostroh           #+#    #+#             */
-/*   Updated: 2019/12/15 03:08:25 by cobecque         ###   ########.fr       */
+/*   Created: 2019/12/15 18:59:01 by cobecque          #+#    #+#             */
+/*   Updated: 2019/12/15 19:01:52 by cobecque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
-
-int				look_addr(uint8_t *look_up, uint8_t *to_find)
-{
-	int			val;
-
-	look_up += 10;
-	if (look_up == to_find)
-	{
-		if ((*(look_up - 2) & 0x80) == 0x80)
-			return (0);
-		return (1);
-	}
-	look_up -= 2;
-	val = read16in8_block(look_up);
-	while (val != 0)
-	{
-		look_up += val + 4;
-		if (look_up == to_find)
-		{
-			if ((*(look_up - 2) & 0x80) == 0x80)
-				return (0);
-			return (1);
-		}
-		look_up -= 2;
-		val = read16in8_block(look_up);
-	}
-	return (0);
-}
 
 static void		get_size_jump(uint16_t *size, uint16_t *jump, uint8_t *current)
 {
@@ -69,6 +41,34 @@ static int		free_first_large(uint8_t *addr, uint64_t tmp, int nb)
 	}
 	g_all_malloc.g_count -= nb;
 	munmap(addr - 16, nb * g_all_malloc.size_page);
+	return (0);
+}
+
+int				look_addr(uint8_t *look_up, uint8_t *to_find)
+{
+	int			val;
+
+	look_up += 10;
+	if (look_up == to_find)
+	{
+		if ((*(look_up - 2) & 0x80) == 0x80)
+			return (0);
+		return (1);
+	}
+	look_up -= 2;
+	val = read16in8_block(look_up);
+	while (val != 0)
+	{
+		look_up += val + 4;
+		if (look_up == to_find)
+		{
+			if ((*(look_up - 2) & 0x80) == 0x80)
+				return (0);
+			return (1);
+		}
+		look_up -= 2;
+		val = read16in8_block(look_up);
+	}
 	return (0);
 }
 

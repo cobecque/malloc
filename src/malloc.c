@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   malloc.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: cobecque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/13 22:32:09 by rostroh           #+#    #+#             */
-/*   Updated: 2019/12/15 03:00:11 by cobecque         ###   ########.fr       */
+/*   Created: 2019/12/15 18:59:43 by cobecque          #+#    #+#             */
+/*   Updated: 2019/12/15 19:02:39 by cobecque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,15 @@ static void			print_total(int total)
 	ft_putstr("Total: ");
 	ft_putnbr(total);
 	ft_putchar('\n');
+}
+
+static void			init_global(void)
+{
+	g_all_malloc.size_page = getpagesize();
+	g_all_malloc.tiny_size = SIZE_TINY;
+	g_all_malloc.small_size = SIZE_SMALL;
+	g_all_malloc.g_count = 0;
+	g_all_malloc.old_count = 0;
 }
 
 void				show_alloc_mem(void)
@@ -46,15 +55,6 @@ void				show_alloc_mem(void)
 		total += print_large();
 	}
 	print_total(total);
-}
-
-static void			init_global(void)
-{
-	g_all_malloc.size_page = getpagesize();
-	g_all_malloc.tiny_size = SIZE_TINY;
-	g_all_malloc.small_size = SIZE_SMALL;
-	g_all_malloc.g_count = 0;
-	g_all_malloc.old_count = 0;
 }
 
 void				free(void *ptr)
