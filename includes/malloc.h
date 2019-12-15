@@ -6,7 +6,7 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 22:49:17 by rostroh           #+#    #+#             */
-/*   Updated: 2019/12/11 19:35:57 by cobecque         ###   ########.fr       */
+/*   Updated: 2019/12/15 02:21:30 by rostroh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "ft_printf.h"
 # include "sys/mman.h"
 
+# define VERBOSE 1
 # define SIZE_HEADER 10
 # define SIZE_HEADER_SMALL 12
 
@@ -36,6 +37,8 @@ typedef struct		s_malloc
 	void			*tiny;
 	void			*small;
 	void			*large;
+	int				g_count;
+	int				old_count;
 }					t_malloc;
 
 t_malloc			g_all_malloc;

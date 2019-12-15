@@ -6,7 +6,7 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 19:33:21 by rostroh           #+#    #+#             */
-/*   Updated: 2019/12/12 22:37:20 by cobecque         ###   ########.fr       */
+/*   Updated: 2019/12/15 02:25:13 by rostroh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ static uint8_t	*creat_new_area_small(size_t size)
 
 	area = mmap(0, g_all_malloc.size_page * NBPAGE_SMALL, \
 			PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0);
+	g_all_malloc.g_count += NBPAGE_SMALL;
 	if (area == MAP_FAILED)
 		return (NULL);
 	write_next_area_addr_small((uint64_t)area, (uint8_t *)g_all_malloc.small);
@@ -158,10 +159,10 @@ void			*creat_small(uint16_t size)
 	{
 		g_all_malloc.small = mmap(0, g_all_malloc.size_page * NBPAGE_SMALL,\
 				PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0);
+		g_all_malloc.g_count += NBPAGE_SMALL;
 		area = g_all_malloc.small;
 		if (area == MAP_FAILED)
 			return (NULL);
-		creat_header((uint16_t*)area, 4);
 		put_u32inu8(area, size + SIZE_HEADER_SMALL + 2);
 		put_u64inu8(area + 4, 0);
 		put_u16inu8(area + SIZE_HEADER_SMALL, size);

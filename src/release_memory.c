@@ -6,11 +6,12 @@
 /*   By: cobecque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 09:04:19 by rostroh           #+#    #+#             */
-/*   Updated: 2019/12/14 22:44:21 by cobecque         ###   ########.fr       */
+/*   Updated: 2019/12/15 02:27:05 by rostroh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
+
 
 static int		if_small(uint8_t *tmp, uint64_t next)
 {
@@ -116,6 +117,7 @@ void			free_area_small(uint8_t *addr)
 			tmp = (uint8_t *)before;
 			put_u64inu8(tmp + 4, read_u64inu8(free_this + 4));
 			munmap(free_this, g_all_malloc.size_page * NBPAGE_SMALL);
+			g_all_malloc.g_count -= NBPAGE_SMALL;
 		}
 		if (next == 0)
 			break ;
@@ -147,6 +149,7 @@ void			free_area_tiny(uint8_t *addr)
 			tmp = (uint8_t *)before;
 			put_u64inu8(tmp + 2, read_size(free_this + 2));
 			munmap(free_this, g_all_malloc.size_page * NBPAGE_TINY);
+			g_all_malloc.g_count -= NBPAGE_TINY;
 		}
 		if (next == 0)
 			break ;

@@ -6,7 +6,7 @@
 /*   By: cobecque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 09:38:44 by rostroh           #+#    #+#             */
-/*   Updated: 2019/12/14 20:39:21 by cobecque         ###   ########.fr       */
+/*   Updated: 2019/12/15 02:26:06 by rostroh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,8 +154,11 @@ int				free_large(uint8_t *addr, uint8_t *current)
 				g_all_malloc.large = current;
 			else
 				g_all_malloc.large = NULL;
-		}
-//		ft_putstr("Et de une zone free\n");
+		}/*
+		ft_putstr("Et de une zone free\n");
+		ft_putnbr(nb);
+		ft_putchar('\n');*/
+			g_all_malloc.g_count -= nb;
 		munmap(addr - 16, nb * g_all_malloc.size_page);
 		return (0);
 	}
@@ -179,7 +182,11 @@ int				free_large(uint8_t *addr, uint8_t *current)
 		{
 			if (old != NULL)
 				put_u64inu8(old + 8, read_u64inu8(current + 8));
-	//		ft_putstr("Et de une zone free\n");
+	/*		ft_putstr("Et de une zone free\n");
+			ft_putstr("Et de une zone free\n");
+			ft_putnbr(nb);
+			ft_putchar('\n');*/
+			g_all_malloc.g_count -= nb;
 			munmap(addr - 16, nb * g_all_malloc.size_page);
 			return (0);
 		}
