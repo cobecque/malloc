@@ -6,7 +6,7 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 22:49:17 by rostroh           #+#    #+#             */
-/*   Updated: 2019/12/15 03:07:59 by cobecque         ###   ########.fr       */
+/*   Updated: 2019/12/15 03:12:00 by rostroh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int					is_allocated(uint8_t *addr);
 
 uint8_t				*get_next(uint8_t *tmp, uint8_t *addr, int type);
 void				clear_area(uint8_t *addr);
-
+uint8_t				*delet_mem(uint8_t *addr, uint64_t bef, int val, int nb);
 /*
 ** creation.c
 */

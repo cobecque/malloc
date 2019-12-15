@@ -6,13 +6,39 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 11:33:07 by rostroh           #+#    #+#             */
-/*   Updated: 2019/12/15 02:57:06 by cobecque         ###   ########.fr       */
+/*   Updated: 2019/12/15 03:13:10 by rostroh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
 
-uint8_t					*get_next(uint8_t *tmp, uint8_t *addr, int type)
+static void		clear_area_small(uint8_t *addr, uint16_t size)
+{
+	int			i;
+
+	i = 0;
+	*(addr - 2) |= 0x80;
+	while (i < size)
+	{
+		addr[i] = 0;
+		i++;
+	}
+}
+
+static void		clear_area_tiny(uint8_t *addr, uint16_t size)
+{
+	int			i;
+
+	i = 0;
+	*(addr - 2) |= 0x80;
+	while (i < size)
+	{
+		addr[i] = 0;
+		i++;
+	}
+}
+
+uint8_t			*get_next(uint8_t *tmp, uint8_t *addr, int type)
 {
 	uint64_t	next;
 
@@ -27,33 +53,18 @@ uint8_t					*get_next(uint8_t *tmp, uint8_t *addr, int type)
 	return (tmp - type);
 }
 
-static void				clear_area_tiny(uint8_t *addr, uint16_t size)
+uint8_t			*delet_mem(uint8_t *free_this, uint64_t bef, int val, int nb)
 {
-	int			i;
+	uint8_t		*tmp;
 
-	i = 0;
-	*(addr - 2) |= 0x80;
-	while (i < size)
-	{
-		addr[i] = 0;
-		i++;
-	}
+	tmp = (uint8_t *)bef;
+	put_u64inu8(tmp + val, read_u64inu8(free_this + val));
+	munmap(free_this, g_all_malloc.size_page * nb);
+	g_all_malloc.g_count -= nb;
+	return (tmp);
 }
 
-static void				clear_area_small(uint8_t *addr, uint16_t size)
-{
-	int			i;
-
-	i = 0;
-	*(addr - 2) |= 0x80;
-	while (i < size)
-	{
-		addr[i] = 0;
-		i++;
-	}
-}
-
-void					clear_area(uint8_t *addr)
+void			clear_area(uint8_t *addr)
 {
 	uint16_t		size;
 	uint8_t			*tmp;
