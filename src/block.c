@@ -6,7 +6,7 @@
 /*   By: cobecque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/13 03:22:59 by cobecque          #+#    #+#             */
-/*   Updated: 2019/12/09 18:34:53 by rostroh          ###   ########.fr       */
+/*   Updated: 2019/12/15 02:34:49 by cobecque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,15 @@ void		ft_puthex(uint64_t nb)
 	char	tmp[25];
 	int		i;
 	int		j;
-	int		reste;
 
-	reste = 0;
 	i = 0;
 	j = 0;
 	if (nb == 0)
 		ft_putchar('0');
 	while (nb > 0)
 	{
-		reste = nb % 16;
+		buf[i] = cal_hex(nb % 16);
 		nb = nb / 16;
-		buf[i] = cal_hex(reste);
 		i++;
 	}
 	i--;

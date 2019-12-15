@@ -6,7 +6,7 @@
 /*   By: rostroh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 12:48:10 by rostroh           #+#    #+#             */
-/*   Updated: 2019/12/14 18:35:46 by cobecque         ###   ########.fr       */
+/*   Updated: 2019/12/15 02:58:19 by cobecque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,7 @@ uint64_t			val_for_addr_new(uint8_t *look_up, int jump_next)
 	if (jump_next != 8)
 		val = read16in8_block(look_up);
 	if (jump_next == 8)
-	{
 		val = read_u64inu8(look_up);
-	/*	ft_putstr("avec ce fdp de look: ");
-		ft_puthex((unsigned long)look_up);
-		ft_putstr(" et cd fdp de val: ");
-		ft_puthex(val);
-		ft_putchar('\n');*/
-	}
 	return (val);
 }
 
@@ -56,11 +49,6 @@ uint16_t			get_size_type(void *ptr, uint8_t **header)
 		next = read_size(*header);
 		while (next != 0)
 		{
-		/*	ft_putstr("c'est la que ca va pas: ");
-			ft_puthex((unsigned long)*header - 8);
-			ft_putstr(" je vais niquer ta race: ");
-			ft_puthex(read_u64inu8(*header - 8));
-			ft_putchar('\n');*/
 			if ((uint8_t *)ptr >= *header - 8 && (uint8_t *)ptr <= *header -\
 					8 + read_u64inu8(*header - 8))
 				break ;

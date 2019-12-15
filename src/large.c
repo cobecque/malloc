@@ -6,7 +6,7 @@
 /*   By: cobecque <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 02:49:46 by rostroh           #+#    #+#             */
-/*   Updated: 2019/12/15 02:18:27 by rostroh          ###   ########.fr       */
+/*   Updated: 2019/12/15 02:59:19 by cobecque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,6 @@ void			*map_large(uint64_t size)
 	if ((size + 16) % g_all_malloc.size_page != 0)
 		nb_page++;
 	g_all_malloc.g_count += nb_page;
-	/*	ft_putstr("new area page ");
-		ft_putnbr(g_all_malloc.g_count);
-		ft_putchar('\n');*/
 	return (mmap(0, nb_page * g_all_malloc.size_page, PROT_READ | PROT_WRITE, \
 				MAP_ANON | MAP_PRIVATE, -1, 0));
 }
@@ -94,10 +91,6 @@ void			*creat_large(uint64_t size)
 {
 	uint8_t		*area;
 
-//	ft_putstr("size in large: ");
-	/*
-	ft_putnbr(size);
-	ft_putchar('\n');*/
 	if (g_all_malloc.large == NULL)
 	{
 		g_all_malloc.large = map_large(size);
@@ -105,9 +98,7 @@ void			*creat_large(uint64_t size)
 		if (area == MAP_FAILED)
 			return (NULL);
 		creat_header_large((uint8_t *)area);
-	/*	put_u64inu8(area, size + 16 + 8);
-		put_u64inu8(area + 16, size);*/
-		put_u64inu8(area, size); //+16 ?
+		put_u64inu8(area, size);
 		put_u64inu8(area + 8, 0);
 		area += 16;
 	}
@@ -116,7 +107,7 @@ void			*creat_large(uint64_t size)
 		area = map_large(size);
 		write_next_addr_large((uint64_t)area, (uint8_t *)g_all_malloc.large);
 		creat_header_large((uint8_t *)area);
-		put_u64inu8(area, size); //+16 ?
+		put_u64inu8(area, size);
 		put_u64inu8(area + 8, 0);
 		area += 16;
 	}
